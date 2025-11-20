@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "spudiversity:item/made_in_potato_made_in_haven"
+  }
+}

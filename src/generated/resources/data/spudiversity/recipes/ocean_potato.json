@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:conduit"
+    },
+    "H": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "I": {
+      "item": "minecraft:ink_sac"
+    },
+    "P": {
+      "item": "minecraft:baked_potato"
+    },
+    "S": {
+      "item": "minecraft:nautilus_shell"
+    }
+  },
+  "pattern": [
+    "HCH",
+    "IPI",
+    "HSH"
+  ],
+  "result": {
+    "item": "spudiversity:ocean_potato"
+  },
+  "show_notification": true
+}

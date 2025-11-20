@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "spudiversity:cyclone"
+    },
+    "B": {
+      "item": "spudiversity:gold_potato"
+    },
+    "C": {
+      "item": "spudiversity:joker"
+    }
+  },
+  "pattern": [
+    "   ",
+    "ABC",
+    "   "
+  ],
+  "result": {
+    "item": "spudiversity:mysterious_potato"
+  },
+  "show_notification": true
+}

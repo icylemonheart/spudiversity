@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "item": "minecraft:copper_ingot"
+    },
+    "P": {
+      "item": "spudiversity:coal_potatoes"
+    }
+  },
+  "pattern": [
+    "III",
+    "IPI",
+    "III"
+  ],
+  "result": {
+    "item": "spudiversity:copper_potato"
+  },
+  "show_notification": true
+}

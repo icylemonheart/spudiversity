@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:echo_shard"
+    },
+    "P": {
+      "item": "spudiversity:obsidian_potato"
+    }
+  },
+  "pattern": [
+    "DDD",
+    "DPD",
+    "DDD"
+  ],
+  "result": {
+    "item": "spudiversity:sonic_potato"
+  },
+  "show_notification": true
+}

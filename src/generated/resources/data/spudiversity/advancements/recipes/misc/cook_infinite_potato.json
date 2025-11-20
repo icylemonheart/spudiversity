@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "cook_infinite_potato": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spudiversity:infinite_potato_cooked"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spudiversity:cook_infinite_potato"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "cook_infinite_potato",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spudiversity:cook_infinite_potato"
+    ]
+  },
+  "sends_telemetry_event": false
+}

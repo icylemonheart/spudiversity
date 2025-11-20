@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "spudiversity:item/infinite_potato_cooked"
+  }
+}
