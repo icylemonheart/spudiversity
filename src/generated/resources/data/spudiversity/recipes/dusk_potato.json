@@ -1,0 +1,43 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "twilightforest"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "A": {
+            "item": "minecraft:ender_eye"
+          },
+          "B": {
+            "item": "minecraft:gunpowder"
+          },
+          "C": {
+            "item": "spudiversity:diamond_potato"
+          },
+          "D": {
+            "item": "minecraft:blaze_powder"
+          },
+          "E": {
+            "item": "twilightforest:twilight_scepter"
+          }
+        },
+        "pattern": [
+          " A ",
+          "BCD",
+          " E "
+        ],
+        "result": {
+          "item": "spudiversity:dusk_potato"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

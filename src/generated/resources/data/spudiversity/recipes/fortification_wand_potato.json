@@ -1,0 +1,55 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "twilightforest"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "A": {
+            "item": "minecraft:emerald"
+          },
+          "B": {
+            "item": "twilightforest:fortification_scepter"
+          },
+          "C": {
+            "item": "minecraft:diamond"
+          },
+          "D": {
+            "item": "minecraft:gold_block"
+          },
+          "E": {
+            "item": "minecraft:potato"
+          },
+          "F": {
+            "item": "minecraft:redstone"
+          },
+          "G": {
+            "item": "minecraft:bone"
+          },
+          "H": {
+            "item": "twilightforest:lich_trophy"
+          },
+          "I": {
+            "item": "minecraft:apple"
+          }
+        },
+        "pattern": [
+          "ABC",
+          "DEF",
+          "GHI"
+        ],
+        "result": {
+          "item": "spudiversity:fortification_wand_potato"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}
