@@ -1,9 +1,6 @@
 package com.dinzeer.spudiversity.util.lang;
 
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
-import com.dinzeer.spudiversity.regsitry.SpICFPotato;
-import com.dinzeer.spudiversity.regsitry.SpItem;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.regsitry.*;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.Item;
 
@@ -274,14 +271,108 @@ public class CnLangUtil {
 
         REGISTRATE.addRawLang( "curios.identifier.potato", "土豆护符");
         REGISTRATE.addRawLang( "curios.modifiers.potato", "作为土豆护符佩戴时");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,2), "同时，你击杀的生物会掉落两次");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,0), "在凋零被击败的瞬间，你拿在副手的无名土豆失去了所有光泽。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,1), "变得灰暗、冰冷，如同普通的石块。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,2), "它耗尽了力量，为你换取了零星的记忆碎片——一个在雪中离去的身影，一句未能说出口的话。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,3), "末地坐标0-0-0的念头在你心中浮现。");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,0), "你前往了世界的终点，在坐标的中心");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,1), "你服下了那颗黯淡的土豆，解开了土豆与记忆的最终谜题。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,2), "在理解所有真相后，你不由自主地流下了眼泪");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,3), "那被泪水浸润的土豆残块化为散发永恒光芒的微缩星辰。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,4), "这颗星星，名为「塔弥娜」。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,5), "持有它，你将永不迷失于遗忘。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,6), "她是为你牺牲一切的旅伴，这是她存在过的证明。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,7), "服下吧，%s 你将获得来自她的祝福:不再饥饿，并更加强壮");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,0), "\"捏嘿嘿嘿，呀哈哈哈\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,1), "似乎是从原产地出口又从出口地进口的土豆");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,2), "糖分蛮高的，减肥期间少吃");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,3), "使用后获得「生命恢复3」");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,0), "手持右键消耗饱食度发射龙息弹");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,1), "【原料】");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,2), "· 59%的末地石粉尘");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,3), "· 40%的龙口嚼过的紫颂果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,4), "· 1%的末影龙的口水（因为太好吃）");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,5), "【温馨提示】");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,6), "■若遇到普通土豆投来嫉妒的目光属正常现象");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,7), "■本品最终解释权归末影龙所有（它说下次要往里面加更多龙息）");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,8), "屠龙纪念物品");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,9), "获得成就《解放末地》后获得");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,0), "\"这是一颗魔法学院护盾系毕业的土豆！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,1), "被巫妖的护盾魔法浸染的土豆");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,2), "吃下后获得5个巫妖护盾，抵挡五次伤害");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,0), "\"本薯也是土豆王！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,1), "被巫妖的黄昏魔法融合的土豆");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,2), "攻击概率投射黄昏珍珠小概率投射火焰弹");
+
+        REGISTRATE.addRawLang( "effect.spudiversity.undead_transformation_effect", "万人嫌");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,0), "\"脑子！脑子！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,1), "食用后获得「万人嫌」");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,2), "亡灵生物不再仇恨你，中立生物会锁定你");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,0), "\"铁锈味的土豆\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,1), "被巫妖的血魔法融合的土豆");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,2), "每次攻击造成吸血");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,3), "装备后获得增益效果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "死亡时，免死一次随后进入冷却");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BambooPotato,2), "拿苹果土豆对正在进食竹子的熊猫右键获得");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.BloodFoxPotato,6), "拿钻石土豆敲击「血狐」");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.SakuraPotato,3), "在繁花森林生物群系中，对一棵土豆苗使用骨粉，有极小概率获得1-2个");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.rabbit,0), "\"rabbit\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.tank,0), "\"tank\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.rabbit,1), "兔子被爆炸伤害杀死获得");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.tank,1), "海龟被爆炸伤害杀死获得");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.bear_rabbit_tank,0), "\"气泡满满\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.bear_rabbit_tank,1), "你能感觉到这玩意是有汽的");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,0), "\"英雄可不能临阵脱逃啊\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,1), "提供的效果:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,2), "1.超高速I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,3), "2.超高跳I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,4), "3.生命恢复I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,5), "4.抗性提升II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,6), "5.攻击有30%的概率对周围的敌怪追加一次爆炸伤害（爆炸伤害不能触发）");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,0), "\"早安！土豆！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,1), "据说非常的强劲");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,2), "穿戴后获得抗性提升1、夜视和力量1");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,3), "击杀「凋零」后额外获得生命恢复1和生命提升1");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,4), "击杀「远古守卫」后额外获得水下呼吸和跳跃提升");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,5), "击杀「末影龙」后额外获得迅捷，伤害吸收和缓降");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,6), "击杀「监守者」后额外通过zzz土豆获得的抗性提升和力量的等级+1");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,7), "此外击杀「监守者」后攻击附带失明，和缓慢。");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,8), "手持下界之星土豆右键床获得");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,0), "\"Here we go！！！！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,1), "提供的效果:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,2), "1.抗性提升II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,3), "2.伤害吸收I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,4), "3.饱和I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,5), "4.力量I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,6), "5.速度I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,7), "6.夜视");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,8), "7.穿戴后周围的狗获得力量效果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,9), "8.免疫黑暗");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,10), "暂时无法获得");
+
     }
 
 
 
-    public static String FastMakeItemTooltip(RegistryEntry<? extends Item> item,int num){
-        if (num ==0){
+    public static String FastMakeItemTooltip(RegistryEntry<? extends Item> item,int nummber){
+        if (nummber ==0){
         return "item.spudiversity." + item.getId().getPath() + ".tooltip";
         }
-    return "item.spudiversity." + item.getId().getPath() + ".tooltip_" + num;
+    return "item.spudiversity." + item.getId().getPath() + ".tooltip_" + nummber;
     }
 }

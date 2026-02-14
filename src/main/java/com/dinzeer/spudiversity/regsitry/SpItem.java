@@ -36,5 +36,26 @@ public class SpItem {
             )
             .tab(SpItemTabs.spudiversity.getKey())
             .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item> rabbit = REGISTRATE.item(
+                    "rabbit", Item::new
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item> tank = REGISTRATE.item(
+                    "tank", Item::new
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item> bear_rabbit_tank = REGISTRATE.item(
+                    "bear_rabbit_tank", Item::new
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
     public static void register() {}
 }

@@ -26,4 +26,5 @@ public class SpEffect {
     public static final RegistryObject<WeAreNull> WeAreNull = REGISTRY.register("we_are_null", WeAreNull::new);
     public static final RegistryObject<WaveBlood> WaveBlood = REGISTRY.register("wave_blood", WaveBlood::new);
     public static final RegistryObject<BloodKing> BloodKing = REGISTRY.register("blood_king", BloodKing::new);
+    public static final RegistryObject<UndeadTransformationEffect> UndeadTransformationEffect = REGISTRY.register("undead_transformation_effect", UndeadTransformationEffect::new);
 }

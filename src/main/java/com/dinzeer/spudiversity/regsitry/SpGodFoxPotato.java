@@ -22,6 +22,7 @@ public class SpGodFoxPotato {
                     .saturationMod(1)
                     .alwaysEat().build()) .rarity(Rarity.EPIC))
             .tag(CuriosTag.POTATO)
+
             .defaultModel().defaultLang().register();
     public static final RegistryEntry<BloodFoxPotato> BloodFoxPotato = REGISTRATE.item(
                     "blood_fox_potato", BloodFoxPotato::new
@@ -30,6 +31,7 @@ public class SpGodFoxPotato {
                     .saturationMod(1)
                     .alwaysEat().build()) .rarity(Rarity.EPIC))
             .tag(CuriosTag.POTATO)
+
             .defaultModel().defaultLang().register();
     public static void register() {
         SpPotato.ToolTipBlackList.add(SkyFoxPotato);

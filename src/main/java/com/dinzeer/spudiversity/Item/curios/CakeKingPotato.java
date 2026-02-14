@@ -77,7 +77,9 @@ public class CakeKingPotato extends Item {
         player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 40, 1)); // 急迫II
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 40, 1)); // 抗性提升II
         player.addEffect(new MobEffectInstance(MobEffects.JUMP, 40, 1)); // 跳跃提升II
+        if (!player.hasEffect(MobEffects.REGENERATION)){
         player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 40, 1));
+        }
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 40, 1));
     }
 

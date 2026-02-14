@@ -132,9 +132,8 @@ public class AirBladeProjectile extends Projectile {
 
         // 应用伤害
         if (owner != null) {
-            // 计算伤害 (基于玩家伤害 * 乘数)
-            float baseDamage = (float) (owner.getAttributeValue(Attributes.ATTACK_DAMAGE) * 0.1f);
-            float damage = baseDamage * damageMultiplier;
+
+            float damage = damageMultiplier;
 
             // 创建PlayerAttack类型的伤害源
             DamageSource damageSource = this.damageSources().playerAttack(

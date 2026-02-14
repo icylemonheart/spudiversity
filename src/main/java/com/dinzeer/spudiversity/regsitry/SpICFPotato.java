@@ -17,7 +17,7 @@ public class SpICFPotato {
                     .nutrition(0)
                     .saturationMod(0)
                     .alwaysEat().build()).rarity(Rarity.EPIC))
-            .tab(SpItemTabs.spudiversity.getKey())
+             
             .defaultModel().defaultLang().register();
     public static final RegistryEntry<FireDragonPotato> FireDragonPotato = REGISTRATE.item(
                     "fire_dragon_potato", FireDragonPotato::new
@@ -25,7 +25,7 @@ public class SpICFPotato {
                     .nutrition(0)
                     .saturationMod(0)
                     .alwaysEat().build()).rarity(Rarity.EPIC))
-            .tab(SpItemTabs.spudiversity.getKey())
+             
             .defaultModel().defaultLang().register();
     public static final RegistryEntry<LightningDragonPotato> LightningDragonPotato = REGISTRATE.item(
                     "lightning_dragon_potato", LightningDragonPotato::new
@@ -33,7 +33,7 @@ public class SpICFPotato {
                     .nutrition(0)
                     .saturationMod(0)
                     .alwaysEat().build()).rarity(Rarity.EPIC))
-            .tab(SpItemTabs.spudiversity.getKey())
+             
             .defaultModel().defaultLang().register();
 
     public static void regsitry(){
@@ -41,4 +41,6 @@ public class SpICFPotato {
         SpPotato.ToolTipBlackList.add(FireDragonPotato);
         SpPotato.ToolTipBlackList.add(LightningDragonPotato);
     }
+
+
 }

@@ -10,5 +10,6 @@ public class ModCapabilities {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(PlayerPermanentAbilities.class);
+        event.register(PlayerKillBossAbilities.class);
     }
 }

@@ -1,9 +1,6 @@
 package com.dinzeer.spudiversity.util.lang;
 
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
-import com.dinzeer.spudiversity.regsitry.SpICFPotato;
-import com.dinzeer.spudiversity.regsitry.SpItem;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.regsitry.*;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.Item;
 
@@ -272,6 +269,101 @@ public class LangUtil {
 
         REGISTRATE.addRawLang( "curios.identifier.potato", "Potato Charm");
         REGISTRATE.addRawLang( "curios.modifiers.potato", "When worn as a Potato Charm");
+
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,2), "Simultaneously, creatures you kill will drop loot twice");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,0), "The moment the Wither was defeated, the Nameless Potato in your off-hand lost all its luster.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,1), "It turned dull, cold, like an ordinary stone.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,2), "It exhausted its power, granting you scattered memory fragments—a figure leaving in the snow, words left unspoken.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.NoNamePotatoDark,3), "The thought of the End coordinates 0-0-0 emerges in your mind.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,0), "You journeyed to the world's end, at the center of the coordinates.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,1), "You consumed the dimmed potato, unraveling the final mystery of potatoes and memories.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,2), "Upon comprehending all truths, tears streamed down your face involuntarily.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,3), "The potato fragment, soaked in tears, transformed into a miniature star emitting eternal light.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,4), "This star is named \"Tamina\".");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,5), "Carry it, and you shall never be lost to oblivion.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,6), "She is the companion who sacrificed everything for you—proof she existed.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,7), "Consume it, %s. You shall receive her blessing: No longer hungry, and stronger.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,0), "\"Hehehehe, yahahaha\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,1), "Seems to be a potato exported from its origin and re-imported.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,2), "Quite high in sugar content, consume less during dieting.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,3), "Gain \"Regeneration III\" upon use.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,0), "Right-click while holding to consume hunger and fire a Dragon's Breath projectile.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,1), "[Ingredients]");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,2), "· 59% End Stone dust");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,3), "· 40% Chorus Fruit chewed by the Ender Dragon");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,4), "· 1% Ender Dragon saliva (because it's too delicious)");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,5), "[Friendly Reminder]");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,6), "■ If ordinary potatoes cast envious glances, it's normal.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,7), "■ Final interpretation rights belong to the Ender Dragon (it says next time it'll add more Dragon's Breath).");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,8), "Dragon-slaying commemorative item.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EnderDragonPotato,9), "Obtained after achieving the advancement \"Liberate the End\".");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,0), "\"This is a potato graduated from the Shield Magic department of the Arcane Academy!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,1), "A potato infused with the Lich's shield magic.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.FortificationWandPotato,2), "Consuming grants 5 Lich Shields, blocking five instances of damage.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,0), "\"This spud is also the Potato King!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,1), "A potato fused with the Lich's dusk magic.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.DuskPotato,2), "Attacks have a chance to launch Dusk Pearls, and a small chance to launch Fire Charges.");
+
+        REGISTRATE.addRawLang( "effect.spudiversity.undead_transformation_effect", "Pariah");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,0), "\"Brains! Brains!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,1), "Gain \"Pariah\" upon consumption.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.ZombiePotato,2), "Undead creatures no longer target you, but neutral creatures will lock onto you.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,0), "\"Potato with a rusty taste.\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,1), "A potato fused with the Lich's blood magic.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,2), "Each attack causes life steal.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,3), "Grants beneficial effects when equipped.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "Upon death, prevents death once, then enters cooldown.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BambooPotato,2), "Right-click a panda eating bamboo with an Apple Potato to obtain.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.BloodFoxPotato,6), "Strike the \"Blood Fox\" with a Diamond Potato.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.SakuraPotato,3), "In the Flower Forest biome, use Bone Meal on a potato sprout for a very low chance to obtain 1-2.");
+
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.rabbit,0), "\"rabbit\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.tank,0), "\"tank\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.rabbit,1), "Obtained when a rabbit is killed by explosion damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.tank,1), "Obtained when a turtle is killed by explosion damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.bear_rabbit_tank,0), "\"Bubbly Fullness\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.bear_rabbit_tank,1), "You can feel this thing is carbonated");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,0), "\"A hero can't retreat from battle!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,1), "Effects provided:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,2), "1. Super Speed I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,3), "2. Super Jump I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,4), "3. Regeneration I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,5), "4. Resistance II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BuildPotato,6), "5. Attacks have a 30% chance to deal additional explosion damage to nearby enemies (explosion damage cannot trigger)");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,0), "\"Good morning! Potato!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,1), "Reportedly very powerful");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,2), "When worn, grants Resistance I, Night Vision, and Strength I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,3), "After killing the Wither, additionally gains Regeneration I and Health Boost I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,4), "After killing an Elder Guardian, additionally gains Water Breathing and Jump Boost");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,5), "After killing the Ender Dragon, additionally gains Speed, Absorption, and Slow Falling");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,6), "After killing the Warden, the levels of Resistance and Strength gained from Zzz Potato increase by 1");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,7), "Additionally, after killing the Warden, attacks inflict Blindness and Slowness.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ZzzPotato,8), "Right-click a bed while holding a Nether Star Potato to obtain");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,0), "\"Here we go！！！！\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,1), "Effects provided:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,2), "1. Resistance II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,3), "2. Absorption I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,4), "3. Saturation I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,5), "4. Strength I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,6), "5. Speed I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,7), "6. Night Vision");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,8), "7. When equipped, dogs around gain the Strength effect");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,9), "8. Immune to Darkness");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.GeedPotato,10), "Temporarily unavailable");
     }
 
 

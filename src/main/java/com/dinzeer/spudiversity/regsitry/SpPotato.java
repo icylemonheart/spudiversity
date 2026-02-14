@@ -3,8 +3,12 @@ package com.dinzeer.spudiversity.regsitry;
 // 新增四个土豆物品的导入
 import com.dinzeer.legendreliclib.lib.tags.CuriosTag;
 import com.dinzeer.spudiversity.Item.common.*;
+import com.dinzeer.spudiversity.Item.compat.iceandfire.LightningDragonPotato;
 import com.dinzeer.spudiversity.Item.curios.*;
 import com.dinzeer.spudiversity.Item.ex.*;
+import com.dinzeer.spudiversity.Item.speaical.NoNamePotato;
+import com.dinzeer.spudiversity.Item.speaical.NoNamePotatoDark;
+import com.dinzeer.spudiversity.Item.speaical.StarPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -265,6 +269,57 @@ public class SpPotato {
             ) .properties(p -> p.stacksTo( 64).rarity(Rarity.EPIC))
             .tab(SpItemTabs.spudiversity.getKey())
             .defaultModel().defaultLang().register();
+    public static final RegistryEntry<NoNamePotatoDark> NoNamePotatoDark = REGISTRATE.item(
+                    "noname_potato_dark", NoNamePotatoDark::new
+            ) .properties(p ->
+                    p.food((new FoodProperties.Builder())
+                                    .nutrition(20)
+                                    .saturationMod(6f)
+                                    .alwaysEat()
+                                    .build())
+                            .stacksTo(64).rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<StarPotato> StarPotato = REGISTRATE.item(
+                    "star_potato", StarPotato::new
+            ) .properties(p -> p.stacksTo(64)
+                    .food(new FoodProperties.Builder()
+                    .nutrition(0)
+                    .saturationMod(0)
+                    .alwaysEat().build()).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<AnnoPotato> AnnoPotato = REGISTRATE.item(
+                    "anno_potato", AnnoPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<EnderDragonPotato> EnderDragonPotato = REGISTRATE.item(
+                    "ender_dragon_potato", EnderDragonPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+
+    public static final RegistryEntry<BuildPotato> BuildPotato = REGISTRATE.item(
+                    "build_potato", BuildPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
+
+    public static final RegistryEntry<ZzzPotato> ZzzPotato = REGISTRATE.item(
+                    "zzz_potato", ZzzPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<GeedPotato> GeedPotato = REGISTRATE.item(
+                    "geed_potato", GeedPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
     public static void register() {
         ToolTipBlackList.add(MadeInPotatoMadeInHaven);
         ToolTipBlackList.add(SonicPotato);
@@ -274,6 +329,10 @@ public class SpPotato {
         ToolTipBlackList.add(MadeInPotato);
         ToolTipBlackList.add(EveryThingPotato);
         ToolTipBlackList.add(TheEndPotato);
+        ToolTipBlackList.add(NoNamePotatoDark);
+        ToolTipBlackList.add(StarPotato);
+        ToolTipBlackList.add(AnnoPotato);
+        ToolTipBlackList.add(EnderDragonPotato);
     }
 
 

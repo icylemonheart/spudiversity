@@ -4,6 +4,7 @@ import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.WaitingTick;
 import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.network.PlayTotemAnimationPacket;
+import com.dinzeer.spudiversity.network.SpuNetwork;
 import com.dinzeer.spudiversity.util.CurioUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -78,7 +79,7 @@ public class UndyingPotato extends Item {
         entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
         if (entity instanceof Player player){
             WaitingTick.schedule(1, () -> {
-                Spudiversity.CHANNEL.send(
+                SpuNetwork.INSTANCE.send(
                         PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player),
                         new PlayTotemAnimationPacket(ItemStack)
                 );

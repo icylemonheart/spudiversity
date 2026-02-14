@@ -1,12 +1,28 @@
 package com.dinzeer.spudiversity.event;
 
+import com.dinzeer.spudiversity.Item.speaical.NoNamePotato;
 import com.dinzeer.spudiversity.regsitry.SpItem;
 import com.dinzeer.spudiversity.regsitry.SpPotato;
+import net.minecraft.ChatFormatting;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.animal.Panda;
+import net.minecraft.world.entity.animal.Rabbit;
 import net.minecraft.world.entity.animal.SnowGolem;
+import net.minecraft.world.entity.animal.Turtle;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.EnderMan;
@@ -17,8 +33,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.BedBlock;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -45,9 +65,49 @@ public class PotatoLootEvent {
                     persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, playerData);
                     player.playSound(net.minecraft.sounds.SoundEvents.ITEM_PICKUP,
                             1.0F, 1.0F);
+                }else {
+                    player.drop(potato, false);
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onRightClickBed(PlayerInteractEvent.RightClickBlock event) {
+        Level level = event.getLevel();
+        BlockPos pos = event.getPos();
+        BlockState state = level.getBlockState(pos);
+        Block block = state.getBlock();
+        if (!(block instanceof BedBlock)) {
+            return;
+        }
+
+        Player player = event.getEntity();
+        ItemStack heldItem = player.getMainHandItem();
+        if (!heldItem.is(SpPotato.NetherStarPotato.get().asItem())) {
+            return;
+        }
+        if (level.isClientSide) {
+            event.setCancellationResult(InteractionResult.SUCCESS);
+            event.setCanceled(true);
+            return;
+        }
+        if (!player.isCreative()) {
+            heldItem.shrink(1);
+        }
+        ItemStack zzzPotato = new ItemStack(SpPotato.ZzzPotato.get(), 1);
+        if (!player.getInventory().add(zzzPotato)) {
+            player.drop(zzzPotato, false);
+        }
+        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP,
+                SoundSource.PLAYERS, 0.5F, 1.0F);
+        level.gameEvent(player, GameEvent.ENTITY_INTERACT, pos);
+        if (player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.sendSystemMessage(Component.literal("Good Morning Rider!").withStyle(ChatFormatting.GOLD));
+        }
+
+        event.setCancellationResult(InteractionResult.SUCCESS);
+        event.setCanceled(true);
     }
 
     // 苹果土豆：挖土豆时概率获取
@@ -87,6 +147,14 @@ public class PotatoLootEvent {
                 }
             }
         }
+        if (event.getEntity() instanceof WitherBoss) {
+            if (event.getSource().getEntity() instanceof Player player){
+                if (player.getOffhandItem().getItem() instanceof NoNamePotato){
+                    player.getOffhandItem().shrink(1);
+                    player.getInventory().offhand.set(0, SpPotato.NoNamePotatoDark.get().getDefaultInstance());
+                }
+            }
+        }
     }
 
     @SubscribeEvent
@@ -102,7 +170,30 @@ public class PotatoLootEvent {
                             new ItemStack(SpItem.WaveCore.get(), 1)));
                 }
             }
-
+        if (event.getEntity() instanceof Rabbit) {
+            if (event.getSource().is(DamageTypes.EXPLOSION)||event.getSource().is(DamageTypes.PLAYER_EXPLOSION)){
+            Level level = event.getEntity().level();
+            if (!level.isClientSide()) {
+                level.addFreshEntity(new ItemEntity(level,
+                        event.getEntity().getX(),
+                        event.getEntity().getY(),
+                        event.getEntity().getZ(),
+                        new ItemStack(SpItem.rabbit.get(), 1)));
+            }
+            }
+        }
+        if (event.getEntity() instanceof Turtle) {
+            if (event.getSource().is(DamageTypes.EXPLOSION)||event.getSource().is(DamageTypes.PLAYER_EXPLOSION)){
+                Level level = event.getEntity().level();
+                if (!level.isClientSide()) {
+                    level.addFreshEntity(new ItemEntity(level,
+                            event.getEntity().getX(),
+                            event.getEntity().getY(),
+                            event.getEntity().getZ(),
+                            new ItemStack(SpItem.tank.get(), 1)));
+                }
+            }
+        }
     }
 
 

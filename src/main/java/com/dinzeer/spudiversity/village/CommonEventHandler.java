@@ -3,7 +3,7 @@ package com.dinzeer.spudiversity.village;
 
 
 import com.dinzeer.spudiversity.regsitry.SpPotato;
-import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -44,16 +44,6 @@ public class CommonEventHandler {
 
 
     }
-        public static void addVillageTrade(VillagerTradesEvent event, String villager, int level, VillagerTrades.ItemListing listing) {
-            Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
-            VillagerProfession profession = event.getType();
-            if (profession.name() != null) {
-                if (profession.name().equals(villager)) {
-                    ((List)trades.get(level)).add(listing);
-                }
-
-            }
-        }
 
 
 }

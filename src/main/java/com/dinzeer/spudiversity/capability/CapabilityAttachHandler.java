@@ -14,11 +14,13 @@ import static com.dinzeer.spudiversity.Spudiversity.MODID;
 public class CapabilityAttachHandler {
     public static final ResourceLocation PERMANENT_ABILITIES =
             new ResourceLocation(MODID, "permanent_abilities");
-
+    public static final ResourceLocation KillBossesABILITIES=
+            new ResourceLocation(MODID, "kill_bosses_abilities");
     @SubscribeEvent
     public static void onAttachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player) {
             event.addCapability(PERMANENT_ABILITIES, new PlayerPermanentAbilities.Provider());
+            event.addCapability(KillBossesABILITIES, new PlayerKillBossAbilities.Provider());
         }
     }
 }

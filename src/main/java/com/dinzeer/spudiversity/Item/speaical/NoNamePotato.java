@@ -1,8 +1,9 @@
-package com.dinzeer.spudiversity.Item.ex;
+package com.dinzeer.spudiversity.Item.speaical;
 
 import com.dinzeer.spudiversity.regsitry.SpPotato;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -20,8 +21,13 @@ public class NoNamePotato extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+        if (Screen.hasAltDown()){
         for (int i = 0; i < 10; i++){
             tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.NONAME_POTATO,i)).withStyle(ChatFormatting.GRAY));
+        }
+        }else {
+            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt",
+                    Component.literal("Alt").withStyle(ChatFormatting.LIGHT_PURPLE)).withStyle(ChatFormatting.GRAY));
         }
     }
 }

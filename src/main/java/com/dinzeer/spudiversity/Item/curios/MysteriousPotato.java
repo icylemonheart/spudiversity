@@ -43,7 +43,9 @@ public class MysteriousPotato extends Item {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1)); // 力量II
             player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 1));    // 急迫II
             player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 200, 0)); // 迅捷I
+            if (!player.hasEffect(MobEffects.REGENERATION)){
             player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 0)); // 生命恢复I
+                 }
         }
     }
 

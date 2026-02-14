@@ -1,5 +1,6 @@
 package com.dinzeer.spudiversity.event;
 
+import com.dinzeer.spudiversity.capability.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -25,6 +26,11 @@ public class PlayerEventHandler {
               newStore.deserializeNBT(oldStore.serializeNBT());
           });
       });
+        event.getOriginal().getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(oldStore -> {
+            event.getEntity().getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(newStore -> {
+                newStore.deserializeNBT(oldStore.serializeNBT());
+            });
+        });
         event.getOriginal().invalidateCaps();
 
     }
@@ -34,7 +40,7 @@ public static void onPlayerTick(LivingEvent.LivingTickEvent event) {
         if (event.getEntity() instanceof Player player){
             event.getEntity().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(Store -> {
                 switch (Store.getActivePotato()) {
-                    case "fire_dragon_potato", "lightning_dragon_potato", "ice_dragon_potato" -> applyIceAndFire(player);
+                    case "fire_dragon_potato", "lightning_dragon_potato", "ice_dragon_potato","for_love" -> applyIceAndFire(player);
                 }
             });
         }

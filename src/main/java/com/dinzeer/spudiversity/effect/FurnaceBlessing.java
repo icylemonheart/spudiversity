@@ -1,6 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
 import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+
 import com.ibm.icu.impl.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
@@ -79,5 +80,17 @@ public class FurnaceBlessing extends MobEffect {
         if (PLAYER.get().peek().first == player)
             PLAYER.get().pop();
     }
+    public static class Pair<A, B> {
+        public final A first;
+        public final B second;
 
+        public Pair(A first, B second) {
+            this.first = first;
+            this.second = second;
+        }
+
+        public static <A, B> Pair<A, B> of(A first, B second) {
+            return new Pair<>(first, second);
+        }
+    }
 }

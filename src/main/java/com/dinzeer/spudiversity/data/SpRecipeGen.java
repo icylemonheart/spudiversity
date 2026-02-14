@@ -3,26 +3,30 @@ package com.dinzeer.spudiversity.data;
 import com.dinzeer.spudiversity.regsitry.SpICFPotato;
 import com.dinzeer.spudiversity.regsitry.SpItem;
 import com.dinzeer.spudiversity.regsitry.SpPotato;
-import com.github.alexthe666.citadel.repack.jcodec.common.dct.SparseIDCT;
-import com.github.alexthe666.iceandfire.IceAndFire;
+import com.dinzeer.spudiversity.regsitry.SpTwPotato;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
+import committee.nova.mods.avaritia.init.data.provider.recipe.ModShapedRecipeBuilder;
+import committee.nova.mods.avaritia.init.registry.ModBlocks;
+import committee.nova.mods.avaritia.init.registry.ModItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.data.PackOutput;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import twilightforest.init.TFItems;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 import static com.dinzeer.spudiversity.Spudiversity.MODID;
+import static com.tterrag.registrate.providers.RegistrateRecipeProvider.inventoryTrigger;
 
 public class SpRecipeGen  {
 
@@ -73,9 +77,73 @@ public class SpRecipeGen  {
                         ::save)
                 .build(consumer, new ResourceLocation(MODID, "lightning_dragon_potato"));
 
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("twilightforest"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpTwPotato.FortificationWandPotato.get(), 1)
+                        .pattern("ABC")
+                        .pattern("DEF")
+                        .pattern("GHI")
+                        .define('A', Items.EMERALD)
+                        .define('B', TFItems.FORTIFICATION_SCEPTER.get())
+                        .define('C', Items.DIAMOND)
+                        .define('D', Items.GOLD_BLOCK)
+                        .define('E', Items.POTATO)
+                        .define('F', Items.REDSTONE)
+                        .define('G', Items.BONE)
+                        .define('H', TFItems.LICH_TROPHY.get())
+                        .define('I', Items.APPLE)
+                        .unlockedBy("fortification_wand_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "fortification_wand_potato"));
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("twilightforest"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpTwPotato.ZombiePotato.get(), 1)
+                        .pattern("ABC")
+                        .pattern("DEF")
+                        .pattern(" G ")
+                        .define('A', Items.ROTTEN_FLESH)
+                        .define('B', Items.WITHER_SKELETON_SKULL)
+                        .define('C', Items.BONE)
+                        .define('D', Items.GUNPOWDER)
+                        .define('E', Items.POTATO)
+                        .define('F', Items.SPIDER_EYE)
+                        .define('G',TFItems.ZOMBIE_SCEPTER.get())
+                        .unlockedBy("zombie_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "zombie_potato"));
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("twilightforest"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpTwPotato.DuskPotato.get(), 1)
+                        .pattern(" A ")
+                        .pattern("BCD")
+                        .pattern(" E ")
+                        .define('A', Items.ENDER_EYE)
+                        .define('B', Items.GUNPOWDER)
+                        .define('C', SpPotato.DIAMOND_POTATO.get())
+                        .define('D', Items.BLAZE_POWDER)
+                        .define('E', TFItems.TWILIGHT_SCEPTER.get())
 
-
-
+                        .unlockedBy("dusk_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "dusk_potato"));
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("twilightforest"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpTwPotato.BloodPotato.get(), 1)
+                        .pattern("ABC")
+                        .pattern("DEF")
+                        .pattern("GHI")
+                        .define('A', TFItems.FIERY_BLOOD.get())
+                        .define('B', Items.BEACON)
+                        .define('C', TFItems.GLASS_SWORD.get())
+                        .define('D', Items.GHAST_TEAR)
+                        .define('E', SpPotato.NetheritePotato.get())
+                        .define('F', TFItems.KNIGHTMETAL_CHESTPLATE.get())
+                        .define('G', Items.TOTEM_OF_UNDYING)
+                        .define('H', TFItems.LIFEDRAIN_SCEPTER.get())
+                        .define('I', Items.GOLDEN_APPLE)
+                        .unlockedBy("blood_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "blood_potato"));
     }
 
     private static void addPotatoFeastRecipes(Consumer<FinishedRecipe> consumer) {
@@ -333,7 +401,7 @@ public class SpRecipeGen  {
                 .pattern("IPI")
                 .pattern("HSH")
                 .define('H', Items.HEART_OF_THE_SEA)
-                .define('C', Items.CONDUIT)  // 使用海晶核心作为共鸣海晶的替代
+                .define('C', SpItem.WaveCrystal.get())
                 .define('I', Items.INK_SAC)
                 .define('P', Items.BAKED_POTATO)
                 .define('S', Items.NAUTILUS_SHELL)
@@ -413,7 +481,16 @@ public class SpRecipeGen  {
                 .unlockedBy("has_baked_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.POTATO))
                 .save(consumer);
 
-
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.AnnoPotato.get(), 1)
+                .pattern("AAA")
+                .pattern("BCB")
+                .pattern("DDD")
+                .define('A', Items.PINK_WOOL)
+                .define('B', Items.SUGAR)
+                .define('C', SpPotato.REDSTONE_POTATO.get())
+                .define('D', Items.WHITE_WOOL)
+                .unlockedBy("has_baked_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.POTATO))
+                .save(consumer);
 
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.SuperPotato.get(), 1)
@@ -427,12 +504,57 @@ public class SpRecipeGen  {
                 .unlockedBy("has_super_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.NetherStarPotato.get()))
                 .save(consumer);
 
+
+
+
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpItem.bear_rabbit_tank.get(), 1)
+                .pattern("ABA")
+                .pattern("CDC")
+                .pattern("AEA")
+                .define('A', Items.NETHER_STAR)
+                .define('B', SpPotato.IRON_POTATO.get())
+                .define('C', SpItem.rabbit.get())
+                .define('D', SpPotato.DIAMOND_POTATO.get())
+                .define('E', SpPotato.REDSTONE_POTATO.get())
+                .unlockedBy("has_iron_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.IRON_POTATO.get()))
+                .save(consumer);
+
+        // 气泡兔坦土豆合成表
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.BuildPotato.get(), 1)
+                .pattern("ABA")
+                .pattern("CDC")
+                .pattern("ABA")
+                .define('A', Items.NETHER_STAR)
+                .define('B', SpPotato.DIAMOND_POTATO.get())
+                .define('C', SpItem.rabbit.get())
+                .define('D', SpItem.bear_rabbit_tank.get())
+                .unlockedBy("has_bear_rabbit_tank", InventoryChangeTrigger.TriggerInstance.hasItems(SpItem.bear_rabbit_tank.get()))
+                .save(consumer);
+
+    }
+
+    public static void infinityRecipe(Consumer<FinishedRecipe> consumer) {
+        ModShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SpPotato.EveryThingPotato.get())
+                .pattern("SPPPPPPPH")
+                .pattern("pTCMSLJTP")
+                .pattern("pRBNUOiRP")
+                .pattern("pADIbIDSP")
+                .pattern("pnDEPADsP")
+                .pattern("pgDIeIDGP")
+                .pattern("pRd#HrMRP")
+                .pattern("pTZsS?BTP")
+                .pattern("cPPP!PPPc")
+
+                .showNotification(true)
+                .unlockedBy("has_item", has((ItemLike)ModItems.infinity_ingot.get())).save(consumer);
     }
 
 
-
-
-
+    protected static InventoryChangeTrigger.TriggerInstance has(ItemLike tagKey) {
+        return inventoryTrigger(new ItemPredicate[]{ItemPredicate.Builder.item().of(tagKey).build()});
+    }
 
 
 

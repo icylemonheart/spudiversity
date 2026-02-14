@@ -25,10 +25,21 @@ public class SpItemTabs {
             () -> CreativeModeTab.builder()
                     .title(Component.translatable("item_group.spudiversity.spudiversity")).icon(Items.POTATO::getDefaultInstance)
                     .displayItems((parameters, tabData) -> {
-                          if (ModList.get().isLoaded(Godfox.MODID)){
-                              tabData.accept(SpGodFoxPotato.SkyFoxPotato.get());
-                              tabData.accept(SpGodFoxPotato.BloodFoxPotato.get());
-                          }
+                        if (ModList.get().isLoaded("twilightforest")){
+                            tabData.accept(SpTwPotato.BloodPotato.get());
+                            tabData.accept(SpTwPotato.ZombiePotato.get());
+                            tabData.accept(SpTwPotato.FortificationWandPotato.get());
+                            tabData.accept(SpTwPotato.DuskPotato.get());
+                        }
+                        if (ModList.get().isLoaded("iceandfire")){
+                            tabData.accept(SpICFPotato.LightningDragonPotato.get());
+                            tabData.accept(SpICFPotato.FireDragonPotato.get());
+                            tabData.accept(SpICFPotato.IceDragonPotato.get());
+                        }
+                        if (ModList.get().isLoaded("godfox")){
+                            tabData.accept(SpGodFoxPotato.BloodFoxPotato.get());
+                            tabData.accept(SpGodFoxPotato.SkyFoxPotato.get());
+                        }
                     })
                     .build());
 

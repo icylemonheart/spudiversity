@@ -49,7 +49,7 @@ public class EveryThing extends MobEffect {
 
 
         if (entity instanceof Player player) {
-            player.getAbilities().setFlyingSpeed(0.05F); // 恢复默认飞行速度
+            player.getAbilities().setFlyingSpeed(0.05F);
         }
 
         AttributeInstance reachAttr = entity.getAttribute(ForgeMod.BLOCK_REACH.get());

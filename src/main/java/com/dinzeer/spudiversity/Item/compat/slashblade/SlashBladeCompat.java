@@ -13,6 +13,7 @@ public class SlashBladeCompat {
             MysteriousPotato.summonIs(player);
         }
     }
+
     public static void BladeStandHit(SlashBladeEvent.BladeStandAttackEvent event)  {
         if (event.getDamageSource().getEntity() instanceof Player player){
            if (player.getMainHandItem().getItem() instanceof DiamondPotato){
