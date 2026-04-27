@@ -1,12 +1,10 @@
 package com.dinzeer.spudiversity.data;
 
-import com.dinzeer.spudiversity.regsitry.SpICFPotato;
-import com.dinzeer.spudiversity.regsitry.SpItem;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
-import com.dinzeer.spudiversity.regsitry.SpTwPotato;
+import com.dinzeer.spudiversity.regsitry.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
+import committee.nova.mods.avaritia.Avaritia;
 import committee.nova.mods.avaritia.init.data.provider.recipe.ModShapedRecipeBuilder;
 import committee.nova.mods.avaritia.init.registry.ModBlocks;
 import committee.nova.mods.avaritia.init.registry.ModItems;
@@ -20,6 +18,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.common.crafting.ConditionalRecipe;
 import net.minecraftforge.common.crafting.conditions.ModLoadedCondition;
+import net.minecraftforge.registries.ForgeRegistries;
 import twilightforest.init.TFItems;
 
 import java.util.function.BiFunction;
@@ -76,6 +75,48 @@ public class SpRecipeGen  {
                         .unlockedBy("lightning_dragon_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
                         ::save)
                 .build(consumer, new ResourceLocation(MODID, "lightning_dragon_potato"));
+
+
+
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("avaritia"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpAvaPotato.UniversePotato.get(), 1)
+                        .pattern("DDD")
+                        .pattern("DPD")
+                        .pattern("DDD")
+                        .define('D', ModItems.infinity_ingot.get())
+                        .define('P', SpPotato.CookCookedPotato.get())
+                        .unlockedBy("avaritia_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "avaritia_potato"));
+
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("avaritia"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpAvaPotato.NeutroniumPotato.get(), 1)
+                        .pattern("DDD")
+                        .pattern("DPD")
+                        .pattern("DDD")
+                        .define('D', ModItems.neutron_ingot.get())
+                        .define('P', SpPotato.CookCookedPotato.get())
+                        .unlockedBy("neutron_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "neutron_potato"));
+
+        ConditionalRecipe.builder()
+                .addCondition(new ModLoadedCondition("godfox"))
+                .addRecipe(ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpGodFoxPotato.AuspiciousPotato.get(), 1)
+                        .pattern("   ")
+                        .pattern("ABC")
+                        .pattern("   ")
+                        .define('A', SpGodFoxPotato.SkyFoxPotato.get())
+                        .define('B', SpPotato.DIAMOND_POTATO.get())
+                        .define('C', SpGodFoxPotato.BloodFoxPotato.get())
+                        .unlockedBy("auspicious_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                        ::save)
+                .build(consumer, new ResourceLocation(MODID, "auspicious_potato"));
+
+
+
 
         ConditionalRecipe.builder()
                 .addCondition(new ModLoadedCondition("twilightforest"))
@@ -276,6 +317,17 @@ public class SpRecipeGen  {
                 .unlockedBy("has_blaze_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
                 .save(consumer);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.MistyPotato.get(), 1)
+                .pattern("SsS")
+                .pattern("sPs")
+                .pattern("SsS")
+                .define('S', Items.LAVA_BUCKET)
+                .define('P', Items.BAKED_POTATO)
+                .define('s', Items.WATER_BUCKET)
+                .unlockedBy("has_misty_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                .save(consumer);
+
+
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.EnchantedPotato.get(), 1)
                 .pattern("GGG")
                 .pattern("GPG")
@@ -308,7 +360,30 @@ public class SpRecipeGen  {
         ).save(consumer, new ResourceLocation(MODID, "cook_infinite_potato"));
 
 
-
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.GlassPotato.get(), 1)
+                .pattern("GGG")
+                .pattern("GPG")
+                .pattern("GGG")
+                .define('G', Items.GLASS)
+                .define('P', Items.BAKED_POTATO)
+                .unlockedBy("has_glass_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BAKED_POTATO))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.FireworkPotato.get(), 1)
+                .pattern("GGG")
+                .pattern("GPG")
+                .pattern("GGG")
+                .define('G', Items.FIREWORK_STAR)
+                .define('P', Items.BAKED_POTATO)
+                .unlockedBy("has_firework_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BAKED_POTATO))
+                .save(consumer);
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.GlowStonePotato.get(), 1)
+                .pattern("GGG")
+                .pattern("GPG")
+                .pattern("GGG")
+                .define('G', Items.GLOWSTONE)
+                .define('P', Items.BAKED_POTATO)
+                .unlockedBy("has_firework_potato", InventoryChangeTrigger.TriggerInstance.hasItems(Items.BAKED_POTATO))
+                .save(consumer);
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.HONEY_POTATO.get(), 1)
                 .pattern("GGG")
@@ -337,14 +412,14 @@ public class SpRecipeGen  {
                 .unlockedBy("has_mysterious_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.GOLD_POTATO.get()))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.LootKingPotato.get(), 1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.LootPotato.get(), 1)
                 .pattern("ABA")
                 .pattern("CAC")
                 .pattern("BCB")
                 .define('A', SpPotato.DIAMOND_POTATO.get())
                 .define('B',  SpPotato.EnchantedPotato.get())
                 .define('C', SpPotato.EmeraldPotato.get())
-                .unlockedBy("has_loot_king_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.EnchantedPotato.get()))
+                .unlockedBy("has_loot_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.EnchantedPotato.get()))
                 .save(consumer);
 
 
@@ -356,6 +431,16 @@ public class SpRecipeGen  {
                 .define('B', SpItem.WaveCore.get())
                 .unlockedBy("has_wave_crystal", InventoryChangeTrigger.TriggerInstance.hasItems( SpItem.WaveCore.get()))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.AlchemistPotato.get(), 1)
+                .pattern("SSS")
+                .pattern("SPS")
+                .pattern("SSS")
+                .define('S', Items.BREWING_STAND)
+                .define('P', SpPotato.GOLD_POTATO.get())
+                .unlockedBy("has_blaze_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                .save(consumer);
+
 
 
     }
@@ -511,30 +596,129 @@ public class SpRecipeGen  {
 
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpItem.bear_rabbit_tank.get(), 1)
                 .pattern("ABA")
-                .pattern("CDC")
+                .pattern("CDF")
                 .pattern("AEA")
                 .define('A', Items.NETHER_STAR)
                 .define('B', SpPotato.IRON_POTATO.get())
                 .define('C', SpItem.rabbit.get())
                 .define('D', SpPotato.DIAMOND_POTATO.get())
                 .define('E', SpPotato.REDSTONE_POTATO.get())
+                .define('F', SpItem.tank.get())
                 .unlockedBy("has_iron_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.IRON_POTATO.get()))
                 .save(consumer);
 
         // 气泡兔坦土豆合成表
         ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.BuildPotato.get(), 1)
                 .pattern("ABA")
-                .pattern("CDC")
+                .pattern("CDF")
                 .pattern("ABA")
                 .define('A', Items.NETHER_STAR)
                 .define('B', SpPotato.DIAMOND_POTATO.get())
                 .define('C', SpItem.rabbit.get())
                 .define('D', SpItem.bear_rabbit_tank.get())
+                .define('F', SpItem.tank.get())
                 .unlockedBy("has_bear_rabbit_tank", InventoryChangeTrigger.TriggerInstance.hasItems(SpItem.bear_rabbit_tank.get()))
                 .save(consumer);
 
+
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.EmberPotato.get(), 1)
+                .pattern("A A")
+                .pattern("CDE")
+                .pattern("FFF")
+                .define('A', Items.ENDER_PEARL)
+                .define('C', SpPotato.BlazePotato.get())
+                .define('D', SpPotato.CoalPotatoes.get())
+                .define('E', SpPotato.ObsidianPotato.get())
+                .define('F', SpPotato.CookCookedPotato.get())
+                .unlockedBy("has_ember_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.ObsidianPotato.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.Potato36.get(), 1)
+                .pattern("RRE")
+                .pattern("SDO")
+                .pattern("PHQ")
+                .define('R', SpPotato.REDSTONE_POTATO.get())
+                .define('E', SpPotato.EnchantedPotato.get())
+                .define('S', Items.CALIBRATED_SCULK_SENSOR)
+                .define('D', SpPotato.DIAMOND_POTATO.get())
+                .define('O', Items.OBSERVER)
+                .define('P', Items.REPEATER)
+                .define('H', Items.HOPPER)
+                .define('Q', Items.COMPARATOR)
+                .unlockedBy("has_potato_36", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.REDSTONE_POTATO.get()))
+                .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.TinyWaterPotato.get(), 1)
+                .pattern("ABA")
+                .pattern("CDC")
+                .pattern("EFG")
+                .define('A', Items.NAUTILUS_SHELL)
+                .define('B', Items.SEA_LANTERN)
+                .define('C', Items.HEART_OF_THE_SEA)
+                .define('D', Items.PUFFERFISH)
+                .define('E', Items.LAPIS_BLOCK)
+                .define('F', SpPotato.DIAMOND_POTATO.get())
+                .define('G', Items.SEA_PICKLE)
+                .unlockedBy("has_drip_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.DIAMOND_POTATO.get()))
+                .save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.FOOD, SpPotato.LootKingPotato.get(), 1)
+                .pattern("ABC")
+                .pattern("DEF")
+                .pattern("GHI")
+                .define('A', SpPotato.IRON_POTATO.get())
+                .define('B',  SpPotato.CoalPotatoes.get())
+                .define('C', SpPotato.LapsPotato.get())
+                .define('D', SpPotato.COPPER_POTATO.get())
+                .define('E', SpPotato.LootPotato.get())
+                .define('F', SpPotato.NetheritePotato.get())
+                .define('G', SpPotato.REDSTONE_POTATO.get())
+                .define('H', SpPotato.DIAMOND_POTATO.get())
+                .define('I', SpPotato.EmeraldPotato.get())
+                .unlockedBy("has_loot_potato", InventoryChangeTrigger.TriggerInstance.hasItems(SpPotato.EnchantedPotato.get()))
+                .save(consumer);
+
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SpItem.paper_plane.get(), 1)
+                .pattern("A A")
+                .pattern("BPB")
+                .pattern("A A")
+                .define('A', Items.DIAMOND)
+                .define('B', Items.PAPER)
+                .define('P', Items.PINK_DYE)
+                .unlockedBy("has_paper", InventoryChangeTrigger.TriggerInstance.hasItems(Items.PAPER))
+                .save(consumer);
     }
 
+    public static void onRecipeGen(RegistrateRecipeProvider pvd) {
+        smithing(pvd,
+                SpPotato.DIAMOND_POTATO.get(),
+                Items.TNT,
+                SpPotato.TarianPotato.get(),
+                SpPotato.SuperPotato.get());
+        smithing(pvd,
+                SpPotato.DIAMOND_POTATO.get(),
+                SpItem.paper_plane.get(),
+                SpPotato.EdelweissPotato.get(),
+                SpItem.EdelweissUpgradeTemplate.get());
+    }
+
+
+
+    public static void smithing(RegistrateRecipeProvider pvd, Item in, Item mat, Item out, Item template) {
+        smithing(pvd, in, mat, out, pvd,template);
+    }
+
+    public static void smithing(RegistrateRecipeProvider pvd, Item in, Item mat, Item out, Consumer<FinishedRecipe> cons, Item template) {
+        unlock(pvd, SmithingTransformRecipeBuilder.smithing(Ingredient.of(template), Ingredient.of(in), Ingredient.of(mat), RecipeCategory.MISC, out)::unlocks, mat)
+                .save(cons, getID(out));
+    }
+    private static ResourceLocation getID(Item item) {
+        return new ResourceLocation(MODID, "smith/"+ ForgeRegistries.ITEMS.getKey(item).getPath());
+    }
     public static void infinityRecipe(Consumer<FinishedRecipe> consumer) {
         ModShapedRecipeBuilder.shaped(RecipeCategory.TOOLS, SpPotato.EveryThingPotato.get())
                 .pattern("SPPPPPPPH")

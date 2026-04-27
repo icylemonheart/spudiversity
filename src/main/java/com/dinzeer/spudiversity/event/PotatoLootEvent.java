@@ -1,5 +1,6 @@
 package com.dinzeer.spudiversity.event;
 
+import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.Item.speaical.NoNamePotato;
 import com.dinzeer.spudiversity.regsitry.SpItem;
 import com.dinzeer.spudiversity.regsitry.SpPotato;
@@ -29,23 +30,23 @@ import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.WitherSkeleton;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.block.BedBlock;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.CropBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.Map;
 import java.util.Random;
 
 @Mod.EventBusSubscriber
@@ -78,37 +79,66 @@ public class PotatoLootEvent {
         BlockPos pos = event.getPos();
         BlockState state = level.getBlockState(pos);
         Block block = state.getBlock();
-        if (!(block instanceof BedBlock)) {
-            return;
-        }
 
         Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
-        if (!heldItem.is(SpPotato.NetherStarPotato.get().asItem())) {
+
+        Map<Item, Item> potatoConversionMap = Map.of(
+                SpPotato.NetherStarPotato.get(), SpPotato.ZzzPotato.get(),
+                SpPotato.SakuraPotato.get(), SpPotato.CrystalPotato.get(),
+                SpPotato.DIAMOND_POTATO.get(), SpPotato.DiamondCrystalPotato.get()
+        );
+
+        Item resultItem = potatoConversionMap.get(heldItem.getItem());
+        if (resultItem == null) {
             return;
         }
+
+        boolean isBed = block instanceof BedBlock;
+        boolean isBuddingAmethyst = block instanceof BuddingAmethystBlock;
+
+        if (!isBed && !isBuddingAmethyst) {
+            return;
+        }
+
         if (level.isClientSide) {
             event.setCancellationResult(InteractionResult.SUCCESS);
             event.setCanceled(true);
             return;
         }
-        if (!player.isCreative()) {
-            heldItem.shrink(1);
-        }
-        ItemStack zzzPotato = new ItemStack(SpPotato.ZzzPotato.get(), 1);
-        if (!player.getInventory().add(zzzPotato)) {
-            player.drop(zzzPotato, false);
-        }
-        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP,
-                SoundSource.PLAYERS, 0.5F, 1.0F);
-        level.gameEvent(player, GameEvent.ENTITY_INTERACT, pos);
-        if (player instanceof ServerPlayer serverPlayer) {
-            serverPlayer.sendSystemMessage(Component.literal("Good Morning Rider!").withStyle(ChatFormatting.GOLD));
-        }
+
+        performConversion(player, level, pos, heldItem, resultItem, isBed);
 
         event.setCancellationResult(InteractionResult.SUCCESS);
         event.setCanceled(true);
     }
+
+    private static void performConversion(Player player, Level level, BlockPos pos,
+                                          ItemStack heldItem, Item resultItem, boolean isBed) {
+        if (!player.isCreative()) {
+            heldItem.shrink(1);
+        }
+
+        ItemStack resultStack = new ItemStack(resultItem, 1);
+        if (!player.getInventory().add(resultStack)) {
+            player.drop(resultStack, false);
+        }
+
+        level.playSound(null, pos, SoundEvents.PLAYER_LEVELUP,
+                SoundSource.PLAYERS, 0.5F, 1.0F);
+        level.gameEvent(player, GameEvent.ENTITY_INTERACT, pos);
+
+        if (isBed && resultItem == SpPotato.ZzzPotato.get() && player instanceof ServerPlayer serverPlayer) {
+            serverPlayer.sendSystemMessage(Component.literal("Good Morning Rider!").withStyle(ChatFormatting.GOLD));
+        }
+    }
+
+
+
+
+
+
+
 
     // 苹果土豆：挖土豆时概率获取
     @SubscribeEvent
@@ -370,4 +400,62 @@ public class PotatoLootEvent {
             );
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @SubscribeEvent
+    public static void onTangxingPotatoEaten(LivingEntityUseItemEvent.Finish event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (!(event.getEntity() instanceof Player player)) return;
+
+        if (!event.getItem().is(SpPotato.TangxingPotato.get())) return;
+
+
+        float GameTime=player.level().getGameTime();
+        int requiredTicks = 99 * 3600;
+        if (GameTime < requiredTicks) return;
+
+        if (!CurioCompat.hasItemInCurio(player, SpPotato.CakeKingPotato.get())) return;
+
+        ItemStack jijin = new ItemStack(SpPotato.JijinPotato.get());
+        if (!player.addItem(jijin)) {
+            player.drop(jijin, false);
+        }
+
+    }
+
+    @SubscribeEvent
+    public static void onStarPotatoEaten(LivingEntityUseItemEvent.Finish event) {
+        if (event.getEntity().level().isClientSide) return;
+        if (!(event.getEntity() instanceof Player player)) return;
+
+        if (!event.getItem().is(SpPotato.StarPotato.get())) return;
+        if(event.getEntity().level().dimension() == Level.NETHER){
+            if(player.getOffhandItem().getItem() == Items.NETHER_STAR){
+                ItemStack the_end_core = new ItemStack(SpItem.the_end_core.get());
+                if (!player.addItem(the_end_core)) {
+                    player.drop(the_end_core, false);
+                }
+            }
+        }
+
+    }
+
+
+
+
+
+
 }

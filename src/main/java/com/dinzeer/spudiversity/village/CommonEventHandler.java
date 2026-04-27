@@ -35,7 +35,7 @@ public class CommonEventHandler {
 
                     rareTrades.add(new BasicItemListing(
                             new ItemStack(Items.EMERALD, 64),
-                            SpPotato.UndyingPotato.get().getDefaultInstance(), // 出售的唱片
+                            SpPotato.UndyingPotato.get().getDefaultInstance(),
                             4, // 最大交易次数
                             5, // 经验值
                             0.05f // 价格乘数

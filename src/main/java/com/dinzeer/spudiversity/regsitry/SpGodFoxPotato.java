@@ -2,6 +2,7 @@ package com.dinzeer.spudiversity.regsitry;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.tags.CuriosTag;
+import com.dinzeer.spudiversity.Item.compat.godfox.AuspiciousPotato;
 import com.dinzeer.spudiversity.Item.compat.godfox.BloodFoxPotato;
 import com.dinzeer.spudiversity.Item.compat.godfox.SkyFoxPotato;
 import com.dinzeer.spudiversity.Item.compat.iceandfire.FireDragonPotato;
@@ -32,6 +33,12 @@ public class SpGodFoxPotato {
                     .alwaysEat().build()) .rarity(Rarity.EPIC))
             .tag(CuriosTag.POTATO)
 
+            .defaultModel().defaultLang().register();
+
+    public static final RegistryEntry<AuspiciousPotato> AuspiciousPotato = REGISTRATE.item(
+                    "auspicious_potato", AuspiciousPotato::new
+            )
+            .tag(CuriosTag.POTATO)
             .defaultModel().defaultLang().register();
     public static void register() {
         SpPotato.ToolTipBlackList.add(SkyFoxPotato);

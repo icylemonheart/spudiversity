@@ -2,7 +2,7 @@ package com.dinzeer.spudiversity.Item.curios;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.capability.PlayerKillBossAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.regsitry.SpPotato;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffects;
@@ -55,6 +55,7 @@ public class ZzzPotato extends Item implements ICurioItem {
             }
             FastMakeEntityUtil.FastEffect(player,MobEffects.DAMAGE_RESISTANCE,def_level);
             FastMakeEntityUtil.FastEffect(player,MobEffects.DAMAGE_BOOST,damage_level);
+            FastMakeEntityUtil.FastEffect(player,MobEffects.NIGHT_VISION,1);
         }
     }
        @SubscribeEvent

@@ -13,11 +13,14 @@
     },
     "D": {
       "item": "spudiversity:bear_rabbit_tank"
+    },
+    "F": {
+      "item": "spudiversity:tank"
     }
   },
   "pattern": [
     "ABA",
-    "CDC",
+    "CDF",
     "ABA"
   ],
   "result": {

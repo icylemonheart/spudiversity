@@ -2,11 +2,14 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.dinzeer.spudiversity.mixin",
-  "compatibilityLevel": "JAVA_8",
+  "compatibilityLevel": "JAVA_17",
   "refmap": "spudiversity.refmap.json",
   "mixins": [
+    "BlockStateBaseMixin",
     "DimensionTypeToMixin",
+    "EnchantmentHelperMixin",
     "ServerPlayerGameModeMixins",
+    "SplashPotionItemMixin",
     "VillagerMixin"
   ],
   "client": [

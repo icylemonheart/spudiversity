@@ -27,7 +27,7 @@ public class NoNamePotato extends Item {
         }
         }else {
             tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt",
-                    Component.literal("Alt").withStyle(ChatFormatting.LIGHT_PURPLE)).withStyle(ChatFormatting.GRAY));
+                    Component.literal("「Alt」").withStyle(ChatFormatting.LIGHT_PURPLE)).withStyle(ChatFormatting.GRAY));
         }
     }
 }

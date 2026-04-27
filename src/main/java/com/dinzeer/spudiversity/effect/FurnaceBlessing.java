@@ -1,8 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 
-import com.ibm.icu.impl.Pair;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.SimpleContainer;

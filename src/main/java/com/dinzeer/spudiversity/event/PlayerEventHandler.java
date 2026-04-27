@@ -1,7 +1,7 @@
 package com.dinzeer.spudiversity.event;
 
-import com.dinzeer.spudiversity.capability.PlayerKillBossAbilities;
-import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -18,8 +18,7 @@ public class PlayerEventHandler {
     private static final UUID DEFENSE_BOOST_UUID = UUID.nameUUIDFromBytes("DRAGON_POTATO".getBytes());
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
-        // 玩家死亡重生时复制能力数据
-        if (!event.isWasDeath()) return;
+
         event.getOriginal().reviveCaps();
       event.getOriginal().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(oldStore -> {
           event.getEntity().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(newStore -> {

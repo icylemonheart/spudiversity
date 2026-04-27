@@ -16,11 +16,14 @@
     },
     "E": {
       "item": "spudiversity:redstone_potato"
+    },
+    "F": {
+      "item": "spudiversity:tank"
     }
   },
   "pattern": [
     "ABA",
-    "CDC",
+    "CDF",
     "AEA"
   ],
   "result": {

@@ -1,0 +1,25 @@
+package com.dinzeer.spudiversity.Item.common;
+
+import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
+import com.dinzeer.spudiversity.regsitry.SpEffect;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+
+public class GlassPotato extends Item {
+    @Override
+    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
+        FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.GlassType.get(), 3, 5);
+        return super.finishUsingItem(itemStack, level, entity);
+    }
+
+    public GlassPotato(Properties p_41383_) {
+        super(p_41383_.food(new FoodProperties.Builder()
+                .nutrition(6)
+                .saturationMod(0.1f)
+                .alwaysEat()
+                .build()));
+    }
+}

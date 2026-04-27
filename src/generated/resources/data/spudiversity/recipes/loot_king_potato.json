@@ -3,19 +3,37 @@
   "category": "misc",
   "key": {
     "A": {
-      "item": "spudiversity:diamond_potato"
+      "item": "spudiversity:iron_potato"
     },
     "B": {
-      "item": "spudiversity:enchanted_potato"
+      "item": "spudiversity:coal_potatoes"
     },
     "C": {
+      "item": "spudiversity:laps_potato"
+    },
+    "D": {
+      "item": "spudiversity:copper_potato"
+    },
+    "E": {
+      "item": "spudiversity:loot_potato"
+    },
+    "F": {
+      "item": "spudiversity:netherite_potato"
+    },
+    "G": {
+      "item": "spudiversity:redstone_potato"
+    },
+    "H": {
+      "item": "spudiversity:diamond_potato"
+    },
+    "I": {
       "item": "spudiversity:emerald_potato"
     }
   },
   "pattern": [
-    "ABA",
-    "CAC",
-    "BCB"
+    "ABC",
+    "DEF",
+    "GHI"
   ],
   "result": {
     "item": "spudiversity:loot_king_potato"

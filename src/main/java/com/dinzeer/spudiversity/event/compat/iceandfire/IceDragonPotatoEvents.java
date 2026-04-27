@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.event.compat.iceandfire;
 
-import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;

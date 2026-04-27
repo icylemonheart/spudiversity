@@ -85,7 +85,7 @@ public class LootKingPotato extends Item implements ICurioItem {
                 new AttributeModifier(
                         LootKingPotao_UUID,
                         "LootKingPotao Boost",
-                        1,
+                        9,
                         AttributeModifier.Operation.ADDITION
                 )
         );

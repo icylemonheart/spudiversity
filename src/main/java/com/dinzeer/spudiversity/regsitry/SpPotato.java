@@ -2,6 +2,7 @@ package com.dinzeer.spudiversity.regsitry;
 
 // 新增四个土豆物品的导入
 import com.dinzeer.legendreliclib.lib.tags.CuriosTag;
+import com.dinzeer.spudiversity.Item.cappotato.AlchemistPotato;
 import com.dinzeer.spudiversity.Item.common.*;
 import com.dinzeer.spudiversity.Item.compat.iceandfire.LightningDragonPotato;
 import com.dinzeer.spudiversity.Item.curios.*;
@@ -9,6 +10,7 @@ import com.dinzeer.spudiversity.Item.ex.*;
 import com.dinzeer.spudiversity.Item.speaical.NoNamePotato;
 import com.dinzeer.spudiversity.Item.speaical.NoNamePotatoDark;
 import com.dinzeer.spudiversity.Item.speaical.StarPotato;
+import com.dinzeer.spudiversity.Item.speaical.TangxingPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
@@ -26,7 +28,6 @@ public class SpPotato {
             ) .properties(p -> p.stacksTo( 64).rarity(Rarity.EPIC))
             .tab(SpItemTabs.spudiversity.getKey())
             .defaultModel().defaultLang().register();
-
     public static final RegistryEntry<CarrotsPotato> CarrotsPotato = REGISTRATE.item(
                     "carrots_potato", CarrotsPotato::new
             ) .properties(p -> p.stacksTo( 64).rarity(Rarity.EPIC))
@@ -128,7 +129,7 @@ public class SpPotato {
                     "super_potato", SuperPotato::new
             ) .properties(p -> p.stacksTo( 64).rarity(Rarity.EPIC))
             .tab(SpItemTabs.spudiversity.getKey())
-            .defaultModel().defaultLang().register();
+            .defaultModel().defaultLang().register();//核土豆
     public static final RegistryEntry<CakePotato> CakePotato = REGISTRATE.item(
                     "cake_potato", CakePotato::new
             ) .properties(p -> p.stacksTo( 64).rarity(Rarity.EPIC))
@@ -179,8 +180,8 @@ public class SpPotato {
             .tab(SpItemTabs.spudiversity.getKey())
             .defaultModel().defaultLang().register();
 
-    public static final RegistryEntry<LootKingPotato> LootKingPotato = REGISTRATE.item(
-                    "loot_king_potato", LootKingPotato::new
+    public static final RegistryEntry<LootPotato> LootPotato = REGISTRATE.item(
+                    "loot_potato", LootPotato::new
             ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
             .tab(SpItemTabs.spudiversity.getKey())
             .tag(CuriosTag.POTATO)
@@ -320,6 +321,96 @@ public class SpPotato {
             .tab(SpItemTabs.spudiversity.getKey())
             .tag(CuriosTag.POTATO)
             .defaultModel().defaultLang().register();
+    public static final RegistryEntry<LootKingPotato> LootKingPotato = REGISTRATE.item(
+                    "loot_king_potato", LootKingPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
+
+
+    public static final RegistryEntry<GlowStonePotato> GlowStonePotato = REGISTRATE.item(
+                    "glow_stone_potato", GlowStonePotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.RARE))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<GlassPotato> GlassPotato = REGISTRATE.item(
+                    "glass_potato", GlassPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.RARE))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<TarianPotato> TarianPotato = REGISTRATE.item(
+                    "tarian_potato", TarianPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Potato36> Potato36 = REGISTRATE.item(
+                    "potato_36", Potato36::new
+            ) .properties(p -> p.stacksTo(1)
+                    .rarity(Rarity.EPIC))
+            .tag(CuriosTag.POTATO)
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<FireworkPotato> FireworkPotato = REGISTRATE.item(
+                    "firework_potato", FireworkPotato::new
+            ) .properties(p -> p.stacksTo(1)
+                    .rarity(Rarity.EPIC))
+            .tag(CuriosTag.POTATO)
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<AlchemistPotato> AlchemistPotato = REGISTRATE.item(
+                    "alchemist_potato", AlchemistPotato::new
+            ) .properties(p -> p.stacksTo(1)
+                    .rarity(Rarity.EPIC))
+            .tag(CuriosTag.POTATO)
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+
+    public static final RegistryEntry<DiamondCrystalPotato> DiamondCrystalPotato = REGISTRATE.item(
+                    "diamond_crystal_potato", DiamondCrystalPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<EdelweissPotato> EdelweissPotato = REGISTRATE.item(
+                    "edelweiss_potato", EdelweissPotato::new
+            ) .properties(p ->
+                    p.stacksTo(1)
+                    .rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
+
+    public static final RegistryEntry<EmberPotato> EmberPotato = REGISTRATE.item(
+                    "ember_potato", EmberPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<TinyWaterPotato> TinyWaterPotato = REGISTRATE.item(
+                    "tiny_water_potato", TinyWaterPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<CrystalPotato> CrystalPotato = REGISTRATE.item(
+                    "crystal_potato", CrystalPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<MistyPotato> MistyPotato = REGISTRATE.item(
+                "misty_potato", MistyPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<TangxingPotato> TangxingPotato = REGISTRATE.item(
+                    "tangxing_potato", TangxingPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<JijinPotato> JijinPotato = REGISTRATE.item(
+                    "jijin_potato", JijinPotato::new
+            ) .properties(p -> p.stacksTo(1).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .tag(CuriosTag.POTATO)
+            .defaultModel().defaultLang().register();
     public static void register() {
         ToolTipBlackList.add(MadeInPotatoMadeInHaven);
         ToolTipBlackList.add(SonicPotato);
@@ -333,6 +424,10 @@ public class SpPotato {
         ToolTipBlackList.add(StarPotato);
         ToolTipBlackList.add(AnnoPotato);
         ToolTipBlackList.add(EnderDragonPotato);
+        ToolTipBlackList.add(TarianPotato);
+        ToolTipBlackList.add(EdelweissPotato);
+        ToolTipBlackList.add(JijinPotato);
+        ToolTipBlackList.add(TangxingPotato);
     }
 
 

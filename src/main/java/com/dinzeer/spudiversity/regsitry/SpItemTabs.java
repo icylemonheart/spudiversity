@@ -1,6 +1,8 @@
 package com.dinzeer.spudiversity.regsitry;
 
 import com.dinzeer.godfox.Godfox;
+import com.dinzeer.spudiversity.Spudiversity;
+import committee.nova.mods.avaritia.Avaritia;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -23,6 +25,7 @@ public class SpItemTabs {
     public static final DeferredRegister<CreativeModeTab> REGISTRY = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, MODID);
     public static final RegistryObject<CreativeModeTab> spudiversity = REGISTRY.register("spudiversity",
             () -> CreativeModeTab.builder()
+                    .withBackgroundLocation(Spudiversity.prefix("textures/gui/tab_item_search.png"))
                     .title(Component.translatable("item_group.spudiversity.spudiversity")).icon(Items.POTATO::getDefaultInstance)
                     .displayItems((parameters, tabData) -> {
                         if (ModList.get().isLoaded("twilightforest")){
@@ -39,6 +42,11 @@ public class SpItemTabs {
                         if (ModList.get().isLoaded("godfox")){
                             tabData.accept(SpGodFoxPotato.BloodFoxPotato.get());
                             tabData.accept(SpGodFoxPotato.SkyFoxPotato.get());
+                            tabData.accept(SpGodFoxPotato.AuspiciousPotato.get());
+                        }
+                        if (ModList.get().isLoaded("avaritia")){
+                            tabData.accept(SpAvaPotato.NeutroniumPotato.get());
+                            tabData.accept(SpAvaPotato.UniversePotato.get());
                         }
                     })
                     .build());

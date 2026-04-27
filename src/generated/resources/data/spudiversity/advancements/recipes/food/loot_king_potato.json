@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_loot_king_potato": {
+    "has_loot_potato": {
       "conditions": {
         "items": [
           {
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_loot_king_potato",
+      "has_loot_potato",
       "has_the_recipe"
     ]
   ],

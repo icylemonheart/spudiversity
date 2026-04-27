@@ -1,23 +1,17 @@
 package com.dinzeer.spudiversity.event.compat.iceandfire;
 
-import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.level.BlockEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Mod.EventBusSubscriber
 public class FireDragonPotatoEvents {

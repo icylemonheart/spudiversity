@@ -27,4 +27,9 @@ public class SpEffect {
     public static final RegistryObject<WaveBlood> WaveBlood = REGISTRY.register("wave_blood", WaveBlood::new);
     public static final RegistryObject<BloodKing> BloodKing = REGISTRY.register("blood_king", BloodKing::new);
     public static final RegistryObject<UndeadTransformationEffect> UndeadTransformationEffect = REGISTRY.register("undead_transformation_effect", UndeadTransformationEffect::new);
+    public static final RegistryObject<GlassType> GlassType = REGISTRY.register("glass_type", GlassType::new);
+    public static final RegistryObject<RadiantLight> RadiantLight = REGISTRY.register("radiant_light", RadiantLight::new);
+    public static final RegistryObject<InvisibleWaiting> InvisibleWaiting = REGISTRY.register("invisible_waiting", InvisibleWaiting::new);
+    public static final RegistryObject<BurnWithDawn> BurnWithDawn = REGISTRY.register("burn_with_dawn", BurnWithDawn::new);
+    public static final RegistryObject<Misty> Misty = REGISTRY.register("misty", Misty::new);
 }

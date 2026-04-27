@@ -4,6 +4,8 @@ import com.dinzeer.legendreliclib.effect.LReffect;
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.legendreliclib.lib.util.WaitingTick;
+import com.dinzeer.spudiversity.Item.speaical.TangxingPotato;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.dinzeer.spudiversity.regsitry.SpPotato;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -79,24 +82,45 @@ public class BuildPotato extends Item implements ICurioItem {
 
         return modifiers;
     }
-
+   public static int getThreshold(LivingEntity user){
+       if (user instanceof Player player){
+           player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
+               if (store.getActivePotato().equals("for_love")&&store.getActivePotatoOff().equals(TangxingPotato.CRYSTAL_TYPE)) {
+                   return;
+               }
+           });
+       }
+       return 70;
+   }
 
     @SubscribeEvent
     public static void OnLivingHurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof LivingEntity user){
-            if (event.getSource().is(DamageTypes.PLAYER_EXPLOSION))return;
+            if (!event.getSource().is(DamageTypes.PLAYER_ATTACK))return;
             if (CurioCompat.hasItemInCurio(user, SpPotato.BuildPotato.get())){
             List<LivingEntity> entityList =user.level().getEntitiesOfClass(LivingEntity.class, user.getBoundingBox().inflate(7));
             int i=0;
+
+                int threshold=getThreshold(user);
+
+
+
+
             for (LivingEntity entity : entityList){
                 i++;
+
+
+
+
+
+
                 WaitingTick.schedule(i, () -> {
-                    if (entity.getRandom().nextInt(100)>70){
+                    if (entity.getRandom().nextInt(100)>threshold){
                         if (entity==user){
                             return;
                         }
 
-                        FastMakeEntityUtil.FastHurt(entity, user, event.getAmount()*0.1f, DamageTypes.PLAYER_EXPLOSION);
+                        FastMakeEntityUtil.FastHurt(entity, user, event.getAmount()*0.01f, DamageTypes.PLAYER_EXPLOSION);
                         if (entity.level() instanceof ServerLevel serverLevel) {
                             // 横扫之刃粒子
                             serverLevel.sendParticles(

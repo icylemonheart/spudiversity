@@ -1,5 +1,6 @@
 package com.dinzeer.spudiversity.regsitry;
 
+import com.dinzeer.spudiversity.Item.EdelweissUpgradeTemplate;
 import com.dinzeer.spudiversity.Item.common.CopperPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.Item;
@@ -57,5 +58,29 @@ public class SpItem {
             )
             .tab(SpItemTabs.spudiversity.getKey())
             .defaultModel().defaultLang().register();
-    public static void register() {}
+    public static final RegistryEntry<Item> paper_plane = REGISTRATE.item(
+                    "paper_plane", Item::new
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item> the_end_core = REGISTRATE.item(
+                    "the_end_core", Item::new
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<EdelweissUpgradeTemplate> EdelweissUpgradeTemplate = REGISTRATE.item(
+                    "edelweiss_upgrade_template", p-> new EdelweissUpgradeTemplate()
+            ) .properties(p -> p.stacksTo(64)
+                    .rarity(Rarity.EPIC)
+            )
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static void register() {
+        SpPotato.ToolTipBlackList.add(EdelweissUpgradeTemplate);
+        SpPotato.ToolTipBlackList.add(paper_plane);
+    }
 }

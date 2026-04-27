@@ -7,6 +7,7 @@ import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -38,6 +39,11 @@ public class AnnoPotato extends Item {
                 .saturationMod(0.5f)
                 .alwaysEat()
                 .build()));
+    }
+
+    @Override
+    public SoundEvent getEatingSound() {
+        return  SpSounds.anno_happy.get();
     }
 
     @Override

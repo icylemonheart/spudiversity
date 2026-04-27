@@ -1,5 +1,5 @@
 // PlayerPermanentAbilities.java
-package com.dinzeer.spudiversity.capability;
+package com.dinzeer.spudiversity.capability.impl;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -17,6 +17,7 @@ public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
             CapabilityManager.get(new CapabilityToken<>() {});
 
     private String activePotato = "";
+    private String activePotatoOff = "";
 
     public String getActivePotato() {
         return activePotato;
@@ -25,11 +26,16 @@ public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
     public void setActivePotato(String crystalType) {
         this.activePotato = crystalType;
     }
+    public void setActivePotatoOff(String crystalType) {
+        this.activePotatoOff = crystalType;
+    }
+    public String getActivePotatoOff() {
+        return activePotatoOff;
+    }
 
     public void clearActivePotato() {
         this.activePotato = "";
     }
-
     public boolean hasActivePotato() {
         return !activePotato.isEmpty();
     }
@@ -38,12 +44,14 @@ public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
     public CompoundTag serializeNBT() {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("active_potato", activePotato);
+        nbt.putString("active_potato_off", activePotatoOff);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundTag nbt) {
         this.activePotato = nbt.getString("active_potato");
+        this.activePotatoOff = nbt.getString("active_potato_off");
     }
 
     public static class Provider implements ICapabilityProvider, INBTSerializable<CompoundTag> {

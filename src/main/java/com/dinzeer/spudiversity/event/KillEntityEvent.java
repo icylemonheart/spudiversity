@@ -1,18 +1,14 @@
 package com.dinzeer.spudiversity.event;
 
-import com.dinzeer.spudiversity.capability.PlayerKillBossAbilities;
-import com.dinzeer.spudiversity.capability.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.ElderGuardian;
-import net.minecraft.world.entity.monster.Guardian;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-
-import java.util.Optional;
 
 @Mod.EventBusSubscriber
 public class KillEntityEvent {

@@ -25,6 +25,12 @@ public class SpuNetwork {
                     SpawnEnderPaket::new,
                     SpawnEnderPaket::handle);
         }
+        if (ModList.get().isLoaded("botania")) {
+            INSTANCE.registerMessage(packetId++, SpawnTerraBladePaket.class,
+                    SpawnTerraBladePaket::encode,
+                    SpawnTerraBladePaket::new,
+                    SpawnTerraBladePaket::handle);
+        }
         INSTANCE.registerMessage(packetId++, PlayTotemAnimationPacket.class,
                 PlayTotemAnimationPacket::encode,
                 PlayTotemAnimationPacket::decode,

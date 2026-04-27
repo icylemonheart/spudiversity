@@ -20,7 +20,7 @@ public class BloodFoxEvent {
         if (event.getSource().getEntity() instanceof LivingEntity player){
         if (CurioCompat.hasItemInCurio(player, SpGodFoxPotato.BloodFoxPotato.get())){
           if (event.getSource().is(DamageTypes.MOB_ATTACK)||event.getSource().is(DamageTypes.PLAYER_ATTACK)){
-              FastMakeEntityUtil.FastHurt(event.getEntity(),player, event.getAmount(),DamageTypes.ON_FIRE);
+              FastMakeEntityUtil.FastHurt(event.getEntity(),player, event.getAmount(),DamageTypes.MAGIC);
               event.setAmount(0);
           }
               FastMakeEntityUtil.FastEffect(event.getEntity(), SpEffect.WaveBlood.get(), 1);

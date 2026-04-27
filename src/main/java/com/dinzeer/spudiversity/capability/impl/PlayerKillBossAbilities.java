@@ -1,5 +1,5 @@
 // PlayerPermanentAbilities.java
-package com.dinzeer.spudiversity.capability;
+package com.dinzeer.spudiversity.capability.impl;
 
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;

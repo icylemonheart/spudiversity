@@ -1,6 +1,8 @@
 // ModCapabilities.java
 package com.dinzeer.spudiversity.capability;
 
+import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
+import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

@@ -1,10 +1,14 @@
 package com.dinzeer.spudiversity;
 
 import com.dinzeer.godfox.Godfox;
+import com.dinzeer.spudiversity.Item.compat.avaritia.NeutroniumPotato;
+import com.dinzeer.spudiversity.Item.compat.avaritia.UniversePotato;
+import com.dinzeer.spudiversity.Item.compat.godfox.AuspiciousPotato;
 import com.dinzeer.spudiversity.Item.compat.slashblade.SlashBladeCompat;
 import com.dinzeer.spudiversity.Item.compat.tw.BloodPotato;
 import com.dinzeer.spudiversity.Item.compat.tw.DuskPotato;
 import com.dinzeer.spudiversity.data.SpCuriosTestProvider;
+import com.dinzeer.spudiversity.data.SpGlobalLootModifierProvider;
 import com.dinzeer.spudiversity.data.SpRecipeGen;
 import com.dinzeer.spudiversity.event.compat.godfox.BloodFoxEvent;
 import com.dinzeer.spudiversity.event.compat.godfox.SkyFoxPotatoEvent;
@@ -30,14 +34,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
-// The value here should match an entry in the META-INF/mods.toml file
 @Mod(Spudiversity.MODID)
 @Mod.EventBusSubscriber
 public class Spudiversity {
 
-    // Define mod id in a common place for everything to reference
     public static final String MODID = "spudiversity";
-    // Directly reference a slf4j logger
     private static final Logger LOGGER = LogUtils.getLogger();
     public static final Registrate REGISTRATE = Registrate.create(MODID);
 
@@ -48,7 +49,6 @@ public class Spudiversity {
     public Spudiversity() {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        // 注册创造模式标签页
         SpItemTabs.register(modEventBus);
         SpPotato.register();
         SpEffect.REGISTRY.register(modEventBus);
@@ -57,6 +57,7 @@ public class Spudiversity {
         LangUtil.init();
         SpEntities.ENTITIES.register(modEventBus);
         SpItem.register();
+        SpLootModifiers.LOOT_MODIFIER_SERIALIZERS.register(modEventBus);
         if (ModList.get().isLoaded("slashblade")) {
             MinecraftForge.EVENT_BUS.addListener(SlashBladeCompat::DoslashBlade);
         }
@@ -68,6 +69,7 @@ public class Spudiversity {
         if (ModList.get().isLoaded(Godfox.MODID)) {
             MinecraftForge.EVENT_BUS.register(BloodFoxEvent.class);
             MinecraftForge.EVENT_BUS.register(SkyFoxPotatoEvent.class);
+            MinecraftForge.EVENT_BUS.register(AuspiciousPotato.class);
             MinecraftForge.EVENT_BUS.addListener(SlashBladeCompat::BladeStandHit);
         }
         if (ModList.get().isLoaded("iceandfire")){
@@ -78,9 +80,12 @@ public class Spudiversity {
         }
         SpuNetwork.register();
         SpSounds.REGISTRY.register(modEventBus);
+        SpAvaPotato.register();
 
-
-
+        if (ModList.get().isLoaded("avaritia")) {
+            MinecraftForge.EVENT_BUS.register(NeutroniumPotato.class);
+            MinecraftForge.EVENT_BUS.register(UniversePotato.class);
+        }
 //        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 
@@ -99,6 +104,8 @@ public class Spudiversity {
                         event.getLookupProvider()
                 )
         );
+        event.getGenerator().addProvider(event.includeServer(), new SpGlobalLootModifierProvider(event.getGenerator().getPackOutput()));
         REGISTRATE.addDataGenerator(ProviderType.RECIPE, SpRecipeGen::buildRecipes);
+        REGISTRATE.addDataGenerator(ProviderType.RECIPE, SpRecipeGen::onRecipeGen);
     }
 }
