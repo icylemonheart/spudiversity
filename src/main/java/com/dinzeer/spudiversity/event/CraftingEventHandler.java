@@ -3,6 +3,7 @@ package com.dinzeer.spudiversity.event;
 
 import com.dinzeer.spudiversity.regsitry.SpTwPotato;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
@@ -28,7 +29,7 @@ public class CraftingEventHandler {
     public static void onItemCrafted(PlayerEvent.ItemCraftedEvent event) {
         Player player = event.getEntity();
         ItemStack crafted = event.getCrafting();
-        CraftingContainer craftingInventory = (CraftingContainer) event.getInventory();
+        Container craftingInventory = event.getInventory();
         if(!ModList.get().isLoaded("twilightforest")){return;}
         if (crafted.getItem() == SpTwPotato.FortificationWandPotato.get()) {
             returnDiamonds(player, craftingInventory, TFItems.FORTIFICATION_SCEPTER.get());
@@ -43,7 +44,7 @@ public class CraftingEventHandler {
         }
     }
     
-    private static void returnDiamonds(Player player, CraftingContainer craftingInventory, Item item) {
+    private static void returnDiamonds(Player player, Container craftingInventory, Item item) {
 
         int ToReturn = 0;
         

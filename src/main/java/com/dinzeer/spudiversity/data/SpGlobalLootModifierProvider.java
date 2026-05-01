@@ -23,9 +23,9 @@ public class SpGlobalLootModifierProvider extends GlobalLootModifierProvider {
         String endCityTreasureLootTable = "chests/end_city_treasure";
         LootItemCondition.Builder condition = LootTableIdCondition.builder(ResourceLocation.parse(endCityTreasureLootTable));
         Item template = SpItem.EdelweissUpgradeTemplate.get();
-        add("end_city_netherite_upgrade_template",
+        add("end_city_upgrade_template",
                 new CustomAddTemplateModifier(new LootItemCondition[] { condition.build() }, template, 1, 1,0.18f));
-        add("end_city_netherite_upgrade_template",
+        add("end_city_bake_potato",
                 new CustomAddTemplateModifier(new LootItemCondition[] { condition.build() }, Items.BAKED_POTATO, 1, 16,0.2f));
 
 
