@@ -21,26 +21,38 @@ public class Misty extends MobEffect {
 
 
 
-
-
-
     @SubscribeEvent
     public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
-        LivingEntity target = event.getNewTarget();
+        LivingEntity newTarget = event.getNewTarget();
+        if (newTarget == null) return;
 
-        if (target == null) return;
-
-
-        if (target.hasEffect(SpEffect.Misty.get())) {
+        if (newTarget.hasEffect(SpEffect.Misty.get())) {
             LivingEntity attacker = event.getEntity();
-
-
             if (!attacker.getType().is(Tags.EntityTypes.BOSSES)) {
-
-                event.setNewTarget(null);
+                // 取消本次目标变更，而不是设为 null
+                event.setCanceled(true);
             }
-
-
         }
     }
+
+//
+//    @SubscribeEvent
+//    public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
+//        LivingEntity target = event.getNewTarget();
+//
+//        if (target == null) return;
+//
+//
+//        if (target.hasEffect(SpEffect.Misty.get())) {
+//            LivingEntity attacker = event.getEntity();
+//
+//
+//            if (!attacker.getType().is(Tags.EntityTypes.BOSSES)) {
+//
+//                event.setNewTarget(null);
+//            }
+//
+//
+//        }
+//    }
 }

@@ -170,7 +170,7 @@ public class TangxingPotato extends Item {
                 Component.literal("「Alt」").withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.DARK_RED));
         }
         if (Screen.hasShiftDown()) {
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < 3; i++) {
                 tooltip.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, i+8))
                         .withStyle(ChatFormatting.RED));
             }
