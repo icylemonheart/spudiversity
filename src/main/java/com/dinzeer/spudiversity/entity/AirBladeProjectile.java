@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.entity;
 
-import com.dinzeer.spudiversity.regsitry.SpEntities;
+import com.dinzeer.spudiversity.registry.SpEntities;
 import com.dinzeer.spudiversity.util.ProjectileUtil;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
@@ -10,7 +10,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;

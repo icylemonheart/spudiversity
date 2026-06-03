@@ -1,9 +1,8 @@
-package com.dinzeer.spudiversity.Item.curios;
+package com.dinzeer.spudiversity.item.curios;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.entity.AirBladeProjectile;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
-import mods.flammpfeil.slashblade.event.SlashBladeEvent;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;

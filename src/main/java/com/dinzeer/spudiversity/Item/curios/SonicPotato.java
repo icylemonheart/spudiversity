@@ -1,9 +1,9 @@
-package com.dinzeer.spudiversity.Item.curios;
+package com.dinzeer.spudiversity.item.curios;
 
 import com.dinzeer.legendreliclib.lib.key.LRModKeyMappings;
 import com.dinzeer.legendreliclib.lib.key.SpecialTypeKeyEvent;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.CurioUtil;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;

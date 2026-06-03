@@ -1,6 +1,6 @@
-package com.dinzeer.spudiversity.Item.ex;
+package com.dinzeer.spudiversity.item.ex;
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;

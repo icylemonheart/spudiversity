@@ -1,10 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
-import com.dinzeer.spudiversity.util.DeathPreventionHandler;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -13,8 +10,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

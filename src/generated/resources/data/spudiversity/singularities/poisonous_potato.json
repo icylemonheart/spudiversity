@@ -1,0 +1,14 @@
+{
+  "conditions": [],
+  "count": 1000,
+  "displayName": "singularity.spudiversity.poisonous_potato",
+  "enabled": true,
+  "ingredient": {
+    "item": "minecraft:poisonous_potato"
+  },
+  "name": "spudiversity:poisonous_potato",
+  "overlayColor": "765f2f",
+  "recipeDisabled": true,
+  "timeCost": 240,
+  "underlayColor": "315321"
+}

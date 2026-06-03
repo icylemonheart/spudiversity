@@ -1,0 +1,34 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "avaritia"
+        }
+      ],
+      "recipe": {
+        "type": "minecraft:crafting_shaped",
+        "category": "misc",
+        "key": {
+          "D": {
+            "item": "avaritia:infinity_ingot"
+          },
+          "P": {
+            "item": "spudiversity:cook_cooked_potato"
+          }
+        },
+        "pattern": [
+          "DDD",
+          "DPD",
+          "DDD"
+        ],
+        "result": {
+          "item": "spudiversity:universe_potato"
+        },
+        "show_notification": true
+      }
+    }
+  ]
+}

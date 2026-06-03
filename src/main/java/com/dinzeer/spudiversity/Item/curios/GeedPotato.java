@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.curios;
+package com.dinzeer.spudiversity.item.curios;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import net.minecraft.server.level.ServerPlayer;

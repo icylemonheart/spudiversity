@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "spudiversity:gold_potato"
+    },
+    "S": {
+      "item": "minecraft:brewing_stand"
+    }
+  },
+  "pattern": [
+    "SSS",
+    "SPS",
+    "SSS"
+  ],
+  "result": {
+    "item": "spudiversity:alchemist_potato"
+  },
+  "show_notification": true
+}

@@ -2,6 +2,10 @@ package com.dinzeer.spudiversity.event;
 
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.network.SpuNetwork;
+import com.dinzeer.spudiversity.network.SyncKillBossAbilitiesPacket;
+import com.dinzeer.spudiversity.network.SyncPermanentAbilitiesPacket;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -16,22 +20,47 @@ import java.util.UUID;
 @Mod.EventBusSubscriber
 public class PlayerEventHandler {
     private static final UUID DEFENSE_BOOST_UUID = UUID.nameUUIDFromBytes("DRAGON_POTATO".getBytes());
+
+    @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncCapabilities(serverPlayer);
+        }
+    }
+
     @SubscribeEvent
     public static void onPlayerClone(PlayerEvent.Clone event) {
-
         event.getOriginal().reviveCaps();
-      event.getOriginal().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(oldStore -> {
-          event.getEntity().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(newStore -> {
-              newStore.deserializeNBT(oldStore.serializeNBT());
-          });
-      });
+        event.getOriginal().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(oldStore -> {
+            event.getEntity().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(newStore -> {
+                newStore.deserializeNBT(oldStore.serializeNBT());
+            });
+        });
         event.getOriginal().getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(oldStore -> {
             event.getEntity().getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(newStore -> {
                 newStore.deserializeNBT(oldStore.serializeNBT());
             });
         });
         event.getOriginal().invalidateCaps();
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncCapabilities(serverPlayer);
+        }
+    }
 
+    @SubscribeEvent
+    public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer serverPlayer) {
+            syncCapabilities(serverPlayer);
+        }
+    }
+
+    public static void syncCapabilities(ServerPlayer player) {
+        player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(cap ->
+                SpuNetwork.sendToPlayer(new SyncPermanentAbilitiesPacket(player, cap.serializeNBT()), player)
+        );
+        player.getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(cap ->
+                SpuNetwork.sendToPlayer(new SyncKillBossAbilitiesPacket(player, cap.serializeNBT()), player)
+        );
     }
 
 @SubscribeEvent

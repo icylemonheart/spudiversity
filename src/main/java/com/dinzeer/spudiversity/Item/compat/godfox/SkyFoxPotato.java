@@ -1,6 +1,6 @@
-package com.dinzeer.spudiversity.Item.compat.godfox;
+package com.dinzeer.spudiversity.item.compat.godfox;
 
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
+import com.dinzeer.spudiversity.registry.SpGodFoxPotato;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;

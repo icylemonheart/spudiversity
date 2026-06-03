@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.mixin;
 
-import com.dinzeer.spudiversity.Item.cappotato.AlchemistPotato;
+import com.dinzeer.spudiversity.item.cappotato.AlchemistPotato;
 import com.dinzeer.spudiversity.capability.impl.AlchemistPotatoCapability;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;

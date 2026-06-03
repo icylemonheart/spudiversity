@@ -1,12 +1,7 @@
 package com.dinzeer.spudiversity.mixin;
 
-import com.dinzeer.spudiversity.effect.FurnaceBlessing;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import net.minecraft.core.BlockPos;
-import net.minecraft.server.level.ServerPlayerGameMode;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.util.Mth;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.trading.MerchantOffer;
@@ -14,7 +9,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Villager.class)
 public class VillagerMixin {

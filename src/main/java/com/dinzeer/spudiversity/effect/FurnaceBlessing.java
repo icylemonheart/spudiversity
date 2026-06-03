@@ -15,7 +15,7 @@ import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 
 import java.util.*;
 

@@ -1,10 +1,10 @@
-package com.dinzeer.spudiversity.Item.speaical;
+package com.dinzeer.spudiversity.item.speaical;
 
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.Item.PotatoItemBase;
+import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;

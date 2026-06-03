@@ -1,9 +1,9 @@
-package com.dinzeer.spudiversity.Item.compat.slashblade;
+package com.dinzeer.spudiversity.item.compat.slashblade;
 
-import com.dinzeer.spudiversity.Item.common.DiamondPotato;
-import com.dinzeer.spudiversity.Item.common.EmeraldPotato;
-import com.dinzeer.spudiversity.Item.curios.MysteriousPotato;
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
+import com.dinzeer.spudiversity.item.common.DiamondPotato;
+import com.dinzeer.spudiversity.item.common.EmeraldPotato;
+import com.dinzeer.spudiversity.item.curios.MysteriousPotato;
+import com.dinzeer.spudiversity.registry.SpGodFoxPotato;
 import mods.flammpfeil.slashblade.event.SlashBladeEvent;
 import net.minecraft.world.entity.player.Player;
 

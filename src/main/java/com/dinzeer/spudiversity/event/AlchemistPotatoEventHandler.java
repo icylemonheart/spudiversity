@@ -4,7 +4,7 @@ package com.dinzeer.spudiversity.event;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.capability.impl.AlchemistPotatoCapability;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;

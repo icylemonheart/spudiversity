@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.compat.botania;
+package com.dinzeer.spudiversity.item.compat.botania;
 
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;

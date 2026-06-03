@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;

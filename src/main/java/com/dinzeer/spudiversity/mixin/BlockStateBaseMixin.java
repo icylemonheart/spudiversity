@@ -1,13 +1,12 @@
 package com.dinzeer.spudiversity.mixin;
 
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;

@@ -1,13 +1,7 @@
-package com.dinzeer.spudiversity.Item.compat.tw;
+package com.dinzeer.spudiversity.item.compat.tw;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.legendreliclib.lib.util.WaitingTick;
-import com.dinzeer.spudiversity.Item.curios.UndyingPotato;
-import com.dinzeer.spudiversity.network.PlayTotemAnimationPacket;
-import com.dinzeer.spudiversity.network.SpuNetwork;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
 import com.dinzeer.spudiversity.util.CurioUtil;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -16,7 +10,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.network.PacketDistributor;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
@@ -68,7 +61,7 @@ public class BloodPotato extends Item implements ICurioItem {
             if (playerEntity.getCooldowns().isOnCooldown(ItemStack.getItem())) {
                 return;
             }else {
-                playerEntity.getCooldowns().addCooldown(ItemStack.getItem(), 60);
+                playerEntity.getCooldowns().addCooldown(ItemStack.getItem(), 60*20);
             }
         }
 

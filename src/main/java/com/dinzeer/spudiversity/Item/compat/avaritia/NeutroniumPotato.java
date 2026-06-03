@@ -1,10 +1,10 @@
-package com.dinzeer.spudiversity.Item.compat.avaritia;
+package com.dinzeer.spudiversity.item.compat.avaritia;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.regsitry.SpAvaPotato;
+import com.dinzeer.spudiversity.registry.SpAvaPotato;
 import com.dinzeer.spudiversity.util.lang.CnLangUtil;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
@@ -18,8 +18,6 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

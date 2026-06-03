@@ -3,21 +3,15 @@ package com.dinzeer.spudiversity.event.compat.godfox;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
+import com.dinzeer.spudiversity.registry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpGodFoxPotato;
 import mods.flammpfeil.slashblade.event.SlashBladeEvent;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.ItemAttributeModifierEvent;
 import net.minecraftforge.event.entity.living.LivingHealEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-
-import java.util.UUID;
 
 public class SkyFoxPotatoEvent {
 

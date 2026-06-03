@@ -1,7 +1,7 @@
 package com.dinzeer.spudiversity.mixin;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
-import com.dinzeer.spudiversity.regsitry.SpAvaPotato;
+import com.dinzeer.spudiversity.registry.SpAvaPotato;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;

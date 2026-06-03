@@ -1,10 +1,9 @@
-package com.dinzeer.spudiversity.Item.ex;
+package com.dinzeer.spudiversity.item.ex;
 
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;

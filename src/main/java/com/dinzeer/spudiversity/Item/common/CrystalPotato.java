@@ -1,9 +1,7 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
-import com.dinzeer.spudiversity.Item.PotatoItemBase;
+import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
-import com.dinzeer.spudiversity.util.DeathPreventionHandler;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;

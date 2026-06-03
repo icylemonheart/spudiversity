@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:ender_pearl"
+    },
+    "C": {
+      "item": "spudiversity:blaze_potato"
+    },
+    "D": {
+      "item": "spudiversity:coal_potatoes"
+    },
+    "E": {
+      "item": "spudiversity:obsidian_potato"
+    },
+    "F": {
+      "item": "spudiversity:cook_cooked_potato"
+    }
+  },
+  "pattern": [
+    "A A",
+    "CDE",
+    "FFF"
+  ],
+  "result": {
+    "item": "spudiversity:ember_potato"
+  },
+  "show_notification": true
+}

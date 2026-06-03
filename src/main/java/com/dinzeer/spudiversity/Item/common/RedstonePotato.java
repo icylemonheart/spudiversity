@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;

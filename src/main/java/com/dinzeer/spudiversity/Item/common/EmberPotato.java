@@ -1,10 +1,7 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpSounds;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffects;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;

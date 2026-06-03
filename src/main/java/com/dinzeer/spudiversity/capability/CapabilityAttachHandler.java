@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.capability;
 
-import com.dinzeer.spudiversity.Item.cappotato.AlchemistPotato;
+import com.dinzeer.spudiversity.item.cappotato.AlchemistPotato;
 import com.dinzeer.spudiversity.capability.impl.AlchemistPotatoCapability;
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
@@ -28,7 +28,7 @@ public class CapabilityAttachHandler {
         }
     }
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
         if (event.getObject().getItem() instanceof AlchemistPotato) {
             event.addCapability(new ResourceLocation(MODID, "alchemist_potato_cap"),
                     new AlchemistPotatoCapability.Provider());

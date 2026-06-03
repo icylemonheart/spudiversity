@@ -1,9 +1,7 @@
-package com.dinzeer.spudiversity.Item.curios;
+package com.dinzeer.spudiversity.item.curios;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
-import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
-import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;

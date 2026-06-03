@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.ex;
+package com.dinzeer.spudiversity.item.ex;
 
 import com.dinzeer.legendreliclib.lib.util.WaitingTick;
 import net.minecraft.world.entity.LivingEntity;

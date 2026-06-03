@@ -1,7 +1,7 @@
-package com.dinzeer.spudiversity.Item.ex;
+package com.dinzeer.spudiversity.item.ex;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.resources.ResourceLocation;

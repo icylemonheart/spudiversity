@@ -1,10 +1,11 @@
 package com.dinzeer.spudiversity.network;
 
-
 import com.dinzeer.spudiversity.Spudiversity;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkRegistry;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public class SpuNetwork {
@@ -15,10 +16,18 @@ public class SpuNetwork {
             PROTOCOL_VERSION::equals,
             PROTOCOL_VERSION::equals
     );
-    
-    public static int packetId = 0;
-    
+
+    private static int packetId = 0;
+
     public static void register() {
+        INSTANCE.registerMessage(packetId++, SyncPermanentAbilitiesPacket.class,
+                SyncPermanentAbilitiesPacket::encode,
+                SyncPermanentAbilitiesPacket::decode,
+                SyncPermanentAbilitiesPacket::handle);
+        INSTANCE.registerMessage(packetId++, SyncKillBossAbilitiesPacket.class,
+                SyncKillBossAbilitiesPacket::encode,
+                SyncKillBossAbilitiesPacket::decode,
+                SyncKillBossAbilitiesPacket::handle);
         if (ModList.get().isLoaded("twilightforest")) {
             INSTANCE.registerMessage(packetId++, SpawnEnderPaket.class,
                     SpawnEnderPaket::encode,
@@ -36,8 +45,12 @@ public class SpuNetwork {
                 PlayTotemAnimationPacket::decode,
                 PlayTotemAnimationPacket::handle);
     }
-    
+
     public static void sendToServer(Object msg) {
         INSTANCE.sendToServer(msg);
+    }
+
+    public static void sendToPlayer(Object msg, ServerPlayer player) {
+        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), msg);
     }
 }

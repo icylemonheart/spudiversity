@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "minecraft:baked_potato"
+    },
+    "S": {
+      "item": "minecraft:lava_bucket"
+    },
+    "s": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "pattern": [
+    "SsS",
+    "sPs",
+    "SsS"
+  ],
+  "result": {
+    "item": "spudiversity:misty_potato"
+  },
+  "show_notification": true
+}

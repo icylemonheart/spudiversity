@@ -1,6 +1,6 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.food.FoodProperties;
 // 新增抗性效果所需的导入

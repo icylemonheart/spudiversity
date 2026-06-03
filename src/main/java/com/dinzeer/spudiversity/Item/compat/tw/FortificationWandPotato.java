@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.compat.tw;
+package com.dinzeer.spudiversity.item.compat.tw;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;

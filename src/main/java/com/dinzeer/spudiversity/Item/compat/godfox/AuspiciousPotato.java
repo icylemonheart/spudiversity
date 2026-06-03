@@ -1,11 +1,11 @@
-package com.dinzeer.spudiversity.Item.compat.godfox;
+package com.dinzeer.spudiversity.item.compat.godfox;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
+import com.dinzeer.spudiversity.registry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpGodFoxPotato;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
 import mods.flammpfeil.slashblade.event.SlashBladeEvent;

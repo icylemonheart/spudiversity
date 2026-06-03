@@ -1,6 +1,6 @@
-package com.dinzeer.spudiversity.Item.speaical;
+package com.dinzeer.spudiversity.item.speaical;
 
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;

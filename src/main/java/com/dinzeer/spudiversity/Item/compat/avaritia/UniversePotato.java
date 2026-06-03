@@ -1,13 +1,12 @@
-package com.dinzeer.spudiversity.Item.compat.avaritia;
+package com.dinzeer.spudiversity.item.compat.avaritia;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.Item.PotatoItemBase;
+import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.regsitry.SpAvaPotato;
+import com.dinzeer.spudiversity.registry.SpAvaPotato;
 import com.dinzeer.spudiversity.util.lang.CnLangUtil;
-import committee.nova.mods.avaritia.common.item.tools.infinity.InfinitySwordItem;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -23,7 +22,6 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;

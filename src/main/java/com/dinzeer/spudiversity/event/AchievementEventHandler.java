@@ -1,7 +1,7 @@
 // 创建一个新文件：AchievementEventHandler.java
 package com.dinzeer.spudiversity.event;
 
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;

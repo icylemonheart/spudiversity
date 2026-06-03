@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.util.lang;
 
-import com.dinzeer.spudiversity.regsitry.*;
+import com.dinzeer.spudiversity.registry.*;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.world.item.Item;
 

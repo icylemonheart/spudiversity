@@ -1,5 +1,5 @@
 // AlchemistPotatoItem.java
-package com.dinzeer.spudiversity.Item.cappotato;
+package com.dinzeer.spudiversity.item.cappotato;
 
 
 import com.dinzeer.spudiversity.capability.impl.AlchemistPotatoCapability;

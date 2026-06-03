@@ -1,7 +1,5 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.legendreliclib.effect.LReffect;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;

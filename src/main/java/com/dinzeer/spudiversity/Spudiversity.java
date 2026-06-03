@@ -1,21 +1,19 @@
 package com.dinzeer.spudiversity;
 
 import com.dinzeer.godfox.Godfox;
-import com.dinzeer.spudiversity.Item.compat.avaritia.NeutroniumPotato;
-import com.dinzeer.spudiversity.Item.compat.avaritia.UniversePotato;
-import com.dinzeer.spudiversity.Item.compat.godfox.AuspiciousPotato;
-import com.dinzeer.spudiversity.Item.compat.slashblade.SlashBladeCompat;
-import com.dinzeer.spudiversity.Item.compat.tw.BloodPotato;
-import com.dinzeer.spudiversity.Item.compat.tw.DuskPotato;
+import com.dinzeer.spudiversity.item.compat.avaritia.NeutroniumPotato;
+import com.dinzeer.spudiversity.item.compat.avaritia.UniversePotato;
+import com.dinzeer.spudiversity.item.compat.godfox.AuspiciousPotato;
+import com.dinzeer.spudiversity.item.compat.slashblade.SlashBladeCompat;
+import com.dinzeer.spudiversity.item.compat.tw.BloodPotato;
+import com.dinzeer.spudiversity.item.compat.tw.DuskPotato;
 import com.dinzeer.spudiversity.data.SpCuriosTestProvider;
 import com.dinzeer.spudiversity.data.SpGlobalLootModifierProvider;
 import com.dinzeer.spudiversity.data.SpRecipeGen;
 import com.dinzeer.spudiversity.event.compat.godfox.BloodFoxEvent;
 import com.dinzeer.spudiversity.event.compat.godfox.SkyFoxPotatoEvent;
-import com.dinzeer.spudiversity.network.PlayTotemAnimationPacket;
 import com.dinzeer.spudiversity.network.SpuNetwork;
-import com.dinzeer.spudiversity.regsitry.*;
-import com.dinzeer.spudiversity.util.lang.CnLangUtil;
+import com.dinzeer.spudiversity.registry.*;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import com.mojang.logging.LogUtils;
 import com.tterrag.registrate.Registrate;
@@ -23,15 +21,10 @@ import com.tterrag.registrate.providers.ProviderType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.simple.SimpleChannel;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.slf4j.Logger;
 
 @Mod(Spudiversity.MODID)

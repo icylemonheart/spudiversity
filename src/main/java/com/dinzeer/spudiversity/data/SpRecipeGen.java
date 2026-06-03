@@ -1,12 +1,10 @@
 package com.dinzeer.spudiversity.data;
 
-import com.dinzeer.spudiversity.regsitry.*;
+import com.dinzeer.spudiversity.registry.*;
 import com.github.alexthe666.iceandfire.item.IafItemRegistry;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
 import com.tterrag.registrate.util.DataIngredient;
-import committee.nova.mods.avaritia.Avaritia;
 import committee.nova.mods.avaritia.init.data.provider.recipe.ModShapedRecipeBuilder;
-import committee.nova.mods.avaritia.init.registry.ModBlocks;
 import committee.nova.mods.avaritia.init.registry.ModItems;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;

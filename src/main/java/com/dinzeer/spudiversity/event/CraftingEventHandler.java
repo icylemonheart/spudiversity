@@ -1,24 +1,17 @@
 // 文件：CraftingEventHandler.java
 package com.dinzeer.spudiversity.event;
 
-import com.dinzeer.spudiversity.regsitry.SpTwPotato;
-import net.minecraft.resources.ResourceLocation;
+import com.dinzeer.spudiversity.registry.SpTwPotato;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.crafting.CraftingRecipe;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import twilightforest.init.TFItems;
-
-import java.util.List;
-import java.util.Optional;
 
 @Mod.EventBusSubscriber
 public class CraftingEventHandler {

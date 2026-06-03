@@ -1,10 +1,10 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpItem;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpItem;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -37,6 +37,20 @@ public class SakuraPotato extends Item {
                         player.getOffhandItem().shrink(1);
                         FastMakeEntityUtil.FastHurt(player,player,player.getMaxHealth()*0.1f, DamageTypes.FELL_OUT_OF_WORLD);
                         serverPlayer.experienceLevel= serverPlayer.experienceLevel-30;
+
+
+
+
+
+
+
+
+
+                        ItemStack resultStack = new ItemStack(SpPotato.TangxingPotato.get(), 1);
+                        if (!serverPlayer.getInventory().add(resultStack)) {
+                            serverPlayer.drop(resultStack, false);
+                        }
+
                     }
                 }
             }

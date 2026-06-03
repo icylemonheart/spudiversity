@@ -1,6 +1,6 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import com.dinzeer.spudiversity.util.ILevel;
 import com.dinzeer.spudiversity.util.Returnner;
 import net.minecraft.world.effect.MobEffect;

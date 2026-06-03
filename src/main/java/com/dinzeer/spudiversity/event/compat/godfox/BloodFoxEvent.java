@@ -2,9 +2,9 @@ package com.dinzeer.spudiversity.event.compat.godfox;
 
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import com.dinzeer.spudiversity.regsitry.SpGodFoxPotato;
-import com.dinzeer.spudiversity.regsitry.SpStackReg;
+import com.dinzeer.spudiversity.registry.SpEffect;
+import com.dinzeer.spudiversity.registry.SpGodFoxPotato;
+import com.dinzeer.spudiversity.registry.SpStackReg;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;

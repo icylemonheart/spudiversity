@@ -1,6 +1,5 @@
 package com.dinzeer.spudiversity.effect;
 
-import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -8,14 +7,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
 // 新增导入
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import com.dinzeer.spudiversity.regsitry.SpEffect; // 新增导入
+import com.dinzeer.spudiversity.registry.SpEffect; // 新增导入
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;

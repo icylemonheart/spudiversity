@@ -1,11 +1,12 @@
-package com.dinzeer.spudiversity.Item.speaical;
+package com.dinzeer.spudiversity.item.speaical;
 
 import com.dinzeer.legendreliclib.lib.util.ArmorPiercingUtil;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.event.PlayerEventHandler;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.FlightUtil;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
@@ -14,9 +15,7 @@ import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
@@ -29,11 +28,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
@@ -56,12 +54,11 @@ public class TangxingPotato extends Item {
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity entity) {
-        if (entity instanceof Player player) {
+        if (entity instanceof net.minecraft.server.level.ServerPlayer player) {
             player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(abilities -> {
                 abilities.setActivePotatoOff(CRYSTAL_TYPE);
             });
-            
-
+            PlayerEventHandler.syncCapabilities(player);
             
             if (!player.getAbilities().instabuild) {
                 stack.shrink(1);
@@ -113,7 +110,7 @@ public class TangxingPotato extends Item {
 
 
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onLivingHurt(LivingHurtEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
             player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
@@ -129,6 +126,18 @@ public class TangxingPotato extends Item {
             player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
                 if (store.getActivePotatoOff().equals(CRYSTAL_TYPE)) {
                     if (event.getSource().is(DamageTypes.ON_FIRE)){
+                        event.setAmount(0);
+                    }
+                    if (event.getSource().is(DamageTypes.IN_FIRE)){
+                        event.setAmount(0);
+                    }
+                    if (event.getSource().is(DamageTypes.LAVA)){
+                        event.setAmount(0);
+                    }
+                    if (event.getSource().is(DamageTypes.UNATTRIBUTED_FIREBALL)){
+                        event.setAmount(0);
+                    }
+                    if (event.getSource().is(DamageTypes.FIREBALL)){
                         event.setAmount(0);
                     }
                 }

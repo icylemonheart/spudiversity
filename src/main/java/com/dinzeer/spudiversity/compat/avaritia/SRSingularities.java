@@ -2,7 +2,7 @@ package com.dinzeer.spudiversity.compat.avaritia;
 
 
 import com.dinzeer.spudiversity.Spudiversity;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import committee.nova.mods.avaritia.core.singularity.Singularity;
 import net.minecraft.world.item.Item;

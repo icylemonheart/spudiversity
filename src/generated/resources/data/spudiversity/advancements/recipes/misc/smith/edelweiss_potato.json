@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_paper_plane": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "spudiversity:paper_plane"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "spudiversity:smith/edelweiss_potato"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_paper_plane",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "spudiversity:smith/edelweiss_potato"
+    ]
+  },
+  "sends_telemetry_event": false
+}

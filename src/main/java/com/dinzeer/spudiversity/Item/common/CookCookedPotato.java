@@ -1,4 +1,4 @@
-package com.dinzeer.spudiversity.Item.common;
+package com.dinzeer.spudiversity.item.common;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import net.minecraft.world.InteractionHand;

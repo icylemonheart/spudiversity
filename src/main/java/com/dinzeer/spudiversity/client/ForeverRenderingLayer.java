@@ -2,9 +2,9 @@
 package com.dinzeer.spudiversity.client;
 
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.regsitry.SpAvaPotato;
-import com.dinzeer.spudiversity.regsitry.SpICFPotato;
-import com.dinzeer.spudiversity.regsitry.SpPotato;
+import com.dinzeer.spudiversity.registry.SpAvaPotato;
+import com.dinzeer.spudiversity.registry.SpICFPotato;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;

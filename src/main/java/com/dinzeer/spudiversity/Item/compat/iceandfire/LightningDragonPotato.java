@@ -1,7 +1,7 @@
-package com.dinzeer.spudiversity.Item.compat.iceandfire;
+package com.dinzeer.spudiversity.item.compat.iceandfire;
 
-import com.dinzeer.spudiversity.Item.PotatoItemBase;
-import com.dinzeer.spudiversity.regsitry.SpICFPotato;
+import com.dinzeer.spudiversity.item.base.PotatoItemBase;
+import com.dinzeer.spudiversity.registry.SpICFPotato;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;

@@ -1,11 +1,9 @@
 package com.dinzeer.spudiversity.effect;
 
-import com.dinzeer.spudiversity.regsitry.SpEffect;
-import net.minecraft.tags.EntityTypeTags;
+import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobType;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

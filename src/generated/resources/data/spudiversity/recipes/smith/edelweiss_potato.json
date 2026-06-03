@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "spudiversity:paper_plane"
+  },
+  "base": {
+    "item": "spudiversity:diamond_potato"
+  },
+  "result": {
+    "item": "spudiversity:edelweiss_potato"
+  },
+  "template": {
+    "item": "spudiversity:edelweiss_upgrade_template"
+  }
+}

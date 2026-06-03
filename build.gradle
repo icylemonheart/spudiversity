@@ -194,7 +194,7 @@ dependencies {
     implementation fg.deobf("curse.maven:architectury-api-419699:5137938")
     implementation fg.deobf("curse.maven:embeddium-908741:5681725")
     implementation fg.deobf("curse.maven:oculus-581495:6020952")
-    implementation fg.deobf("curse.maven:projecte-226410:4901949")
+//    implementation fg.deobf("curse.maven:projecte-226410:4901949")
     //REG
     implementation fg.deobf("com.tterrag.registrate:Registrate:${registrate_version}")
     if (rootMod.toBoolean()) {

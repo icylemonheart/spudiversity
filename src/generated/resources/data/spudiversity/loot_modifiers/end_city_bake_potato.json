@@ -1,0 +1,13 @@
+{
+  "type": "spudiversity:custom_add_template",
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/end_city_treasure"
+    }
+  ],
+  "item": "minecraft:baked_potato",
+  "max_count": 16,
+  "min_count": 1,
+  "weight": 0.2
+}

@@ -3,7 +3,7 @@ package com.dinzeer.spudiversity.data;
 import com.dinzeer.spudiversity.Spudiversity;
 
 import com.dinzeer.spudiversity.data.loot.CustomAddTemplateModifier;
-import com.dinzeer.spudiversity.regsitry.SpItem;
+import com.dinzeer.spudiversity.registry.SpItem;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
