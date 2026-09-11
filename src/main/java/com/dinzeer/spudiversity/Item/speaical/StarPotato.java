@@ -5,8 +5,10 @@ import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
 import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.dinzeer.spudiversity.registry.SpPotato;
+import com.dinzeer.spudiversity.util.PerpetualPotatoes;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
@@ -54,28 +56,40 @@ public class StarPotato extends PotatoItemBase {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        if (Screen.hasAltDown()){
-            for (int i = 0; i < 7; i++){
-                tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato,i)).withStyle(ChatFormatting.LIGHT_PURPLE));
-            }
-            tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato,7),
-                    returnName(itemStack)
-                    ).withStyle(ChatFormatting.LIGHT_PURPLE));
-        }else {
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt",
-                    Component.literal("Alt").withStyle(ChatFormatting.LIGHT_PURPLE)).withStyle(ChatFormatting.DARK_PURPLE));
+        tooltipList.add(PerpetualPotatoes.tag());
+        for (int i = 0; i < 7; i++) {
+            tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato, i)).withStyle(ChatFormatting.LIGHT_PURPLE));
         }
+        tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato, 7),
+                returnName(itemStack)
+        ).withStyle(ChatFormatting.LIGHT_PURPLE));
+
+        if (Screen.hasShiftDown()) {
+            // 具体效果与获取方式
+            tooltipList.add(PerpetualPotatoes.effectsHeader());
+            tooltipList.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato, 8)));
+            tooltipList.add(PerpetualPotatoes.obtainHeader());
+            tooltipList.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato, 9)));
+        } else {
+            tooltipList.add(PerpetualPotatoes.shiftHint());
+        }
+        PerpetualPotatoes.appendActiveStatus(tooltipList, false);
     }
 
 
 
 
     public static String returnName(ItemStack itemStack){
+        // 读取玩家名
+        Player player = Minecraft.getInstance().player;
+        if (player != null) {
+            return player.getName().getString();
+        }
         if (itemStack.hasTag()){
             if (itemStack.getTag().contains("ObtainedByPlayerName")){
                 return itemStack.getTag().getString("ObtainedByPlayerName");
             };
         }
-        return "XXXXX";
+        return "???";
     }
 }

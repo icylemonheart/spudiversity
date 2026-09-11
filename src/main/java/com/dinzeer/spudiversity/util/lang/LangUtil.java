@@ -10,6 +10,28 @@ public class LangUtil {
     public static void init(){
         REGISTRATE.addRawLang("item_group.spudiversity.spudiversity", "Potato Feast");
 
+        // 永续土豆 tooltip 共享布局文案
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.tag", "[Perpetual Potato]");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.effects", "[Effects]");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.obtain", "[Acquisition]");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.shift_hint", "Press %s to view effects and acquisition");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.shift_hint_values", "Press %s to view exact values");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.active", "Active perpetual potato: %s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.none", "No perpetual potato is currently active");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.off_active", "Independent slot active: %s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.off_none", "Independent slot inactive");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.effects", "[Charm Effects]");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.obtain", "[Acquisition]");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.zzz_killed", "Bosses slain: %s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.zzz_none", "No bosses slain yet");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.wither", "Wither");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.elder_guardian", "Elder Guardian");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.ender_dragon", "Ender Dragon");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.warden", "Warden");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.memory_now", "Current memory usage: %s%%, damage x%s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.jijin_now", "Beneficial effects: %s -> +%s%% attack, +%s armor toughness, +%s%% max health");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.skyfox_now", "Current luck: %s -> -%s damage taken, +%s attack damage");
+
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip", "\"Seems to be the staple food of Wither Skeletons\"");
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip_1", "Grants \"Furnace Blessing\" effect after consumption");
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip_2", "Automatically smelts ores while mining during the effect");
@@ -102,15 +124,16 @@ public class LangUtil {
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_5", "\"Made in Potato!\"");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_6", "While worn, quickly restores durability of the held item");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_7", "Also, you accelerate");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_8", "Moreover, when you carry the Cake King and Dual Flavors");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_9", "And hold the Ocean Potato in your off-hand");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_10", "Consume it, and you shall obtain true \"Great Power\"");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_8", "Crafted at a crafting table: 4x Nether Star, 3x Clock");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_9", "1x Enchanted Potato, 1x Nether Star Potato");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_10", "Special evolution: wear Cake King and Dual Flavor potatoes, hold a Tidal Potato in your off-hand, then eat to obtain \"Made in Potato: Made in Heaven\"");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_alt", "Press %s to show item description");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,0), "\"I am the sweets! Mortals, offer your praises to the potato!\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,1), "- \"Potato Sovereignty!\": Permanently gain all beacon effects (max level beacon)");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,2), "- \"Satiety is Bliss\": Automatically replenishes hunger when depleted");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,3), "- \"Happiness Takes Flight\": Grants flight ability");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,4), "A full beacon provides: Speed II, Haste II, Resistance II, Jump Boost II, Regeneration II, Strength II; refills hunger to 20 and restores 5 saturation when depleted");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.OceanPotato,0), "\"Well, sea salt flavor, but inedible\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.OceanPotato,1), "While holding this potato, your mining speed is doubled");
@@ -138,7 +161,7 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.InfinitePotatoCooked,0), "\"Infinite eating, but cooked\"");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,0), "\"The potato is treasure itself!\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,1), "Wearing this potato grants \"Super Strength\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,1), "Wearing this potato grants \"Super Strength\": attack damage x1.1");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.PotatoSalaed,0), "\"Very healthy\"");
 
@@ -205,33 +228,30 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.WaveCrystal,0), "");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,0), "\"Dragon Blood Potato forged from the blood of the Fire Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,1), "Upon consumption, become a potato descendant of the \"Fire Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,2), "You will gain:");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,3), "Magma Walker");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,4), "Contact with lava that doesn't turn into magma blocks grants Haste I");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,5), "Permanent Fire Resistance");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,6), "Auto-smelting");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,7), "Max health increased by 50%");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,8), "Water within 5 blocks centered on you evaporates");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,1), "Upon consumption, become a Fire Dragon scion and permanently gain the following effects:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,2), "1. Magma Walker");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,3), "2. Contact with lava that doesn't turn into magma blocks grants Haste I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,4), "3. Permanent Fire Resistance");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,5), "4. Auto-smelting");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,6), "5. Max health increased by 50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,7), "6. Water within 5 blocks centered on you evaporates");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,0), "\"Dragon Blood Potato forged from the blood of the Ice Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,1), "Upon consumption, become a potato descendant of the \"Ice Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,2), "You will gain:");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,3), "Frost Walker");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,4), "Immunity to Slowness");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,5), "Attacking a creature freezes it in place for 3 seconds (ineffective against bosses) and removes fire effects from it");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,6), "Final damage increased by 15% while in water");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,7), "Max health increased by 50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,1), "Upon consumption, become an Ice Dragon scion and permanently gain the following effects:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,2), "1. Frost Walker");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,3), "2. Immunity to Slowness");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,4), "3. Attacking a creature freezes it in place for 3 seconds (ineffective against bosses) and removes fire effects from it");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,5), "4. Final damage increased by 15% while in water");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,6), "5. Max health increased by 50%");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,0), "\"Dragon Blood Potato forged from the blood of the Lightning Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,1), "Upon consumption, become a potato descendant of the \"Lightning Dragon\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,2), "You will gain:");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,3), "Chance to summon a lightning bolt on a creature hit by your attack");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,4), "Chance greatly increased during thunderstorms or near lightning rods");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,5), "Moving builds up static charge; at full charge, your next attack deals knockback and paralysis (Blindness + Slowness) to nearby enemies in a small area.");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,6), "Gain Speed II while moving during non-clear weather.");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,7), "Max health increased by 50%");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,8), "The lower your health, the faster your attack speed and movement speed (up to 25% increase)");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,1), "Upon consumption, become a Lightning Dragon scion and permanently gain the following effects:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,2), "1. Chance to summon a lightning bolt on a creature hit by your attack");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,3), "2. Chance greatly increased during thunderstorms or near lightning rods");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,4), "3. Moving builds up static charge; at full charge, your next attack deals knockback and paralysis (Blindness + Slowness) to nearby enemies in a small area");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,5), "4. Gain Speed II while moving during non-clear weather");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,6), "5. Max health increased by 50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,7), "6. The lower your health, the faster your attack speed and movement speed (up to 25% increase)");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato,0), "\"Blessed potato from the Celestial Fox, sweet in taste and nice to carry around\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato,1), "While worn:");
@@ -283,6 +303,8 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,5), "Holding it, you will never be lost to oblivion.");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,6), "She is the companion who sacrificed everything for you; this is proof of her existence.");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,7), "Consume it, %s, and you shall receive her blessing: no longer hungry, and stronger.");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,8), "1. Tamina's blessing: never go hungry; your food level always stays full");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,9), "Obtained by consuming the Noname Potato Dark within 5 blocks of (0, 0, 0) in the End");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,0), "\"Hehehe, hahaha\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,1), "Seems to be a potato imported from the origin and then re-exported");
@@ -318,7 +340,7 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,1), "A potato fused with a Lich's blood magic");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,2), "Each attack drains life");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,3), "Grants buffs when equipped");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "Upon death, prevents death once, then enters cooldown");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "Upon death, prevents death once and restores half health, then enters a 60s cooldown");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BambooPotato,2), "Obtained by right-clicking a panda eating bamboo with an Apple Potato");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.BloodFoxPotato,6), "Right-click \"Blood Fox\" with a Diamond Potato");
@@ -418,18 +440,17 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,4), "1. You can fly creatively");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,5), "2. Continuously gain the \"Invisible Vigil\" effect");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,6), "3. Can equip an additional \"Potato Charm\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,7), "4. Prevents death once");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,7), "4. Prevents death once (full heal, 120s cooldown)");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EmberPotato,0), "\"Burn until dawn\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EmberPotato,1), "Upon consumption, gain the effect \"Burn with Dawn\"");
 
         REGISTRATE.addRawLang( "effect.spudiversity.burn_with_dawn", "Burn with Dawn");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,0), "\"Help! This fish is drowning in air!\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,1), "Upon consumption, permanently gain the following effects:");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,2), "1. Can fly creatively while in water/rain");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,3), "2. Gain Night Vision + Water Breathing + Dolphin's Grace while in water");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,4), "3. Rapidly heal and greatly increase attack while in water/rain");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,5), "4. Continuously take damage while in desert/Nether dimensions");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,1), "1. Can fly creatively while in water/rain");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,2), "2. Gain Night Vision II + Water Breathing II + Dolphin's Grace II while in water");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,3), "3. While in water/rain, regenerate 1 heart per second and gain +5 attack damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,4), "4. Continuously take damage while in desert/badlands/Nether biomes or dimensions");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,0), "\"Seeing this potato, you have felt a part of the power that governs the universe\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,1), "Permanently effective upon consumption:");
@@ -438,6 +459,10 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,4), "3. You gain a trace of that sword's power; your melee damage will synchronize with the Apocrypha's %s");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,5), "4. Boundless vitality has completely %s your ascended body; your life force is greatly increased");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,6), "Your greed... is endless");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,7), "1. Attack damage increased to 6x base (+500%)");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,8), "2. All damage taken reduced by 50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,9), "3. Melee hits deal one extra hit of equal true damage (roughly double damage) and reset the target's invulnerability frames");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,10), "4. Max health increased to 6x base (+500%)");
 
         REGISTRATE.addRawLang("tooltip.spudiversity.entropy_increase","Entropy Increase");
         REGISTRATE.addRawLang("tooltip.spudiversity.suppress","Suppress");
@@ -445,11 +470,10 @@ public class LangUtil {
         REGISTRATE.addRawLang("tooltip.spudiversity.dominate","Dominate");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,0), "\"Good morning! You're definitely sparkling today~\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,1), "Upon consumption, permanently gain the following effects:");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,2), "1. Luck +10");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,3), "2. Max health +10");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,4), "3. When taking fatal damage, first consume saturation to negate the damage");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,5), "Obtained by right-clicking a bed while holding [Sakura Potato]");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,1), "1. Luck +10");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,2), "2. Max health +10");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,3), "3. When taking fatal damage, first consume saturation to negate the damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,4), "Obtained by right-clicking a bed while holding [Sakura Potato]");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,0), "\"So heavy...\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,1), "While worn:");
@@ -468,11 +492,11 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,1), "While worn, gain the following effects:");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,2), "1. Obtain all effects of the Light-chasing Potato \"Celestial Fox\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,3), "2. Attacks cause \"Bleeding\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,4), "3. Your melee attacks deal an additional instance of fire and magic damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,4), "3. Melee attacks deal an additional 20% fire damage and 10% magic damage");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,5), "4. On dealing damage, roll a die; based on the result, add extra special effects (luck value provides a 1:1 bonus)");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,0), "\"She left you her gentleness, and kept the fire for herself. Now, the fire belongs to you too — along with all her pain and the unspoken love.\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,1), "Upon consumption, independently gain the following effects; this potato does not conflict with other permanent potatoes:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,1), "Occupies an independent perpetual slot; does not conflict with other perpetual potatoes:");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,2), "1. Attack damage +8");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,3), "2. All attacks apply Fire Aspect III, and burning duration is extended to 15 seconds");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,4), "3. Damage dealt ignores target's armor");

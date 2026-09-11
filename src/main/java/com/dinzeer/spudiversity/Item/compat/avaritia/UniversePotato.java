@@ -6,7 +6,9 @@ import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
 import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.dinzeer.spudiversity.registry.SpAvaPotato;
+import com.dinzeer.spudiversity.util.PerpetualPotatoes;
 import com.dinzeer.spudiversity.util.lang.CnLangUtil;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
@@ -110,34 +112,47 @@ public class UniversePotato extends PotatoItemBase {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> toolTip, TooltipFlag tooltipFlag) {
+        toolTip.add(PerpetualPotatoes.tag());
         toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,0)).withStyle(style -> style.withColor(16738373)));
-        toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,1)).withStyle(style -> style.withColor(15400517)));
-        toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,2),
-                AdvancedGradientTextHelper.createGradientText(
-                        Component.translatable("tooltip.spudiversity.entropy_increase").getString(),
-                        ColorPreset.LIGHT_RAINBOW,
-                        AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
-                )
-        ).withStyle(style -> style.withColor(4587434)));
-        toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,3),
-                AdvancedGradientTextHelper.createGradientText(
-                        Component.translatable("tooltip.spudiversity.suppress").getString(),
-                        ColorPreset.LIGHT_RAINBOW,
-                        AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
-                )).withStyle(style -> style.withColor(4575743)));
-        toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,4),
-                AdvancedGradientTextHelper.createGradientText(
-                        Component.translatable("tooltip.spudiversity.endless_judgment").getString(),
-                        ColorPreset.LIGHT_RAINBOW,
-                        AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
-                )).withStyle(style -> style.withColor(4539903)));
-        toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,5),
-                AdvancedGradientTextHelper.createGradientText(
-                        Component.translatable("tooltip.spudiversity.dominate").getString(),
-                        ColorPreset.LIGHT_RAINBOW,
-                        AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
-                )).withStyle(style -> style.withColor(11683327)));
+
+        toolTip.add(PerpetualPotatoes.effectsHeader());
+        if (Screen.hasShiftDown()) {
+            // Shift显示
+            toolTip.add(PerpetualPotatoes.body(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,7)));
+            toolTip.add(PerpetualPotatoes.body(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,8)));
+            toolTip.add(PerpetualPotatoes.body(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,9)));
+            toolTip.add(PerpetualPotatoes.body(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,10)));
+        } else {
+            // 神秘小文本~~~
+            toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,2),
+                    AdvancedGradientTextHelper.createGradientText(
+                            Component.translatable("tooltip.spudiversity.entropy_increase").getString(),
+                            ColorPreset.LIGHT_RAINBOW,
+                            AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
+                    )
+            ).withStyle(style -> style.withColor(4587434)));
+            toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,3),
+                    AdvancedGradientTextHelper.createGradientText(
+                            Component.translatable("tooltip.spudiversity.suppress").getString(),
+                            ColorPreset.LIGHT_RAINBOW,
+                            AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
+                    )).withStyle(style -> style.withColor(4575743)));
+            toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,4),
+                    AdvancedGradientTextHelper.createGradientText(
+                            Component.translatable("tooltip.spudiversity.endless_judgment").getString(),
+                            ColorPreset.LIGHT_RAINBOW,
+                            AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
+                    )).withStyle(style -> style.withColor(4539903)));
+            toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,5),
+                    AdvancedGradientTextHelper.createGradientText(
+                            Component.translatable("tooltip.spudiversity.dominate").getString(),
+                            ColorPreset.LIGHT_RAINBOW,
+                            AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
+                    )).withStyle(style -> style.withColor(11683327)));
+            toolTip.add(PerpetualPotatoes.shiftValuesHint());
+        }
         toolTip.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.UniversePotato,6)).withStyle(style -> style.withColor(16729575)));
+        PerpetualPotatoes.appendActiveStatus(toolTip, false);
     }
 
     @Override

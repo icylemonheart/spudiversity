@@ -73,22 +73,18 @@ public class NeutroniumPotato extends Item implements ICurioItem {
     }
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> toolTip, TooltipFlag tooltipFlag) {
-        toolTip.add(  AdvancedGradientTextHelper.createGradientText(
+        toolTip.add(AdvancedGradientTextHelper.createGradientText(
                     Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,0)).getString(),
                 ColorPreset.DARK_NIGHT,
                 AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
         ));
-        toolTip.add(  AdvancedGradientTextHelper.createGradientText(
-                Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,1)).getString(),
-                ColorPreset.DARK_NIGHT,
-                AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
-        ));
-        toolTip.add(  AdvancedGradientTextHelper.createGradientText(
+        toolTip.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+        toolTip.add(AdvancedGradientTextHelper.createGradientText(
                 Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,2)).getString(),
                 ColorPreset.DARK_NIGHT,
                 AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE
         ));
-        toolTip.add(  AdvancedGradientTextHelper.createGradientText(
+        toolTip.add(AdvancedGradientTextHelper.createGradientText(
                 Component.translatable(CnLangUtil.FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,3)).getString(),
                 ColorPreset.DARK_NIGHT,
                 AdvancedGradientTextHelper.GradientMode.FLOW_REVERSE

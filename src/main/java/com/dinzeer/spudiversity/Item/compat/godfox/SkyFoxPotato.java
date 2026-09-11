@@ -53,9 +53,23 @@ public class SkyFoxPotato extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        for (int i = 0; i < 7; i++) {
-                tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato, i)).withStyle(ChatFormatting.AQUA));
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
+                LangUtil.FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato, 0)));
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+        for (int i = 2; i <= 5; i++) {
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                    LangUtil.FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato, i)));
         }
-
+        // 当前幸运值对应加成
+        net.minecraft.world.entity.player.Player self = net.minecraft.client.Minecraft.getInstance().player;
+        if (self != null && self.getAttribute(Attributes.LUCK) != null) {
+            int luck = (int) self.getAttributeValue(Attributes.LUCK);
+            int bonus = (int) Math.ceil(luck * 0.18f);
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.live(
+                    com.dinzeer.spudiversity.util.CharmPotatoes.SKYFOX_NOW, luck, bonus, bonus));
+        }
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.obtainHeader());
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                LangUtil.FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato, 6)));
     }
 }

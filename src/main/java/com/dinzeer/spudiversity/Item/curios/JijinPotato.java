@@ -98,7 +98,7 @@ public class JijinPotato extends Item implements ICurioItem {
         }
     }
 
-    private int getPositiveEffectCount(Player player) {
+    private static int getPositiveEffectCount(Player player) {
         return player.getActiveEffects().stream()
                 .filter(effect -> effect.getEffect().isBeneficial())
                 .mapToInt(e -> 1)
@@ -107,44 +107,41 @@ public class JijinPotato extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        if (Screen.hasAltDown()) {
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_1").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_2").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_3").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_4").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_5").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_6").withStyle(ChatFormatting.AQUA));
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_7").withStyle(ChatFormatting.AQUA));
-        }
-        else {
-            tooltip.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt", 
-                Component.literal("「Alt」").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.AQUA));
-
-        }
-        if (Screen.hasControlDown()){
-            for (int i=0; i<7; i++){
-                tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_" + (i+8)).withStyle(ChatFormatting.AQUA));
+        if (Screen.hasControlDown()) {
+            for (int i = 0; i < 7; i++) {
+                tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_" + (i + 8))
+                        .withStyle(ChatFormatting.LIGHT_PURPLE));
             }
-
-        }else {
+        } else {
+            tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
+                    "item.spudiversity.jijin_potato.tooltip"));
+            tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+            for (int i = 2; i <= 7; i++) {
+                tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                        "item.spudiversity.jijin_potato.tooltip_" + i));
+            }
+            // 实时显示当前正面效果数量与具体加成
+            Player self = net.minecraft.client.Minecraft.getInstance().player;
+            if (self != null) {
+                int n = getPositiveEffectCount(self);
+                tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.live(
+                        com.dinzeer.spudiversity.util.CharmPotatoes.JIJIN_NOW,
+                        n, n * 2, n, n * 10));
+            }
+            if (Screen.hasShiftDown()) {
+                tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.obtainHeader());
+                for (int i = 15; i <= 16; i++) {
+                    tooltip.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                            "item.spudiversity.jijin_potato.tooltip_" + i));
+                }
+            } else {
+                tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_shift",
+                        Component.literal("Shift").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
+                        .withStyle(ChatFormatting.DARK_GRAY));
+            }
             tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_alt",
-                    Component.literal("Ctrl").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.AQUA));
+                    Component.literal("Ctrl").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
+                    .withStyle(ChatFormatting.DARK_GRAY));
         }
-
-        if (Screen.hasShiftDown()){
-            for (int i=0; i<2; i++){
-                tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_" + (i+15)).withStyle(ChatFormatting.AQUA));
-            }
-
-        }else {
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_shift",
-                    Component.literal("shift").withStyle(ChatFormatting.GOLD)).withStyle(ChatFormatting.AQUA));
-        }
-
-
-
-
-
     }
 }

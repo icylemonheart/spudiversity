@@ -8,8 +8,8 @@ import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.dinzeer.spudiversity.event.PlayerEventHandler;
 import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.FlightUtil;
+import com.dinzeer.spudiversity.util.PerpetualPotatoes;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -169,23 +169,24 @@ public class TangxingPotato extends Item {
 
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        if (Screen.hasAltDown()) {
-            for (int i = 0; i < 8; i++) {
-                tooltip.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, i))
-                    .withStyle(ChatFormatting.RED));
-            }
-        } else {
-            tooltip.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt",
-                Component.literal("「Alt」").withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.DARK_RED));
-        }
+        tooltip.add(PerpetualPotatoes.tag());
+        tooltip.add(PerpetualPotatoes.flavor(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 0)));
+
         if (Screen.hasShiftDown()) {
-            for (int i = 0; i < 3; i++) {
-                tooltip.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, i+8))
-                        .withStyle(ChatFormatting.RED));
+            // 具体效果与获取方式
+            tooltip.add(PerpetualPotatoes.effectsHeader());
+            tooltip.add(PerpetualPotatoes.lead(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 1)));
+            for (int i = 2; i <= 7; i++) {
+                tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, i)));
             }
+            tooltip.add(PerpetualPotatoes.obtainHeader());
+            // 获取前置要求与获取方式
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 8)));
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 9)));
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 10)));
         } else {
-            tooltip.add(Component.translatable("item.spudiversity.jijin_potato.tooltip_shift",
-                    Component.literal("Shift").withStyle(ChatFormatting.RED)).withStyle(ChatFormatting.DARK_RED));
+            tooltip.add(PerpetualPotatoes.shiftHint());
         }
+        PerpetualPotatoes.appendActiveStatus(tooltip, true);
     }
 }

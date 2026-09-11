@@ -77,12 +77,13 @@ public class SonicPotato extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.SonicPotato,0)).withStyle(ChatFormatting.DARK_GREEN));
-        tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.SonicPotato,1),
-                Component.literal( LRModKeyMappings.SpecialTypeKey3.getKey().getDisplayName().getString()).withStyle(ChatFormatting.GREEN)
-               ).withStyle(ChatFormatting.DARK_GREEN));
-
-
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
+                LangUtil.FastMakeItemTooltip(SpPotato.SonicPotato, 0)));
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                LangUtil.FastMakeItemTooltip(SpPotato.SonicPotato, 1),
+                Component.literal(LRModKeyMappings.SpecialTypeKey3.getKey().getDisplayName().getString())
+                        .withStyle(ChatFormatting.GREEN)));
     }
 
 

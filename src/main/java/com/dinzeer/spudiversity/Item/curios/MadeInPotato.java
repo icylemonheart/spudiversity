@@ -140,21 +140,27 @@ public class MadeInPotato extends Item {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip").withStyle(ChatFormatting.WHITE));
-        if (Screen.hasAltDown()){
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_2").withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_3").withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_4").withStyle(ChatFormatting.LIGHT_PURPLE));
-        tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_5").withStyle(ChatFormatting.LIGHT_PURPLE));
-        }else {
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_6").withStyle(ChatFormatting.GOLD));
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_7").withStyle(ChatFormatting.GOLD));
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_8").withStyle(ChatFormatting.GOLD));
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_9").withStyle(ChatFormatting.GOLD));
-            tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_10").withStyle(ChatFormatting.GOLD));
+        // 土豆制造
+        tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
+                "item.spudiversity.made_in_potato.tooltip"));
+        if (Screen.hasAltDown()) {
+            // 谜语描述
+            for (int i = 1; i <= 5; i++) {
+                tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_" + i)
+                        .withStyle(ChatFormatting.LIGHT_PURPLE));
+            }
+        } else {
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                    "item.spudiversity.made_in_potato.tooltip_6"));
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                    "item.spudiversity.made_in_potato.tooltip_7"));
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.obtainHeader());
+            tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                    "item.spudiversity.made_in_potato.tooltip_10"));
             tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_alt",
-                    Component.literal("Alt").withStyle(ChatFormatting.LIGHT_PURPLE)).withStyle(ChatFormatting.GOLD));
+                    Component.literal("Alt").withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD))
+                    .withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 
