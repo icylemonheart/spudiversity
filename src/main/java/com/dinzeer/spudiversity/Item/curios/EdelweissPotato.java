@@ -179,14 +179,14 @@ public class EdelweissPotato extends Item implements ICurioItem {
 
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tipList, TooltipFlag TooltipFlag) {
-        super.appendHoverText(itemStack, level, tipList, TooltipFlag);
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 0)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 1)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 2)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 3)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 4)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 5)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 6)).withStyle(style -> style.withColor(16757497)));
-        tipList.add(Component.translatable(CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, 7)).withStyle(style -> style.withColor(16757497)));
+        for (int i = 0; i <= 2; i++) {
+            tipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
+                    CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, i)));
+        }
+        tipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());
+        for (int i = 4; i <= 7; i++) {
+            tipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.body(
+                    CnLangUtil.FastMakeItemTooltip(SpPotato.EdelweissPotato, i)));
+        }
     }
 }

@@ -427,6 +427,9 @@ public class SpPotato {
         ToolTipBlackList.add(EdelweissPotato);
         ToolTipBlackList.add(JijinPotato);
         ToolTipBlackList.add(TangxingPotato);
+        ToolTipBlackList.add(TinyWaterPotato);
+        ToolTipBlackList.add(CrystalPotato);
+        ToolTipBlackList.add(AlchemistPotato);
     }
 
 

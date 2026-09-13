@@ -10,6 +10,28 @@ public class CnLangUtil {
     public static void init(){
         REGISTRATE.addRawLang("item_group.spudiversity.spudiversity", "土豆盛宴");
 
+        // 永续土豆 tooltip 共享布局文案
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.tag", "【永续土豆】");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.effects", "【效果】");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.obtain", "【获取】");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.shift_hint", "按下「%s」查看具体效果与获取方式");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.shift_hint_values", "按下「%s」查看具体数值");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.active", "当前生效的永续土豆：%s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.none", "当前没有永续土豆生效");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.off_active", "独立槽位生效中：%s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.perpetual.off_none", "独立槽位未生效");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.effects", "【佩戴效果】");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.obtain", "【获取】");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.zzz_killed", "已击杀首领：%s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.zzz_none", "尚未击杀任何首领");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.wither", "凋零");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.elder_guardian", "远古守卫者");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.ender_dragon", "末影龙");
+        REGISTRATE.addRawLang("tooltip.spudiversity.boss.warden", "监守者");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.memory_now", "当前内存占用率：%s%%，伤害 ×%s");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.jijin_now", "当前正面效果：%s 种 → 攻击 +%s%%、护甲韧性 +%s、最大生命 +%s%%");
+        REGISTRATE.addRawLang("tooltip.spudiversity.charm.skyfox_now", "当前幸运值：%s → 受伤 -%s 点、攻击 +%s 点");
+
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip", "\"似乎是凋零骷髅的主食\"");
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip_1", "吃下后获得「熔炉祝福」效果");
         REGISTRATE.addRawLang("item.spudiversity.coal_potatoes.tooltip_2", "效果持续期间挖掘会自动冶炼");
@@ -104,15 +126,16 @@ public class CnLangUtil {
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_5", "「土豆制造！」");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_6", "穿戴后会快速恢复手持物品耐久");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_7", "同时，你将加速");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_8", "此外，当你背负蛋糕之王与双色口味");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_9", "并将海洋的土豆放在你的副手");
-        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_10", "吃下它，你将会得到，真正的「伟力」");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_8", "工作台合成：下界之星 ×4、钟 ×3");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_9", "附魔金土豆 ×1、下界之星土豆 ×1");
+        REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_10", "特殊进化：佩戴蛋糕王土豆与双色土豆、副手持潮汐土豆时吃下，获得「土豆制造·产自天堂」");
         REGISTRATE.addRawLang("item.spudiversity.made_in_potato.tooltip_alt", "按下%s键显示物品描述");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,0), "\" 朕即甜食！众生，为薯献上礼赞！\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,1), "- 「土豆王权!」：永久获得信标所有效果（满级信标）");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,2), "- 「饱腹即是美好」：饥饿值耗尽时自动补充");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,3), "-  「幸福化为羽翼」：获得飞行能力");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CakeKingPotato,4), "满级信标包含：速度II、急迫II、抗性提升II、跳跃提升II、生命恢复II、力量II；饥饿耗尽时补满至20并回复饱和度5");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.OceanPotato,0), "\"额，海盐风味，但是不能吃\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.OceanPotato,1), "手持这个土豆时，你的挖掘速度是原来的两倍");
@@ -140,7 +163,7 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.InfinitePotatoCooked,0), "\"无限吃，但是熟的\"");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,0), "\"薯即是财宝本身！\"");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,1), "佩戴这个土豆会获得「超级力量」");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.LootKingPotato,1), "佩戴后获得「超级力量」：攻击伤害 ×1.1");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.PotatoSalaed,0), "\"很健康\"");
 
@@ -208,33 +231,30 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpItem.WaveCrystal,0), "");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,0), "「由火龙的血液铸就的龙血土豆」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,1), "吃下后，成为「火龙」的土豆裔");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,2), "你将获得：");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,3), "岩浆块行者");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,4), "接触到没变成岩浆块的熔岩会获得急迫 I效果");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,5), "拥有常驻抗火效果");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,6), "可以自动冶炼");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,7), "生命上限提高50%");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,8), "以你为中心半径5格内的水会被蒸发");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,1), "吃下后，成为「火龙」龙裔，永久获得以下效果：");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,2), "1.岩浆块行者");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,3), "2.接触到未变成岩浆块的熔岩时获得急迫 I");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,4), "3.拥有常驻抗火效果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,5), "4.可以自动冶炼");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,6), "5.生命上限提高50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.FireDragonPotato,7), "6.以你为中心半径5格内的水会被蒸发");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,0), "「由冰龙的血液铸就的龙血土豆」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,1), "吃下后，成为「冰龙」的土豆裔");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,2), "你将获得：");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,3), "冰霜行者");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,4), "免疫缓慢效果");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,5), "攻击生物，可将其冻结在原地3秒（对BOSS无效），并清除其身上的火焰效果");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,6), "在水中的最终伤害增加15%");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,7), "生命上限提高50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,1), "吃下后，成为「冰龙」龙裔，永久获得以下效果：");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,2), "1.冰霜行者");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,3), "2.免疫缓慢效果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,4), "3.攻击生物，可将其冻结在原地3秒（对BOSS无效），并清除其身上的火焰效果");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,5), "4.在水中时最终伤害增加15%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.IceDragonPotato,6), "5.生命上限提高50%");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,0), "「由电龙的血液铸就的龙血土豆」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,1), "吃下后，成为「电龙」的土豆裔");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,2), "你将获得：");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,3), "有几率在攻击命中的生物头顶召唤一道闪电");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,4), "在雷暴天气下或附近有避雷针的情况下雷劈几率大幅提升");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,5), "移动时会积累静电，满层后下一次攻击将对小范围敌人造成击退与麻痹（失明+缓慢）效果。");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,6), "在非晴天时移动获得速度II提升。");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,7), "生命上限提高50%");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,8), "生命值越低，你的攻击速度与移动速度越快（最高提升25%）");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,1), "吃下后，成为「电龙」龙裔，永久获得以下效果：");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,2), "1.有几率在攻击命中的生物头顶召唤一道闪电");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,3), "2.雷暴天气下或附近有避雷针时，雷劈几率大幅提升");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,4), "3.移动时会积累静电，满层后下一次攻击将对小范围敌人造成击退与麻痹（失明+缓慢）");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,5), "4.非晴天移动时获得速度 II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,6), "5.生命上限提高50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpICFPotato.LightningDragonPotato,7), "6.生命值越低，攻击速度与移动速度越快（最高提升25%）");
 
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.SkyFoxPotato,0), "「从神狐那里获得的赐福土豆，口感香甜，同时带在身上也很早不错」");
@@ -287,6 +307,8 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,5), "持有它，你将永不迷失于遗忘。");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,6), "她是为你牺牲一切的旅伴，这是她存在过的证明。");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,7), "服下吧，%s 你将获得来自她的祝福:不再饥饿，并更加强壮");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,8), "1.来自「Tamina」的祝福：不再饥饿，饱食度始终保持满值");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.StarPotato,9), "在末地中心（0, 0, 0）5格范围内食用「黯淡无光的土豆」获得");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,0), "\"捏嘿嘿嘿，呀哈哈哈\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.AnnoPotato,1), "似乎是从原产地出口又从出口地进口的土豆");
@@ -322,7 +344,7 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,1), "被巫妖的血魔法融合的土豆");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,2), "每次攻击造成吸血");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,3), "装备后获得增益效果");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "死亡时，免死一次随后进入冷却");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpTwPotato.BloodPotato,4), "死亡时免死一次，恢复半条生命，随后进入60秒冷却");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.BambooPotato,2), "拿苹果土豆对正在进食竹子的熊猫右键获得");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.BloodFoxPotato,6), "拿钻石土豆敲击「血狐」");
@@ -422,18 +444,17 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,4), "1.你可以进行创造飞行");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,5), "2.持续获取「不可见的守候」效果");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,6), "3.可以额外装备一个「土豆护符」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,7), "4.死亡时免死一次");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EdelweissPotato,7), "4.死亡时免死一次（回复满血，冷却120秒）");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EmberPotato,0), "「燃烧直到黎明时」");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.EmberPotato,1), "食用后获得效果「以此燃至黎明」");
 
         REGISTRATE.addRawLang( "effect.spudiversity.burn_with_dawn", "以此燃至黎明");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,0), "「救命啊，这条鱼快被空气淹死了」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,1), "食用后永久获得以下效果：");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,2), "1.在水/雨中可进行创造飞行");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,3), "2.在水中时可获取夜视+水下呼吸+海豚的恩惠");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,4), "3.位于水/雨中时可快速恢复生命并大幅度提高攻击");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,5), "4.处于沙漠/下界维度时会持续扣血");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,1), "1.在水/雨中可进行创造飞行");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,2), "2.在水中时获得夜视 II、水下呼吸与海豚的恩惠 II");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,3), "3.位于水/雨中时，每秒恢复1颗心生命值，并获得 +5 攻击伤害加成");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TinyWaterPotato,4), "4.处于沙漠/恶地/下界时会持续扣血");
 
 
 
@@ -447,6 +468,10 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,4), "3.你得到了那把剑的一丝力量，你的近战伤害将会同步进行伪典的%s");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,5), "4.无尽的生机让你彻底%s了升格的身体，你生命力大幅提升");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,6), "你的贪婪...无穷无尽");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,7), "1.攻击力提升至基础值的 6 倍（+500%）");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,8), "2.受到的所有伤害减少 50%");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,9), "3.近战命中时同步造成一次等额真实伤害（约伤害翻倍），并重置目标无敌帧");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.UniversePotato,10), "4.最大生命值提升至基础值的 6 倍（+500%）");
 
         REGISTRATE.addRawLang("tooltip.spudiversity.entropy_increase","熵增");
         REGISTRATE.addRawLang("tooltip.spudiversity.suppress","压制");
@@ -454,11 +479,10 @@ public class CnLangUtil {
         REGISTRATE.addRawLang("tooltip.spudiversity.dominate","支配");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,0), "「早安！今天的你，也一定闪闪发光～」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,1), "食用后永久获得以下效果：");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,2), "1.幸运 +10");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,3), "2.生命上限 +10");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,4), "3.受到即死伤害时，会优先清空饱食度来抵消此次伤害");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,5), "手持【樱吹雪土豆】点击床获得");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,1), "1.幸运 +10");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,2), "2.生命上限 +10");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,3), "3.受到即死伤害时，会优先清空饱食度来抵消此次伤害");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CrystalPotato,4), "手持【樱吹雪土豆】点击床获得");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,0), "「如此的沉重。。。」");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpAvaPotato.NeutroniumPotato,1), "佩戴后：");
@@ -477,11 +501,11 @@ public class CnLangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,1), "佩戴后获得以下效果：");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,2), "1.获得溯光土豆「天狐」的所有效果");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,3), "2.攻击造成「流血」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,4), "3.你的近战攻击额外追加一段火焰和一段魔法伤害");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,4), "3.近战攻击额外追加20%的火焰伤害和10%的魔法伤害");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpGodFoxPotato.AuspiciousPotato,5), "4.造成伤害时投一个骰子根据结果额外增加特殊效果（幸运值会1:1为你带来补正）");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,0), "「她把温柔留给了你，把火焰留给了自己。现在，火焰也属于你了——连同她所有的痛苦，和那未曾说出口的爱」");
-        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,1), "食用后独立获得获得以下效果,此土豆不会与其他永续土豆冲突：");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,1), "占用独立永续槽位，不与其他永续土豆冲突：");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,2), "1.攻击力+8");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,3), "2.所有攻击附加火焰附加 III，且点燃时间延长至15秒");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,4), "3.造成的伤害无视目标的护甲");

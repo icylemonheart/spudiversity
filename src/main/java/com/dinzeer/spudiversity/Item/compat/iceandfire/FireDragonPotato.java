@@ -2,8 +2,8 @@ package com.dinzeer.spudiversity.item.compat.iceandfire;
 
 import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.registry.SpICFPotato;
+import com.dinzeer.spudiversity.util.PerpetualPotatoes;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
-import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -24,11 +24,16 @@ public class FireDragonPotato extends PotatoItemBase {
     protected void applyCrystalEffect(Player player) {
     }
 
+    // 龙炎土豆
     @Override
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        for (int i = 0; i < 9; i++) {
-            tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, i)).withStyle(ChatFormatting.RED));
+        tooltipList.add(PerpetualPotatoes.tag());
+        tooltipList.add(PerpetualPotatoes.flavor(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 0)));
+        tooltipList.add(PerpetualPotatoes.effectsHeader());
+        tooltipList.add(PerpetualPotatoes.lead(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 1)));
+        for (int i = 2; i <= 7; i++) {
+            tooltipList.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, i)));
         }
-
+        PerpetualPotatoes.appendActiveStatus(tooltipList, false);
     }
 }

@@ -3,18 +3,26 @@ package com.dinzeer.spudiversity.item.common;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.FlightUtil;
+import com.dinzeer.spudiversity.util.PerpetualPotatoes;
+import com.dinzeer.spudiversity.util.lang.LangUtil;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber
@@ -32,6 +40,17 @@ public class TinyWaterPotato extends PotatoItemBase {
     @Override
     protected void applyCrystalEffect(Player player) {
 
+    }
+
+    @Override
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(PerpetualPotatoes.tag());
+        tooltip.add(PerpetualPotatoes.flavor(LangUtil.FastMakeItemTooltip(SpPotato.TinyWaterPotato, 0)));
+        tooltip.add(PerpetualPotatoes.effectsHeader());
+        for (int i = 1; i <= 4; i++) {
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TinyWaterPotato, i)));
+        }
+        PerpetualPotatoes.appendActiveStatus(tooltip, false);
     }
 
     @SubscribeEvent
