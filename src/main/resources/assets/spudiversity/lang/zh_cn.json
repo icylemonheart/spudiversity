@@ -482,6 +482,7 @@
   "item.spudiversity.universe_potato.tooltip_9": "3.近战命中时同步造成一次等额真实伤害（约伤害翻倍），并重置目标无敌帧",
   "item.spudiversity.universe_potato.tooltip_10": "4.最大生命值提升至基础值的 6 倍（+500%）",
   "item.spudiversity.upgrade_smithing_template": "雪绒模板",
+  "item.spudiversity.edelweiss_upgrade_template": "雪绒模板",
   "item.spudiversity.upgrade_smithing_template_need": "纸飞机",
   "item.spudiversity.upgrade_smithing_template_use": "制作雪绒土豆",
   "item.spudiversity.wave_core": "潮涌之泪",
@@ -515,5 +516,8 @@
   "tooltip.spudiversity.dominate": "支配",
   "tooltip.spudiversity.endless_judgment": "无尽裁决",
   "tooltip.spudiversity.entropy_increase": "熵增",
-  "tooltip.spudiversity.suppress": "压制"
+  "tooltip.spudiversity.suppress": "压制",
+  "item.spudiversity.chicken_leg_potato": "鸡腿土豆",
+  "item.spudiversity.chicken_leg_potato.tooltip": "「你这人最精了，土豆插根骨头说是鸡腿」",
+  "item.spudiversity.chicken_leg_potato.tooltip_1": "食用后获得「饱和」"
 }

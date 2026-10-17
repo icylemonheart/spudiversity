@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "P": {
+      "item": "spudiversity:iron_potato"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "pattern": [
+    "RRR",
+    "RPR",
+    "RRR"
+  ],
+  "result": {
+    "id": "spudiversity:redstone_potato"
+  },
+  "show_notification": true
+}

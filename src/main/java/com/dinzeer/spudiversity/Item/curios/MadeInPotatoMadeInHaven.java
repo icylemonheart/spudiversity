@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.legendreliclib.lib.event.TypeMakerPressedEvent;
 import com.dinzeer.legendreliclib.lib.key.LRModKeyMappings;
@@ -22,19 +24,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class MadeInPotatoMadeInHaven extends Item {
     public MadeInPotatoMadeInHaven(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(1f)
+                .saturationModifier(1f)
 
                 .build()));
     }
@@ -42,24 +44,25 @@ public class MadeInPotatoMadeInHaven extends Item {
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         LivingEntity player=entity;
         if (player!=null) {
-            player.addEffect(new MobEffectInstance(SpEffect.ForHaven.get(), 60*60*20, 0));
+            player.addEffect(new MobEffectInstance(SpEffect.ForHaven, 60*60*20, 0));
         }
         return super.finishUsingItem(stack, world, entity);
     }
     @SubscribeEvent
     public static void TypeMakerDown(TypeMakerPressedEvent event) {
      if (CurioCompat.hasItemInCurio(event.getEntity(), SpPotato.MadeInPotatoMadeInHaven.get())){
-         if (event.getEntity().hasEffect(SpEffect.ForHaven.get())){
-             event.getEntity().removeEffect(SpEffect.ForHaven.get());
+         if (event.getEntity().hasEffect(SpEffect.ForHaven)){
+             event.getEntity().removeEffect(SpEffect.ForHaven);
          }else {
-             event.getEntity().addEffect(new MobEffectInstance(SpEffect.ForHaven.get(), 60*60*20, 0));
+             event.getEntity().addEffect(new MobEffectInstance(SpEffect.ForHaven, 60*60*20, 0));
          }
      }
     }
     @SubscribeEvent
-    public static void OnPlayerTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void OnPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         Level level = player.level();
+        if (level.isClientSide) return;
 
         if (CurioCompat.hasItemInCurio(player, SpPotato.MadeInPotatoMadeInHaven.get())) {
             // 恢复手持物品耐久
@@ -134,13 +137,8 @@ public class MadeInPotatoMadeInHaven extends Item {
 
 
 
-
-
-
-
-
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip").withStyle(ChatFormatting.WHITE));
         if (Screen.hasAltDown()){
             tooltipList.add(Component.translatable("item.spudiversity.made_in_potato.tooltip_1").withStyle(ChatFormatting.LIGHT_PURPLE));

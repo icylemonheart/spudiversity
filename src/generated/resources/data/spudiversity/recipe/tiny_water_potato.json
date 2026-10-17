@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "B": {
+      "item": "minecraft:sea_lantern"
+    },
+    "C": {
+      "item": "minecraft:heart_of_the_sea"
+    },
+    "D": {
+      "item": "minecraft:pufferfish"
+    },
+    "E": {
+      "item": "minecraft:lapis_block"
+    },
+    "F": {
+      "item": "spudiversity:diamond_potato"
+    },
+    "G": {
+      "item": "minecraft:sea_pickle"
+    }
+  },
+  "pattern": [
+    "ABA",
+    "CDC",
+    "EFG"
+  ],
+  "result": {
+    "id": "spudiversity:tiny_water_potato"
+  },
+  "show_notification": true
+}

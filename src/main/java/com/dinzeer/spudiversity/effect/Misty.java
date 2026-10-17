@@ -1,15 +1,17 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.event.entity.living.LivingChangeTargetEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.living.LivingChangeTargetEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class Misty extends MobEffect {
     public Misty() {
         super(MobEffectCategory.BENEFICIAL, 16757497);
@@ -18,13 +20,12 @@ public class Misty extends MobEffect {
 
 
 
-
     @SubscribeEvent
     public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
-        LivingEntity newTarget = event.getNewTarget();
+        LivingEntity newTarget = event.getNewAboutToBeSetTarget();
         if (newTarget == null) return;
 
-        if (newTarget.hasEffect(SpEffect.Misty.get())) {
+        if (newTarget.hasEffect(SpEffect.Misty)) {
             LivingEntity attacker = event.getEntity();
             if (!attacker.getType().is(Tags.EntityTypes.BOSSES)) {
                 // 取消本次目标变更，而不是设为 null
@@ -32,25 +33,4 @@ public class Misty extends MobEffect {
             }
         }
     }
-
-//
-//    @SubscribeEvent
-//    public static void onLivingChangeTarget(LivingChangeTargetEvent event) {
-//        LivingEntity target = event.getNewTarget();
-//
-//        if (target == null) return;
-//
-//
-//        if (target.hasEffect(SpEffect.Misty.get())) {
-//            LivingEntity attacker = event.getEntity();
-//
-//
-//            if (!attacker.getType().is(Tags.EntityTypes.BOSSES)) {
-//
-//                event.setNewTarget(null);
-//            }
-//
-//
-//        }
-//    }
 }

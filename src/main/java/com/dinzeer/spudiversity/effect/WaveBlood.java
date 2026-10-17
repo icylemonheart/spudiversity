@@ -10,8 +10,9 @@ public class WaveBlood extends MobEffect {
         super(MobEffectCategory.BENEFICIAL, -26368);
 
     }
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         float damage = 2 * (float)(amplifier + 1);
         entity.hurt(entity.damageSources().magic(), damage);
+        return true;
     }
 }

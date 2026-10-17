@@ -14,8 +14,8 @@ public class InfiniteFoodItem extends Item {
         super(properties
                 .food(new FoodProperties.Builder()
                         .nutrition(nutrition)
-                        .saturationMod(0.6f)
-                        .alwaysEat()
+                        .saturationModifier(0.6f)
+                        .alwaysEdible()
                         .build())
         );
         this.nutrition=nutrition;
@@ -38,7 +38,7 @@ public class InfiniteFoodItem extends Item {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return 32; // 原版食物食用耗时
     }
 }

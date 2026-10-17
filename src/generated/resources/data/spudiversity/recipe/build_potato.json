@@ -1,0 +1,30 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "key":  {
+                "A":  {
+                          "item":  "minecraft:nether_star"
+                      },
+                "B":  {
+                          "item":  "spudiversity:diamond_potato"
+                      },
+                "C":  {
+                          "item":  "spudiversity:rabbit"
+                      },
+                "D":  {
+                          "item":  "spudiversity:bear_rabbit_tank"
+                      },
+                "F":  {
+                          "item":  "spudiversity:tank"
+                      }
+            },
+    "pattern":  [
+                    "ABA",
+                    "CDF",
+                    "ABA"
+                ],
+    "result":  {
+                   "id":  "spudiversity:build_potato"
+               },
+    "show_notification":  true
+}

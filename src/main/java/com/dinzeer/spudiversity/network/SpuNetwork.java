@@ -1,56 +1,26 @@
 package com.dinzeer.spudiversity.network;
 
-import com.dinzeer.spudiversity.Spudiversity;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.network.NetworkRegistry;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public class SpuNetwork {
-    private static final String PROTOCOL_VERSION = "1";
-    public static final SimpleChannel INSTANCE = NetworkRegistry.newSimpleChannel(
-            new ResourceLocation(Spudiversity.MODID, "main"),
-            () -> PROTOCOL_VERSION,
-            PROTOCOL_VERSION::equals,
-            PROTOCOL_VERSION::equals
-    );
 
-    private static int packetId = 0;
-
-    public static void register() {
-        INSTANCE.registerMessage(packetId++, SyncPermanentAbilitiesPacket.class,
-                SyncPermanentAbilitiesPacket::encode,
-                SyncPermanentAbilitiesPacket::decode,
-                SyncPermanentAbilitiesPacket::handle);
-        INSTANCE.registerMessage(packetId++, SyncKillBossAbilitiesPacket.class,
-                SyncKillBossAbilitiesPacket::encode,
-                SyncKillBossAbilitiesPacket::decode,
-                SyncKillBossAbilitiesPacket::handle);
-        if (ModList.get().isLoaded("twilightforest")) {
-            INSTANCE.registerMessage(packetId++, SpawnEnderPaket.class,
-                    SpawnEnderPaket::encode,
-                    SpawnEnderPaket::new,
-                    SpawnEnderPaket::handle);
-        }
-        if (ModList.get().isLoaded("botania")) {
-            INSTANCE.registerMessage(packetId++, SpawnTerraBladePaket.class,
-                    SpawnTerraBladePaket::encode,
-                    SpawnTerraBladePaket::new,
-                    SpawnTerraBladePaket::handle);
-        }
-        INSTANCE.registerMessage(packetId++, PlayTotemAnimationPacket.class,
-                PlayTotemAnimationPacket::encode,
-                PlayTotemAnimationPacket::decode,
-                PlayTotemAnimationPacket::handle);
+    public static void register(IEventBus modEventBus) {
+        modEventBus.addListener(SpuNetwork::onRegisterPayloads);
     }
 
-    public static void sendToServer(Object msg) {
-        INSTANCE.sendToServer(msg);
+    private static void onRegisterPayloads(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar("1");
+        registrar.playToClient(SyncPermanentAbilitiesPacket.TYPE, SyncPermanentAbilitiesPacket.STREAM_CODEC, SyncPermanentAbilitiesPacket::handle);
+        registrar.playToClient(SyncKillBossAbilitiesPacket.TYPE, SyncKillBossAbilitiesPacket.STREAM_CODEC, SyncKillBossAbilitiesPacket::handle);
+        registrar.playToClient(PlayTotemAnimationPacket.TYPE, PlayTotemAnimationPacket.STREAM_CODEC, PlayTotemAnimationPacket::handle);
     }
 
-    public static void sendToPlayer(Object msg, ServerPlayer player) {
-        INSTANCE.send(PacketDistributor.PLAYER.with(() -> player), msg);
+    public static void sendToPlayer(ServerPlayer player, CustomPacketPayload payload) {
+        PacketDistributor.sendToPlayer(player, payload);
     }
 }

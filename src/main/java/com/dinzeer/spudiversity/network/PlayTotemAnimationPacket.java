@@ -1,40 +1,32 @@
-
 package com.dinzeer.spudiversity.network;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import com.dinzeer.spudiversity.Spudiversity;
+import com.dinzeer.spudiversity.client.ClientHooks;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import java.util.function.Supplier;
+public record PlayTotemAnimationPacket(ItemStack stack) implements CustomPacketPayload {
+    public static final Type<PlayTotemAnimationPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "play_totem_animation"));
 
-public class PlayTotemAnimationPacket {
-    private final ItemStack itemStack;
+    public static final StreamCodec<RegistryFriendlyByteBuf, PlayTotemAnimationPacket> STREAM_CODEC =
+            ItemStack.STREAM_CODEC.map(PlayTotemAnimationPacket::new, PlayTotemAnimationPacket::stack);
 
-    public PlayTotemAnimationPacket(ItemStack itemStack) {
-        this.itemStack = itemStack;
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public static void encode(PlayTotemAnimationPacket msg, FriendlyByteBuf buf) {
-        buf.writeItem(msg.itemStack);
-    }
-
-    public static PlayTotemAnimationPacket decode(FriendlyByteBuf buf) {
-        return new PlayTotemAnimationPacket(buf.readItem());
-    }
-
-    public static void handle(PlayTotemAnimationPacket msg, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                Minecraft.getInstance().gameRenderer.displayItemActivation(msg.itemStack);
-                System.out.println("已发完");
-            });
-
+    public static void handle(PlayTotemAnimationPacket payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (net.neoforged.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+                ClientHooks.displayItemActivation(payload.stack);
+            }
         });
-        ctx.get().setPacketHandled(true);
     }
-
 }

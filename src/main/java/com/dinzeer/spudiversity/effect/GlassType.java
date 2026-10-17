@@ -1,23 +1,25 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class GlassType  extends MobEffect {
     public GlassType() {
         super(MobEffectCategory.BENEFICIAL, -26368);
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void onLivingHurt(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
-        if (entity.hasEffect(SpEffect.GlassType.get())) {
+        if (entity.hasEffect(SpEffect.GlassType)) {
             event.setAmount(entity.getHealth() + 1.0F+event.getAmount());
             entity.level().playSound(null, entity.blockPosition(),
                     net.minecraft.sounds.SoundEvents.GLASS_BREAK,

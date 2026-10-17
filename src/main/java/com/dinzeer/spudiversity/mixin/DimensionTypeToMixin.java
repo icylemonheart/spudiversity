@@ -2,10 +2,8 @@ package com.dinzeer.spudiversity.mixin;
 
 import com.dinzeer.spudiversity.util.ILevel;
 import com.dinzeer.spudiversity.util.Returnner;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.dimension.DimensionType;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -17,13 +15,8 @@ import java.util.OptionalLong;
 
 @Mixin(DimensionType.class)
 public abstract class DimensionTypeToMixin implements ILevel {
+
       @Shadow
-      @Final
-      private ResourceLocation effectsLocation;
-
-
-
-    @Shadow
       public abstract OptionalLong fixedTime();
 
       @Inject(method = "timeOfDay", at = @At("HEAD"),cancellable = true)

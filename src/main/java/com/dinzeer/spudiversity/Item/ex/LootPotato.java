@@ -1,9 +1,13 @@
 package com.dinzeer.spudiversity.item.ex;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.registry.SpPotato;
 import com.google.common.collect.LinkedHashMultimap;
 import com.google.common.collect.Multimap;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,35 +23,34 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
-import java.util.UUID;
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 
 public class LootPotato extends Item implements ICurioItem {
-    private static final UUID LootPotato_UUID = UUID.nameUUIDFromBytes("LootPotato".getBytes());
+    private static final ResourceLocation LOOT_POTATO_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "loot_potato");
+
     public LootPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(6)
-                .saturationMod(0.7f)
+                .saturationModifier(0.7f)
                 .build()));
     }
     @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, UUID uuid, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> modifiers = LinkedHashMultimap.create();
+    public Multimap<Holder<Attribute>, AttributeModifier> getAttributeModifiers(SlotContext slotContext, ResourceLocation id, ItemStack stack) {
+        Multimap<Holder<Attribute>, AttributeModifier> modifiers = LinkedHashMultimap.create();
 
         modifiers.put(
                 Attributes.LUCK,
                 new AttributeModifier(
-                        LootPotato_UUID,
-                        "LootKingPotao Boost",
+                        LOOT_POTATO_ID,
                         9,
-                        AttributeModifier.Operation.ADDITION
+                        AttributeModifier.Operation.ADD_VALUE
                 )
         );
         return modifiers;
@@ -68,7 +71,7 @@ public class LootPotato extends Item implements ICurioItem {
         if (!entity.level().isClientSide){
             try {
                 // 1. 获取实体的掉落表
-                ResourceLocation lootTableId = entity.getLootTable();
+                var lootTableId = entity.getLootTable();
                 if (lootTableId == null) return;
 
                 // 2. 创建掉落参数
@@ -76,7 +79,7 @@ public class LootPotato extends Item implements ICurioItem {
                         .withParameter(LootContextParams.THIS_ENTITY, entity)
                         .withParameter(LootContextParams.ORIGIN, entity.position())
                         .withParameter(LootContextParams.DAMAGE_SOURCE, entity.damageSources().playerAttack(killer))
-                        .withParameter(LootContextParams.KILLER_ENTITY, killer)
+                        .withParameter(LootContextParams.ATTACKING_ENTITY, killer)
                         .withParameter(LootContextParams.LAST_DAMAGE_PLAYER, killer)
                         ;
 
@@ -88,7 +91,7 @@ public class LootPotato extends Item implements ICurioItem {
                 LootParams params = builder.create(LootContextParamSets.ENTITY);
 
                 // 4. 获取服务器的掉落表
-                LootTable lootTable = entity.level().getServer().getLootData().getLootTable(lootTableId);
+                LootTable lootTable = entity.level().getServer().reloadableRegistries().getLootTable(lootTableId);
 
                 // 5. 生成掉落物
                 List<ItemStack> drops = lootTable.getRandomItems(params);

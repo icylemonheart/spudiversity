@@ -14,7 +14,7 @@ public class GeedPotato extends Item implements ICurioItem {
     public GeedPotato(Properties properties) {
         super(properties.food((new FoodProperties.Builder())
                 .nutrition(9)
-                .saturationMod(1f)
+                .saturationModifier(1f)
                 .build()));
     }
 

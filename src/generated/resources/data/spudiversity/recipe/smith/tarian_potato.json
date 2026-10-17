@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "minecraft:tnt"
+  },
+  "base": {
+    "item": "spudiversity:diamond_potato"
+  },
+  "result": {
+    "id": "spudiversity:tarian_potato"
+  },
+  "template": {
+    "item": "spudiversity:super_potato"
+  }
+}

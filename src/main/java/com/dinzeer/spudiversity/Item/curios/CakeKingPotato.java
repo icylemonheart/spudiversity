@@ -1,7 +1,10 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.registry.SpPotato;
+import com.dinzeer.spudiversity.util.FlightUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -12,25 +15,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class CakeKingPotato extends Item {
     public CakeKingPotato(Item.Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(1f)
+                .saturationModifier(1f)
                 .build()));
     }
-
-
-
-
 
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
@@ -41,32 +44,32 @@ public class CakeKingPotato extends Item {
         return super.finishUsingItem(stack, world, entity);
     }
 
+    private static final Set<UUID> FLY_GRANTED = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-
-
-   public static int fly = 1;
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
-        if (CurioCompat.hasItemInCurio(event.player,  SpPotato.CakeKingPotato.get())){
-
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         Level level = player.level();
+        if (level.isClientSide) {
+            return;
+        }
 
-        if (player != null && !level.isClientSide) {
+        if (CurioCompat.hasItemInCurio(player, SpPotato.CakeKingPotato.get())) {
             addBeaconEffects(player);
             if (player.getFoodData().getFoodLevel() <= 0) {
                 player.getFoodData().setFoodLevel(20);
                 player.getFoodData().setSaturation(5.0f);
             }
-            fly = 1;
-            player.getAbilities().mayfly = true;
-            player.onUpdateAbilities();
+            FLY_GRANTED.add(player.getUUID());
+            FlightUtil.grantFlight(player, "cake_king");
+        } else if (FLY_GRANTED.remove(player.getUUID())) {
+            FlightUtil.revokeFlight(player, "cake_king");
         }
-        }else if (fly == 1){
-            fly = 0;
-            player.getAbilities().mayfly = false;
-            player.onUpdateAbilities();
-        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        FLY_GRANTED.remove(event.getEntity().getUUID());
     }
 
     private static void addBeaconEffects(Player player) {
@@ -81,27 +84,8 @@ public class CakeKingPotato extends Item {
         player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 40, 1));
     }
 
-
-
-
-
-
-
-
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

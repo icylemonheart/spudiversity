@@ -22,15 +22,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber
 public class NuclearExplosionScheduler {
 
 
@@ -100,8 +96,8 @@ public class NuclearExplosionScheduler {
                                             1, 0, 0.1, 0, 0);
                                 }
                             } else {
-                                Explosion explosion = new Explosion(level, source, null, null, center.x, center.y, center.z, 2.0F, false, Explosion.BlockInteraction.DESTROY);
-                                float blastResistance = state.getExplosionResistance(level, pos, explosion);
+                                Explosion explosion = new Explosion(level, source, center.x, center.y, center.z, 2.0F, false, Explosion.BlockInteraction.DESTROY);
+                                float blastResistance = state.getBlock().getExplosionResistance(state, level, pos, explosion);
 
 
 

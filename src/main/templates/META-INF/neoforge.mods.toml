@@ -1,0 +1,57 @@
+modLoader = "javafml"
+loaderVersion = "${loader_version_range}"
+license = "GNU LGPL 3.0"
+
+[[mods]]
+modId = "spudiversity"
+version = "${mod_version}"
+displayName = "spudiversity"
+authors = "dinzeer"
+description = '''
+
+'''
+
+[[dependencies.spudiversity]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spudiversity]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spudiversity]]
+modId = "curios"
+type = "required"
+versionRange = "[5,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spudiversity]]
+modId = "legendreliclib"
+type = "required"
+versionRange = "[1.4.8,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.spudiversity]]
+modId = "twilightforest"
+type = "optional"
+versionRange = "[4.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.spudiversity]]
+modId = "iceandfire"
+type = "optional"
+versionRange = "[2.0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[mixins]]
+config = "spudiversity.mixins.json"

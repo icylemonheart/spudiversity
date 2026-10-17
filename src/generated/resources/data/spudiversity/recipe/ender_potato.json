@@ -1,0 +1,21 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "key":  {
+                "E":  {
+                          "item":  "minecraft:ender_pearl"
+                      },
+                "P":  {
+                          "item":  "minecraft:baked_potato"
+                      }
+            },
+    "pattern":  [
+                    "EEE",
+                    "EPE",
+                    "EEE"
+                ],
+    "result":  {
+                   "id":  "spudiversity:ender_potato"
+               },
+    "show_notification":  true
+}

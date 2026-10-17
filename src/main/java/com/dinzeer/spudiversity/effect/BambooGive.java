@@ -13,11 +13,13 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.UUID;
+import net.minecraft.resources.ResourceLocation;
+import com.dinzeer.spudiversity.Spudiversity;
+import com.dinzeer.spudiversity.client.ClientHooks;
 
 public class BambooGive extends MobEffect {
-    private static final UUID UUID_BAMBOO = UUID.nameUUIDFromBytes("UUID_BAMBOO".getBytes());
-    private static final UUID UUID_JUMP_BOOST = UUID.nameUUIDFromBytes("UUID_JUMP_BOOST_BAMBOO".getBytes());
+    private static final ResourceLocation UUID_BAMBOO = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "bamboo_give_strength");
+    private static final ResourceLocation UUID_JUMP_BOOST = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "bamboo_give_jump");
 
     private static final java.util.Map<LivingEntity, Boolean> doubleJumpUsed = new java.util.WeakHashMap<>();
 
@@ -26,10 +28,10 @@ public class BambooGive extends MobEffect {
     }
 
     @Override
-    public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
-        super.removeAttributeModifiers(entity, attributes, amplifier);
-        AttributeInstance attackAttr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
-        AttributeInstance jumpAttr = entity.getAttribute(Attributes.JUMP_STRENGTH);
+    public void removeAttributeModifiers(AttributeMap attributes) {
+        super.removeAttributeModifiers(attributes);
+        AttributeInstance attackAttr = attributes.getInstance(Attributes.ATTACK_DAMAGE);
+        AttributeInstance jumpAttr = attributes.getInstance(Attributes.JUMP_STRENGTH);
 
         if (attackAttr != null) {
             attackAttr.removeModifier(UUID_BAMBOO);
@@ -37,21 +39,17 @@ public class BambooGive extends MobEffect {
         if (jumpAttr != null) {
             jumpAttr.removeModifier(UUID_JUMP_BOOST);
         }
-
-
-        doubleJumpUsed.remove(entity);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         AttributeInstance attackAttr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
         if (attackAttr != null) {
             attackAttr.removeModifier(UUID_BAMBOO);
             attackAttr.addTransientModifier(new AttributeModifier(
                     UUID_BAMBOO,
-                    "Super Strength",
                     0.3D * (amplifier + 1),
-                    AttributeModifier.Operation.MULTIPLY_BASE
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE
             ));
         }
 
@@ -60,9 +58,8 @@ public class BambooGive extends MobEffect {
             jumpAttr.removeModifier(UUID_JUMP_BOOST);
             jumpAttr.addTransientModifier(new AttributeModifier(
                     UUID_JUMP_BOOST,
-                    "Jump Boost",
                     0.5D, // 50% 跳跃提升
-                    AttributeModifier.Operation.MULTIPLY_BASE
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE
             ));
         }
 
@@ -81,6 +78,7 @@ public class BambooGive extends MobEffect {
 
 
         handleDoubleJump(entity);
+        return true;
     }
 
     private boolean isOnWaterSurface(LivingEntity entity) {
@@ -118,7 +116,7 @@ public class BambooGive extends MobEffect {
                     player.getDeltaMovement().y < 0) { // 正在下落
 
 
-                if (net.minecraft.client.Minecraft.getInstance().options.keyJump.isDown()) {
+                if (ClientHooks.isJumpKeyDown()) {
                     Boolean hasUsedDoubleJump = doubleJumpUsed.get(player);
                     if (hasUsedDoubleJump == null || !hasUsedDoubleJump) {
 
@@ -150,7 +148,7 @@ public class BambooGive extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true; // 持续生效
     }
 }

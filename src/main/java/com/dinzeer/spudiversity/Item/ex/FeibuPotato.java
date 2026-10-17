@@ -14,7 +14,7 @@ public class FeibuPotato extends Item {
     public FeibuPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(6)
-                .saturationMod(0.5f)
+                .saturationModifier(0.5f)
                 .build()));
     }
     

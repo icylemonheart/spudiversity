@@ -31,7 +31,7 @@ public class TarianPotato extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, net.minecraft.world.item.Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
 
         tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.TarianPotato,0)).withStyle(style -> style.withColor(16757502)));
         tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.TarianPotato,1)).withStyle(style -> style.withColor(11729407)));
@@ -43,8 +43,8 @@ public class TarianPotato extends Item {
     public TarianPotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.5f)
-                .alwaysEat()
+                .saturationModifier(0.5f)
+                .alwaysEdible()
                 .build()));
     }
 }

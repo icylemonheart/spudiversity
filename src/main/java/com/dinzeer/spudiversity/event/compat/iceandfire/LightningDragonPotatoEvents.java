@@ -1,56 +1,73 @@
 package com.dinzeer.spudiversity.event.compat.iceandfire;
 
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class LightningDragonPotatoEvents {
 
     private static final Map<Player, Integer> STATIC_CHARGE = new HashMap<>();
+    private static final Map<Player, Float> LAST_RAGE_BONUS = new HashMap<>();
     private static final int MAX_CHARGE = 100;
-    private static final UUID SPEED_BOOST_UUID = UUID.nameUUIDFromBytes("LIGHTNING_SPEED".getBytes());
-    private static final UUID ATTACK_SPEED_UUID = UUID.nameUUIDFromBytes("LIGHTNING_ATTACK_SPEED".getBytes());
+    private static final ResourceLocation SPEED_BOOST_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "lightning_speed");
+    private static final ResourceLocation ATTACK_SPEED_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "lightning_attack_speed");
 
     @SubscribeEvent
-    public static void onPlayerTick(LivingEvent.LivingTickEvent event) {
+    public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
+        Player player = event.getEntity();
+        STATIC_CHARGE.remove(player);
+        LAST_RAGE_BONUS.remove(player);
+    }
+
+    @SubscribeEvent
+    public static void onPlayerTick(EntityTickEvent.Post event) {
         if (event.getEntity() instanceof Player player) {
-            player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
-                if (store.getActivePotato().equals("lightning_dragon_potato")) {
-                    // 雷霆：移动时积累静电
-                    accumulateStaticCharge(player);
+            PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+            if (store != null) {
+                if ("lightning_dragon_potato".equals(store.getActivePotato())) {
+                    if (!player.level().isClientSide) {
+                        accumulateStaticCharge(player);
+                        applyWeatherSpeedBoost(player);
+                        applyRageBonus(player);
+                    }
 
-                    // 雷霆：非晴天时获得速度II提升
-                    applyWeatherSpeedBoost(player);
-
-                    // 野性难驯：根据生命值提升攻击速度和移动速度
-                    applyRageBonus(player);
-
-                    // 显示静电粒子效果
                     if (player.level().isClientSide && player.tickCount % 10 == 0) {
                         spawnStaticParticles(player);
                     }
+                } else {
+                    if (!player.level().isClientSide) {
+                        removeRageBonus(player);
+                    }
                 }
-            });
+            }
         }
     }
 
     private static void accumulateStaticCharge(Player player) {
-        // 检查玩家是否在移动
         if (player.getDeltaMovement().lengthSqr() > 0.01) {
             int charge = STATIC_CHARGE.getOrDefault(player, 0);
             charge = Math.min(charge + 2, MAX_CHARGE);
@@ -63,60 +80,69 @@ public class LightningDragonPotatoEvents {
         boolean isSunny = level.isDay() && !level.isRaining() && !level.isThundering();
 
         if (!isSunny) {
-            // 非晴天时获得速度II
-            if (!player.hasEffect(MobEffects.MOVEMENT_SPEED) ||
-                    player.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() < 1) {
+            if (!player.hasEffect(MobEffects.MOVEMENT_SPEED)
+                    || player.getEffect(MobEffects.MOVEMENT_SPEED).getAmplifier() < 1) {
                 player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1, true, false));
             }
         }
     }
 
     private static void applyRageBonus(Player player) {
-        // 计算生命值比例
         float healthRatio = player.getHealth() / player.getMaxHealth();
-        // 生命值越低，加成越高（最高25%）
         float bonusMultiplier = 0.25f * (1 - healthRatio);
 
-        // 应用移动速度加成
-        AttributeInstance speedAttr = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MOVEMENT_SPEED);
+        float lastBonus = LAST_RAGE_BONUS.getOrDefault(player, -1f);
+        if (Math.abs(bonusMultiplier - lastBonus) < 0.01f) {
+            return;
+        }
+        LAST_RAGE_BONUS.put(player, bonusMultiplier);
+
+        AttributeInstance speedAttr = player.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speedAttr != null) {
-            speedAttr.removeModifier(SPEED_BOOST_UUID);
+            speedAttr.removeModifier(SPEED_BOOST_ID);
             if (bonusMultiplier > 0) {
-                speedAttr.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
-                        SPEED_BOOST_UUID,
-                        "Lightning Rage Speed",
+                speedAttr.addTransientModifier(new AttributeModifier(
+                        SPEED_BOOST_ID,
                         bonusMultiplier,
-                        net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.MULTIPLY_BASE
+                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 ));
             }
         }
 
-        // 应用攻击速度加成
-        AttributeInstance attackSpeedAttr = player.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_SPEED);
+        AttributeInstance attackSpeedAttr = player.getAttribute(Attributes.ATTACK_SPEED);
         if (attackSpeedAttr != null) {
-            attackSpeedAttr.removeModifier(ATTACK_SPEED_UUID);
+            attackSpeedAttr.removeModifier(ATTACK_SPEED_ID);
             if (bonusMultiplier > 0) {
-                attackSpeedAttr.addTransientModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(
-                        ATTACK_SPEED_UUID,
-                        "Lightning Rage Attack Speed",
+                attackSpeedAttr.addTransientModifier(new AttributeModifier(
+                        ATTACK_SPEED_ID,
                         bonusMultiplier,
-                        net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.MULTIPLY_BASE
+                        AttributeModifier.Operation.ADD_MULTIPLIED_BASE
                 ));
             }
+        }
+    }
+
+    private static void removeRageBonus(Player player) {
+        LAST_RAGE_BONUS.remove(player);
+        AttributeInstance speedAttr = player.getAttribute(Attributes.MOVEMENT_SPEED);
+        if (speedAttr != null) {
+            speedAttr.removeModifier(SPEED_BOOST_ID);
+        }
+        AttributeInstance attackSpeedAttr = player.getAttribute(Attributes.ATTACK_SPEED);
+        if (attackSpeedAttr != null) {
+            attackSpeedAttr.removeModifier(ATTACK_SPEED_ID);
         }
     }
 
     private static void spawnStaticParticles(Player player) {
         int charge = STATIC_CHARGE.getOrDefault(player, 0);
         if (charge > 0) {
-            int particleCount = charge / 20; // 根据电荷量决定粒子数量
-
+            int particleCount = charge / 20;
             for (int i = 0; i < particleCount; i++) {
                 double x = player.getX() + (Math.random() - 0.5) * player.getBbWidth();
                 double y = player.getY() + Math.random() * player.getBbHeight();
                 double z = player.getZ() + (Math.random() - 0.5) * player.getBbWidth();
-
-                player.level().addParticle(net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
+                player.level().addParticle(ParticleTypes.ELECTRIC_SPARK,
                         x, y, z,
                         (Math.random() - 0.5) * 0.1,
                         Math.random() * 0.1,
@@ -126,42 +152,37 @@ public class LightningDragonPotatoEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void onLivingHurt(LivingIncomingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
-                if (store.getActivePotato().equals("lightning_dragon_potato")) {
-                    LivingEntity target = event.getEntity();
+            PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+            if (store != null && "lightning_dragon_potato".equals(store.getActivePotato())) {
+                LivingEntity target = event.getEntity();
 
-                    // 风暴：有几率召唤闪电
-                    if (Math.random() < getLightningChance(player)) {
-                        summonLightning(target);
-                    }
-
-                    // 雷霆：静电满层时触发特殊效果
-                    int charge = STATIC_CHARGE.getOrDefault(player, 0);
-                    if (charge >= MAX_CHARGE) {
-                        triggerStaticDischarge(player, target);
-                        STATIC_CHARGE.put(player, 0); // 消耗所有静电
-                    }
+                if (Math.random() < getLightningChance(player)) {
+                    summonLightning(target);
                 }
-            });
+
+                int charge = STATIC_CHARGE.getOrDefault(player, 0);
+                if (charge >= MAX_CHARGE) {
+                    triggerStaticDischarge(player, target);
+                    STATIC_CHARGE.put(player, 0);
+                }
+            }
         }
     }
 
     private static double getLightningChance(Player player) {
-        double baseChance = 0.2; // 20%基础几率
+        double baseChance = 0.2;
 
-        // 在雷暴天气下几率提升
         if (player.level().isThundering()) {
-            baseChance = 0.5; // 50%
+            baseChance = 0.5;
         }
 
-        // 检查附近是否有避雷针
         BlockPos playerPos = player.blockPosition();
         for (BlockPos pos : BlockPos.betweenClosed(playerPos.offset(-10, -5, -10),
                 playerPos.offset(10, 5, 10))) {
             if (player.level().getBlockState(pos).is(Blocks.LIGHTNING_ROD)) {
-                baseChance = 0.5; // 50%
+                baseChance = 0.5;
                 break;
             }
         }
@@ -173,32 +194,26 @@ public class LightningDragonPotatoEvents {
         Level level = target.level();
         BlockPos strikePos = target.blockPosition();
 
-        // 召唤闪电
-        net.minecraft.world.entity.LightningBolt lightning = new net.minecraft.world.entity.LightningBolt(
-                net.minecraft.world.entity.EntityType.LIGHTNING_BOLT, level);
+        LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
         lightning.setPos(strikePos.getX(), strikePos.getY(), strikePos.getZ());
         lightning.setVisualOnly(false);
         level.addFreshEntity(lightning);
 
-        // 闪电音效
         level.playSound(null, strikePos,
-                net.minecraft.sounds.SoundEvents.LIGHTNING_BOLT_THUNDER,
-                net.minecraft.sounds.SoundSource.WEATHER, 5.0F, 1.0F);
+                SoundEvents.LIGHTNING_BOLT_THUNDER,
+                SoundSource.WEATHER, 5.0F, 1.0F);
     }
 
     private static void triggerStaticDischarge(Player player, LivingEntity target) {
         Level level = player.level();
 
-        // 击退效果
         target.knockback(2.0F,
                 player.getX() - target.getX(),
                 player.getZ() - target.getZ());
 
-        // 麻痹效果（失明+缓慢）
-        target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0)); // 3秒失明
-        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2)); // 3秒缓慢III
+        target.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 2));
 
-        // 范围伤害和效果
         for (LivingEntity nearby : level.getEntitiesOfClass(LivingEntity.class,
                 target.getBoundingBox().inflate(3.0))) {
             if (nearby != player && nearby != target) {
@@ -207,14 +222,12 @@ public class LightningDragonPotatoEvents {
             }
         }
 
-        // 放电粒子效果
         if (level.isClientSide) {
             for (int i = 0; i < 20; i++) {
                 double x = target.getX() + (Math.random() - 0.5) * target.getBbWidth() * 2;
                 double y = target.getY() + Math.random() * target.getBbHeight();
                 double z = target.getZ() + (Math.random() - 0.5) * target.getBbWidth() * 2;
-
-                level.addParticle(net.minecraft.core.particles.ParticleTypes.ELECTRIC_SPARK,
+                level.addParticle(ParticleTypes.ELECTRIC_SPARK,
                         x, y, z,
                         (Math.random() - 0.5) * 0.5,
                         Math.random() * 0.5,
@@ -222,9 +235,8 @@ public class LightningDragonPotatoEvents {
             }
         }
 
-        // 放电音效
         level.playSound(null, target.blockPosition(),
-                net.minecraft.sounds.SoundEvents.LIGHTNING_BOLT_IMPACT,
-                net.minecraft.sounds.SoundSource.PLAYERS, 1.0F, 1.0F);
+                SoundEvents.LIGHTNING_BOLT_IMPACT,
+                SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 }

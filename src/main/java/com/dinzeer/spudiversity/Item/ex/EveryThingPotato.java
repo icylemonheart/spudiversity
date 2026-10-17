@@ -22,14 +22,14 @@ public class EveryThingPotato extends Item {
     public EveryThingPotato(Properties properties) {
         super(properties.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(20f)
+                .saturationModifier(20f)
                 .build()));
     }
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         LivingEntity player=entity;
         if (player!=null) {
-            FastMakeEntityUtil.FastEffectByMinute(player, SpEffect.EveryThing.get(), 1,300);
+            FastMakeEntityUtil.FastEffectByMinute(player, SpEffect.EveryThing, 1,300);
             FastMakeEntityUtil.FastEffectByMinute(player, MobEffects.SATURATION, 5,300);
             FastMakeEntityUtil.FastEffectByMinute(player, MobEffects.REGENERATION, 5,300);
             FastMakeEntityUtil.FastEffectByMinute(player, MobEffects.FIRE_RESISTANCE, 5,300);
@@ -38,7 +38,7 @@ public class EveryThingPotato extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, net.minecraft.world.item.Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         for (int i = 0; i < 3; i++){
             tooltipList.add(AdvancedGradientTextHelper.createGradientText(
                     Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.EveryThingPotato,i)).getString(),

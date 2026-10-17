@@ -133,6 +133,7 @@
   "item.spudiversity.edelweiss_potato.tooltip_5": "2. Continuously gain the \"Invisible Vigil\" effect",
   "item.spudiversity.edelweiss_potato.tooltip_6": "3. Can equip an additional \"Potato Charm\"",
   "item.spudiversity.edelweiss_potato.tooltip_7": "4. Prevents death once",
+  "item.spudiversity.edelweiss_upgrade_template": "Edelweiss Upgrade Template",
   "item.spudiversity.ember_potato": "Ember Potato",
   "item.spudiversity.ember_potato.tooltip": "\"Burn until dawn\"",
   "item.spudiversity.ember_potato.tooltip_1": "Upon consumption, gain the effect \"Burn with Dawn\"",
@@ -493,5 +494,8 @@
   "tooltip.spudiversity.dominate": "Dominate",
   "tooltip.spudiversity.endless_judgment": "Endless Judgment",
   "tooltip.spudiversity.entropy_increase": "Entropy Increase",
-  "tooltip.spudiversity.suppress": "Suppress"
+  "tooltip.spudiversity.suppress": "Suppress",
+  "item.spudiversity.chicken_leg_potato": "Chicken Leg Potato",
+  "item.spudiversity.chicken_leg_potato.tooltip": "\"You're the smartest, sticking a bone in a potato and calling it a chicken leg\"",
+  "item.spudiversity.chicken_leg_potato.tooltip_1": "Gain Saturation after eating"
 }

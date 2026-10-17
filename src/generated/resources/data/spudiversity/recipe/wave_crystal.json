@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:sea_lantern"
+    },
+    "B": {
+      "item": "spudiversity:wave_core"
+    }
+  },
+  "pattern": [
+    "A A",
+    " B ",
+    "A A"
+  ],
+  "result": {
+    "id": "spudiversity:wave_crystal"
+  },
+  "show_notification": true
+}

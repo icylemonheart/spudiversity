@@ -13,15 +13,15 @@ public class CopperPotato extends Item {
     public CopperPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(10)
-                .saturationMod(0.1F)
-                .alwaysEat()
+                .saturationModifier(0.1F)
+                .alwaysEdible()
                 .build()));
     }
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         LivingEntity player=entity;
         if (player!=null) {
-            player.addEffect(new MobEffectInstance(SpEffect.CopperPotato.get(),  600*3, 0));
+            player.addEffect(new MobEffectInstance(SpEffect.CopperPotato,  600*3, 0));
         }
         return super.finishUsingItem(stack, world, entity);
     }

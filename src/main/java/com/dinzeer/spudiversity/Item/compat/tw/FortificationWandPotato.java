@@ -5,8 +5,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import twilightforest.capabilities.CapabilityList;
-import twilightforest.capabilities.shield.IShieldCapability;
+import net.neoforged.fml.ModList;
+import twilightforest.init.TFDataAttachments;
 
 public class FortificationWandPotato extends Item {
     public FortificationWandPotato(Properties properties) {
@@ -14,15 +14,13 @@ public class FortificationWandPotato extends Item {
     }
 
     @Override
-    public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity livingEntity) {
-        if (!level.isClientSide()) {
-            livingEntity.getCapability(CapabilityList.SHIELDS).ifPresent(IShieldCapability::replenishShields);
+    public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
+        if (!level.isClientSide() && ModList.get().isLoaded("twilightforest")) {
+            livingEntity.getData(TFDataAttachments.FORTIFICATION_SHIELDS).setShields(livingEntity, 5, false);
         }
-        if ( livingEntity instanceof ServerPlayer player){
-        if (!player.isCreative()) {
+        if (livingEntity instanceof ServerPlayer player && !player.isCreative()) {
             player.getCooldowns().addCooldown(this, 1200);
         }
-        }
-        return super.finishUsingItem(itemStack, level, livingEntity);
+        return super.finishUsingItem(stack, level, livingEntity);
     }
 }

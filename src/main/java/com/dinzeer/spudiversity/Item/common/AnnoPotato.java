@@ -35,8 +35,8 @@ public class AnnoPotato extends Item {
     public AnnoPotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.5f)
-                .alwaysEat()
+                .saturationModifier(0.5f)
+                .alwaysEdible()
                 .build()));
     }
 
@@ -46,7 +46,7 @@ public class AnnoPotato extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, net.minecraft.world.item.Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         for (int i = 0; i < 4; i++) {
             tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.AnnoPotato, i)).withStyle(ChatFormatting.LIGHT_PURPLE));
         }

@@ -1,35 +1,35 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.registry.SpPotato;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
+import it.unimi.dsi.fastutil.ints.IntList;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.component.FireworkExplosion;
+import net.minecraft.world.item.component.Fireworks;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class FireworkPotato extends Item {
     public FireworkPotato(Properties properties) {
         super(properties.food((new FoodProperties.Builder())
                 .nutrition(9)
-                .saturationMod(0.2f)
+                .saturationModifier(0.2f)
                 .build()));
     }
-
-
-
-
-
-
 
     private static final Random RANDOM = new Random();
 
@@ -42,7 +42,7 @@ public class FireworkPotato extends Item {
         if (!isPotato) return;
 
         Vec3 look = player.getLookAngle();
-        // 计算左右偏25度的方向（绕Y轴旋转）
+        // 计算左右偏5度的方向（绕Y轴旋转）
         double angleRad = Math.toRadians(5);
         Vec3 leftDir = new Vec3(
                 look.x * Math.cos(angleRad) - look.z * Math.sin(angleRad),
@@ -76,46 +76,39 @@ public class FireworkPotato extends Item {
     private static FireworkRocketEntity createRandomFirework(net.minecraft.world.level.Level level,
                                                              double x, double y, double z) {
         ItemStack rocketStack = new ItemStack(Items.FIREWORK_ROCKET);
-        CompoundTag tag = rocketStack.getOrCreateTagElement("Fireworks");
 
-        tag.putByte("Flight", (byte) (RANDOM.nextInt(3)));
-
-        ListTag explosions = new ListTag();
+        List<FireworkExplosion> explosions = new ArrayList<>();
         int explosionCount = RANDOM.nextInt(3) + 1;
         for (int i = 0; i < explosionCount; i++) {
             explosions.add(createRandomExplosion());
         }
-        tag.put("Explosions", explosions);
+        rocketStack.set(DataComponents.FIREWORKS, new Fireworks(RANDOM.nextInt(3), explosions));
 
         return new FireworkRocketEntity(level, x, y, z, rocketStack);
     }
 
     /**
-     * 生成随机烟花爆炸效果 NBT
+     * 生成随机烟花爆炸效果
      */
-    private static CompoundTag createRandomExplosion() {
-        CompoundTag explosion = new CompoundTag();
+    private static FireworkExplosion createRandomExplosion() {
+        FireworkExplosion.Shape[] shapes = FireworkExplosion.Shape.values();
+        FireworkExplosion.Shape shape = shapes[RANDOM.nextInt(shapes.length)];
 
-        explosion.putByte("Type", (byte) RANDOM.nextInt(5));
+        IntList colors = IntList.of(randomColors());
+        IntList fadeColors = IntList.of();
+        if (RANDOM.nextBoolean()) {
+            fadeColors = IntList.of(randomColors());
+        }
 
+        return new FireworkExplosion(shape, colors, fadeColors,
+                RANDOM.nextBoolean(), RANDOM.nextBoolean());
+    }
+
+    private static int[] randomColors() {
         int[] colors = new int[RANDOM.nextInt(3) + 1];
         for (int i = 0; i < colors.length; i++) {
             colors[i] = 0xFF000000 | RANDOM.nextInt(0xFFFFFF); // 随机 RGB
         }
-        explosion.putIntArray("Colors", colors);
-
-
-        if (RANDOM.nextBoolean()) {
-            int[] fadeColors = new int[RANDOM.nextInt(2) + 1];
-            for (int i = 0; i < fadeColors.length; i++) {
-                fadeColors[i] = 0xFF000000 | RANDOM.nextInt(0xFFFFFF);
-            }
-            explosion.putIntArray("FadeColors", fadeColors);
-        }
-
-        if (RANDOM.nextBoolean()) explosion.putBoolean("Flicker", true);
-        if (RANDOM.nextBoolean()) explosion.putBoolean("Trail", true);
-
-        return explosion;
+        return colors;
     }
 }

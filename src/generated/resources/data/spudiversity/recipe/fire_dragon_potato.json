@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "iceandfire"
+    }
+  ],
+  "pattern": [
+    "DDD",
+    "DPD",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "iceandfire:fire_dragon_blood"
+    },
+    "P": {
+      "item": "spudiversity:obsidian_potato"
+    }
+  },
+  "result": {
+    "id": "spudiversity:fire_dragon_potato"
+  },
+  "show_notification": true
+}

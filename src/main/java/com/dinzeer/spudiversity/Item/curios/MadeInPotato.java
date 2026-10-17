@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.ChatFormatting;
@@ -18,20 +20,20 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class MadeInPotato extends Item {
     public MadeInPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(1f)
-                        .alwaysEat()
+                .saturationModifier(1f)
+                        .alwaysEdible()
                 .build()));
     }
 
@@ -60,9 +62,10 @@ public class MadeInPotato extends Item {
         return super.finishUsingItem(stack, world, entity);
     }
     @SubscribeEvent
-    public static void OnPlayerTick(TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void OnPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
         Level level = player.level();
+        if (level.isClientSide) return;
 
         if (CurioCompat.hasItemInCurio(player, SpPotato.MadeInPotato.get())) {
             // 恢复手持物品耐久
@@ -136,10 +139,8 @@ public class MadeInPotato extends Item {
 
 
 
-
-
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         // 土豆制造
         tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
                 "item.spudiversity.made_in_potato.tooltip"));

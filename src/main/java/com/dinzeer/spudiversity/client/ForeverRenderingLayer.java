@@ -17,9 +17,8 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.LazyOptional;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,14 +32,14 @@ public class ForeverRenderingLayer extends RenderLayer<AbstractClientPlayer, Pla
     private static final Map<String, Supplier<? extends Item>> POTATO_MAP = new HashMap<>();
 
     static {
-        registerPotato("fire_dragon_potato", SpICFPotato.FireDragonPotato);
-        registerPotato("ice_dragon_potato", SpICFPotato.IceDragonPotato);
-        registerPotato("lightning_dragon_potato", SpICFPotato.LightningDragonPotato);
         registerPotato("for_love", SpPotato.StarPotato);
         registerPotato("tiny_water", SpPotato.TinyWaterPotato);
         registerPotato("universe_potato", SpAvaPotato.UniversePotato);
         registerPotato("crystal_potato", SpPotato.CrystalPotato);
         registerPotato("tangxing_potato", SpPotato.TangxingPotato);
+        registerPotato("fire_dragon_potato", SpICFPotato.FireDragonPotato);
+        registerPotato("ice_dragon_potato", SpICFPotato.IceDragonPotato);
+        registerPotato("lightning_dragon_potato", SpICFPotato.LightningDragonPotato);
     }
 
     public static void registerPotato(String key, Supplier<? extends Item> itemSupplier) {
@@ -142,21 +141,21 @@ public class ForeverRenderingLayer extends RenderLayer<AbstractClientPlayer, Pla
      */
     private List<ItemStack> getPotato(AbstractClientPlayer player) {
         List<ItemStack> relics = new ArrayList<>();
-        LazyOptional<PlayerPermanentAbilities> cap = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
-        if (cap.isPresent()) {
-            cap.ifPresent(store -> {
-                String potatoKey = store.getActivePotato();
-                if (potatoKey != null && !potatoKey.isEmpty()) {
-                    ItemStack stack = getItemByKey(potatoKey);
-                    if (stack != null) {
-                        relics.add(stack);
-                    }
+        PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+        if (store != null) {
+            String potatoKey = store.getActivePotato();
+            if (potatoKey != null && !potatoKey.isEmpty()) {
+                ItemStack stack = getItemByKey(potatoKey);
+                if (stack != null) {
+                    relics.add(stack);
                 }
-                if (store.getActivePotatoOff().equals("tangxing_potato")){
-                    relics.add(getItemByKey("tangxing_potato"));
+            }
+            if (store.getActivePotatoOff().equals("tangxing_potato")){
+                ItemStack tangxing = getItemByKey("tangxing_potato");
+                if (tangxing != null) {
+                    relics.add(tangxing);
                 }
-            });
-
+            }
         }
         return relics;
     }

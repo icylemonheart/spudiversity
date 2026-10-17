@@ -20,7 +20,7 @@ public class NoNamePotato extends Item {
 
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, net.minecraft.world.item.Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         if (Screen.hasAltDown()){
         for (int i = 0; i < 10; i++){
             tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.NONAME_POTATO,i)).withStyle(ChatFormatting.GRAY));

@@ -1,6 +1,10 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.registry.SpEffect;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,24 +12,23 @@ import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
 import java.util.Random;
-import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class SakuraFantasy extends MobEffect {
-    private static final UUID SPEED_MODIFIER_UUID = UUID.nameUUIDFromBytes("SAKURA_SPEED".getBytes());
-    private static final UUID JUMP_MODIFIER_UUID = UUID.nameUUIDFromBytes("SAKURA_JUMP".getBytes());
+    private static final ResourceLocation SPEED_MODIFIER_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "sakura_speed");
+    private static final ResourceLocation JUMP_MODIFIER_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "sakura_jump");
 
     public SakuraFantasy() {
         super(MobEffectCategory.BENEFICIAL, -26368);
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         applySpeedBoost(entity, amplifier);
 
         applyJumpBoost(entity);
@@ -36,21 +39,21 @@ public class SakuraFantasy extends MobEffect {
             spawnSakuraParticles(entity);
         }
 
-        super.applyEffectTick(entity, amplifier);
+        return super.applyEffectTick(entity, amplifier);
     }
 
     @Override
-    public void removeAttributeModifiers(LivingEntity entity, net.minecraft.world.entity.ai.attributes.AttributeMap attributes, int amplifier) {
-        super.removeAttributeModifiers(entity, attributes, amplifier);
+    public void removeAttributeModifiers(net.minecraft.world.entity.ai.attributes.AttributeMap attributes) {
+        super.removeAttributeModifiers(attributes);
 
-        AttributeInstance speedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
+        AttributeInstance speedAttr = attributes.getInstance(Attributes.MOVEMENT_SPEED);
         if (speedAttr != null) {
-            speedAttr.removeModifier(SPEED_MODIFIER_UUID);
+            speedAttr.removeModifier(SPEED_MODIFIER_ID);
         }
 
-        AttributeInstance jumpAttr = entity.getAttribute(Attributes.JUMP_STRENGTH);
+        AttributeInstance jumpAttr = attributes.getInstance(Attributes.JUMP_STRENGTH);
         if (jumpAttr != null) {
-            jumpAttr.removeModifier(JUMP_MODIFIER_UUID);
+            jumpAttr.removeModifier(JUMP_MODIFIER_ID);
         }
     }
 
@@ -58,15 +61,14 @@ public class SakuraFantasy extends MobEffect {
         AttributeInstance speedAttr = entity.getAttribute(Attributes.MOVEMENT_SPEED);
         if (speedAttr != null) {
 
-            speedAttr.removeModifier(SPEED_MODIFIER_UUID);
+            speedAttr.removeModifier(SPEED_MODIFIER_ID);
 
             double speedMultiplier = 0.5D * (amplifier + 1);
 
             speedAttr.addTransientModifier(new AttributeModifier(
-                    SPEED_MODIFIER_UUID,
-                    "Sakura Speed Boost",
+                    SPEED_MODIFIER_ID,
                     speedMultiplier,
-                    AttributeModifier.Operation.MULTIPLY_BASE
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE
             ));
         }
     }
@@ -75,13 +77,12 @@ public class SakuraFantasy extends MobEffect {
         AttributeInstance jumpAttr = entity.getAttribute(Attributes.JUMP_STRENGTH);
         if (jumpAttr != null) {
 
-            jumpAttr.removeModifier(JUMP_MODIFIER_UUID);
+            jumpAttr.removeModifier(JUMP_MODIFIER_ID);
 
             jumpAttr.addTransientModifier(new AttributeModifier(
-                    JUMP_MODIFIER_UUID,
-                    "Sakura Jump Boost",
+                    JUMP_MODIFIER_ID,
                     0.25D,
-                    AttributeModifier.Operation.MULTIPLY_BASE
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE
             ));
         }
     }
@@ -133,7 +134,7 @@ public class SakuraFantasy extends MobEffect {
     public static void onLivingFall(LivingFallEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (entity.hasEffect(SpEffect.SakuraFantasy.get())) {
+        if (entity.hasEffect(SpEffect.SakuraFantasy)) {
             float reducedDistance = event.getDistance() * 0.5F;
             event.setDistance(reducedDistance);
             if (entity.level().isClientSide) {
@@ -158,7 +159,7 @@ public class SakuraFantasy extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 }

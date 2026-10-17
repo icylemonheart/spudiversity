@@ -1,19 +1,19 @@
-// ModCapabilities.java
 package com.dinzeer.spudiversity.capability;
 
-import com.dinzeer.spudiversity.capability.impl.IAlchemistPotatoCap;
+import net.neoforged.fml.common.EventBusSubscriber;
+
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.world.entity.EntityType;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = Spudiversity.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ModCapabilities {
     @SubscribeEvent
     public static void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.register(PlayerPermanentAbilities.class);
-        event.register(PlayerKillBossAbilities.class);
-        event.register(IAlchemistPotatoCap.class);
+        event.registerEntity(PlayerPermanentAbilities.CAPABILITY, EntityType.PLAYER, (player, ctx) -> player.getData(SpAttachments.PERMANENT_ABILITIES));
+        event.registerEntity(PlayerKillBossAbilities.CAPABILITY, EntityType.PLAYER, (player, ctx) -> player.getData(SpAttachments.KILL_BOSS_ABILITIES));
     }
 }

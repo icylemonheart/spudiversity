@@ -41,7 +41,7 @@ public class OceanPotato extends Item {
         }
 
         // 消耗1点耐久
-        stack.hurtAndBreak(1, player, (p) -> p.broadcastBreakEvent(hand));
+        stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
 
         // 获取玩家朝向的方向和范围
         Vec3 lookVec = player.getViewVector(1.0F);

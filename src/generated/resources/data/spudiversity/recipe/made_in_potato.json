@@ -1,0 +1,27 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "key":  {
+                "C":  {
+                          "item":  "minecraft:clock"
+                      },
+                "E":  {
+                          "item":  "spudiversity:enchanted_potato"
+                      },
+                "N":  {
+                          "item":  "minecraft:nether_star"
+                      },
+                "P":  {
+                          "item":  "spudiversity:nether_star_potato"
+                      }
+            },
+    "pattern":  [
+                    "NEN",
+                    "CPC",
+                    "NCN"
+                ],
+    "result":  {
+                   "id":  "spudiversity:made_in_potato"
+               },
+    "show_notification":  true
+}

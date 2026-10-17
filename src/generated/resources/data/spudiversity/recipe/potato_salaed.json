@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": {
+      "item": "minecraft:glow_berries"
+    },
+    "G": {
+      "item": "minecraft:sweet_berries"
+    },
+    "P": {
+      "item": "spudiversity:honey_potato"
+    }
+  },
+  "pattern": [
+    "GFG",
+    "FPF",
+    "GFG"
+  ],
+  "result": {
+    "id": "spudiversity:potato_salaed"
+  },
+  "show_notification": true
+}

@@ -7,7 +7,7 @@ public class CakePotato extends Item {
     public CakePotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(1f)
+                .saturationModifier(1f)
                 .build()));
     }
 }

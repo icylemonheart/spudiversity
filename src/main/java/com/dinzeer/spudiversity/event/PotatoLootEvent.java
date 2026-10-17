@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.event;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.item.speaical.NoNamePotato;
 import com.dinzeer.spudiversity.registry.SpItem;
@@ -30,18 +32,18 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.player.BonemealEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.level.BlockEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 
 import java.util.Map;
 import java.util.Random;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class PotatoLootEvent {
     private static final String HAS_RECEIVED_FIRST_DIAMOND_TAG = "onPlayerLoggedInGetNonamePotato";
     private static final Random RANDOM = new Random();
@@ -124,10 +126,6 @@ public class PotatoLootEvent {
             serverPlayer.sendSystemMessage(Component.literal("Good Morning Rider!").withStyle(ChatFormatting.GOLD));
         }
     }
-
-
-
-
 
 
 
@@ -222,7 +220,7 @@ public class PotatoLootEvent {
     // 樱吹雪土豆：在繁花森林对土豆苗使用骨粉有5%概率获得
     @SubscribeEvent
     public static void onBoneMealUsed(BonemealEvent event) {
-        if (event.getBlock().getBlock() == Blocks.POTATOES &&
+        if (event.getState().getBlock() == Blocks.POTATOES &&
                 event.getLevel().getBiome(event.getPos()).is(Biomes.FLOWER_FOREST)) {
 
             if (RANDOM.nextFloat() < 0.05f) { // 5% 概率
@@ -239,8 +237,8 @@ public class PotatoLootEvent {
                     // 播放樱花粒子效果
                     spawnSakuraParticles(level, event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
 
-                    if (event.getEntity() != null) {
-                        event.getEntity().playSound(net.minecraft.sounds.SoundEvents.BEEHIVE_SHEAR, 0.5F, 1.0F);
+                    if (event.getPlayer() != null) {
+                        event.getPlayer().playSound(net.minecraft.sounds.SoundEvents.BEEHIVE_SHEAR, 0.5F, 1.0F);
                     }
                 }
                 event.setCanceled(true); // 阻止原版骨粉效果
@@ -397,16 +395,6 @@ public class PotatoLootEvent {
 
 
 
-
-
-
-
-
-
-
-
-
-
     @SubscribeEvent
     public static void onTangxingPotatoEaten(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity().level().isClientSide) return;
@@ -444,8 +432,6 @@ public class PotatoLootEvent {
         }
 
     }
-
-
 
 
 

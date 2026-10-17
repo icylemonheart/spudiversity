@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 import com.dinzeer.spudiversity.entity.AirBladeProjectile;
 import com.dinzeer.spudiversity.registry.SpPotato;
@@ -12,18 +14,19 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.AttackEntityEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.Objects;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class MysteriousPotato extends Item {
     public MysteriousPotato(Item.Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(20)
-                .saturationMod(1f)
+                .saturationModifier(1f)
                 .build()));
     }
     @Override
@@ -36,8 +39,9 @@ public class MysteriousPotato extends Item {
     }
     // 添加状态效果
     @SubscribeEvent
-    public static void onPlayerTick(net.minecraftforge.event.TickEvent.PlayerTickEvent event) {
-        Player player = event.player;
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
+        Player player = event.getEntity();
+        if (player.level().isClientSide) return;
         if (isCurios(player)) {
             player.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 200, 1)); // 力量II
             player.addEffect(new MobEffectInstance(MobEffects.DIG_SPEED, 200, 1));    // 急迫II

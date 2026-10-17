@@ -1,18 +1,20 @@
 package com.dinzeer.spudiversity.event;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 
 import static com.dinzeer.spudiversity.Spudiversity.MODID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class ToolTipEvent {
 
     @SubscribeEvent
@@ -45,7 +47,7 @@ public class ToolTipEvent {
      * @return 如果在黑名单中返回true，否则返回false
      */
     private static boolean isItemInBlacklist(Item item) {
-        for (RegistryEntry<? extends Item> entry : SpPotato.ToolTipBlackList) {
+        for (RegistryEntry<Item, ? extends Item> entry : SpPotato.ToolTipBlackList) {
             if (entry.get() == item) {
                 return true;
             }

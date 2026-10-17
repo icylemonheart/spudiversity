@@ -1,8 +1,8 @@
 package com.dinzeer.spudiversity.util;
 
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
+import com.dinzeer.spudiversity.client.ClientHooks;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
@@ -19,6 +19,8 @@ public class CharmPotatoes {
     public static final String MEMORY_NOW = "tooltip.spudiversity.charm.memory_now";
     public static final String JIJIN_NOW = "tooltip.spudiversity.charm.jijin_now";
     public static final String SKYFOX_NOW = "tooltip.spudiversity.charm.skyfox_now";
+    public static final String EDELWEISS_ATTACK_DAMAGE = "tooltip.spudiversity.charm.edelweiss_attack_damage";
+    public static final String EDELWEISS_ATTACK_SPEED = "tooltip.spudiversity.charm.edelweiss_attack_speed";
 
     public static final class Spec {
         public final int[] flavor;
@@ -122,12 +124,13 @@ public class CharmPotatoes {
         }
     }
 
-    private static void appendKilledBosses(List<Component> tooltip) {
-        Player player = Minecraft.getInstance().player;
+    public static void appendKilledBosses(List<Component> tooltip) {
+        Player player = ClientHooks.getLocalPlayer();
         if (player == null) {
             return;
         }
-        player.getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(cap -> {
+        PlayerKillBossAbilities cap = player.getCapability(PlayerKillBossAbilities.CAPABILITY);
+        if (cap != null) {
             MutableComponent names = Component.empty();
             boolean first = true;
             first = appendBossName(names, first, cap.getKillWither(), "tooltip.spudiversity.boss.wither");
@@ -139,7 +142,7 @@ public class CharmPotatoes {
             } else {
                 tooltip.add(Component.translatable(ZZZ_KILLED, names).withStyle(ChatFormatting.DARK_GRAY));
             }
-        });
+        }
     }
 
     private static boolean appendBossName(MutableComponent names, boolean first, boolean killed, String key) {

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "spudiversity:diamond_potato"
+    },
+    "E": {
+      "item": "spudiversity:ender_potato"
+    }
+  },
+  "pattern": [
+    "EEE",
+    "EDE",
+    "EEE"
+  ],
+  "result": {
+    "id": "spudiversity:tirithippus_potato"
+  },
+  "show_notification": true
+}

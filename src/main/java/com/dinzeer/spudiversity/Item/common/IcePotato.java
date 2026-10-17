@@ -12,15 +12,15 @@ public class IcePotato extends Item {
     public IcePotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.5f)
-                .alwaysEat()
+                .saturationModifier(0.5f)
+                .alwaysEdible()
                 .build()));
     }
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         LivingEntity player=entity;
         if (player!=null) {
-            FastMakeEntityUtil.FastEffect(player, SpEffect.IcePotato.get(), 1,32);
+            FastMakeEntityUtil.FastEffect(player, SpEffect.IcePotato, 1,32);
         }
         return super.finishUsingItem(stack, world, entity);
     }

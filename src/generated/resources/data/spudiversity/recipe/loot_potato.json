@@ -1,0 +1,24 @@
+{
+    "type":  "minecraft:crafting_shaped",
+    "category":  "misc",
+    "key":  {
+                "A":  {
+                          "item":  "spudiversity:diamond_potato"
+                      },
+                "B":  {
+                          "item":  "spudiversity:enchanted_potato"
+                      },
+                "C":  {
+                          "item":  "spudiversity:emerald_potato"
+                      }
+            },
+    "pattern":  [
+                    "ABA",
+                    "CAC",
+                    "BCB"
+                ],
+    "result":  {
+                   "id":  "spudiversity:loot_potato"
+               },
+    "show_notification":  true
+}

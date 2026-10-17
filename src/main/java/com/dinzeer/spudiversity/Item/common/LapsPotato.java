@@ -12,8 +12,8 @@ public class LapsPotato extends Item {
     public LapsPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(10)
-                .saturationMod(1F)
-                .alwaysEat()
+                .saturationModifier(1F)
+                .alwaysEdible()
                 .build()));
     }
     @Override

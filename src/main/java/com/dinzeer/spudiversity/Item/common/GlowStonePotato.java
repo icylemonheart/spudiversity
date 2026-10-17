@@ -11,15 +11,15 @@ import net.minecraft.world.level.Level;
 public class GlowStonePotato extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.RadiantLight.get(), 3, 5);
+        FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.RadiantLight, 3, 5);
         return super.finishUsingItem(itemStack, level, entity);
     }
 
     public GlowStonePotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.2f)
-                .alwaysEat()
+                .saturationModifier(0.2f)
+                .alwaysEdible()
                 .build()));
     }
 

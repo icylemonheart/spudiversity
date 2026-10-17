@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.village;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 
 
 import com.dinzeer.spudiversity.registry.SpPotato;
@@ -7,13 +9,13 @@ import com.dinzeer.spudiversity.registry.SpPotato;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.BasicItemListing;
-import net.minecraftforge.event.village.WandererTradesEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.BasicItemListing;
+import net.neoforged.neoforge.event.village.WandererTradesEvent;
 
 import java.util.List;
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class CommonEventHandler {
         public CommonEventHandler() {
         }

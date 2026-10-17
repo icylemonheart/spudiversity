@@ -1,16 +1,19 @@
 package com.dinzeer.spudiversity.client;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEntities;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraft.client.resources.PlayerSkin;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ClientSetup {
 
     @SubscribeEvent
@@ -20,8 +23,8 @@ public class ClientSetup {
     }
     @SubscribeEvent
     public static void addLayers(EntityRenderersEvent.AddLayers event) {
-        for (String skinName : event.getSkins()) {
-            PlayerRenderer renderer = event.getSkin(skinName);
+        for (PlayerSkin.Model skinModel : event.getSkins()) {
+            PlayerRenderer renderer = event.getSkin(skinModel);
             if (renderer != null) {
                 renderer.addLayer(new ForeverRenderingLayer(renderer));
                 if (ModList.get().isLoaded("curios")) {

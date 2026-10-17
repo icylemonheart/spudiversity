@@ -5,6 +5,7 @@ import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,8 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -25,9 +26,8 @@ public class NoNamePotatoDark extends Item {
 
 
 
-
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         if (Screen.hasAltDown()){
             for (int i = 0; i < 4; i++){
                 tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.NoNamePotatoDark,i)).withStyle(ChatFormatting.GRAY));
@@ -54,12 +54,9 @@ public class NoNamePotatoDark extends Item {
 
                     ItemStack star_potato = new ItemStack(SpPotato.StarPotato.get());
 
-
-
-                    CompoundTag tag = star_potato.getOrCreateTag();
+                    CompoundTag tag = star_potato.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
                     tag.putString("ObtainedByPlayerName", player.getName().getString());
-                    star_potato.setTag(tag);
-
+                    star_potato.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
 
                     itemStack.shrink(1);
                     if (!player.getInventory().add(star_potato)) {

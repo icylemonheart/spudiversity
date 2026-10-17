@@ -1,19 +1,18 @@
 package com.dinzeer.spudiversity.util;
 
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.client.ClientHooks;
 import com.dinzeer.spudiversity.item.speaical.TangxingPotato;
 import com.dinzeer.spudiversity.registry.SpAvaPotato;
 import com.dinzeer.spudiversity.registry.SpICFPotato;
 import com.dinzeer.spudiversity.registry.SpPotato;
 import com.tterrag.registrate.util.entry.RegistryEntry;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModList;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -34,19 +33,17 @@ public class PerpetualPotatoes {
     public static final String OFF_ACTIVE = "tooltip.spudiversity.perpetual.off_active";
     public static final String OFF_NONE = "tooltip.spudiversity.perpetual.off_none";
 
-    private static final Map<String, RegistryEntry<? extends Item>> MAIN_SLOT = new LinkedHashMap<>();
-    private static final Map<String, RegistryEntry<? extends Item>> OFF_SLOT = new LinkedHashMap<>();
+    private static final Map<String, RegistryEntry<Item, ? extends Item>> MAIN_SLOT = new LinkedHashMap<>();
+    private static final Map<String, RegistryEntry<Item, ? extends Item>> OFF_SLOT = new LinkedHashMap<>();
 
     static {
         MAIN_SLOT.put("tiny_water", SpPotato.TinyWaterPotato);
         MAIN_SLOT.put("crystal_potato", SpPotato.CrystalPotato);
         MAIN_SLOT.put("for_love", SpPotato.StarPotato);
         MAIN_SLOT.put("universe_potato", SpAvaPotato.UniversePotato);
-        if (ModList.get().isLoaded("iceandfire")) {
-            MAIN_SLOT.put("fire_dragon_potato", SpICFPotato.FireDragonPotato);
-            MAIN_SLOT.put("ice_dragon_potato", SpICFPotato.IceDragonPotato);
-            MAIN_SLOT.put("lightning_dragon_potato", SpICFPotato.LightningDragonPotato);
-        }
+        MAIN_SLOT.put("fire_dragon_potato", SpICFPotato.FireDragonPotato);
+        MAIN_SLOT.put("ice_dragon_potato", SpICFPotato.IceDragonPotato);
+        MAIN_SLOT.put("lightning_dragon_potato", SpICFPotato.LightningDragonPotato);
         OFF_SLOT.put(TangxingPotato.CRYSTAL_TYPE, SpPotato.TangxingPotato);
     }
 
@@ -101,7 +98,7 @@ public class PerpetualPotatoes {
 
     /** 取永续土豆类型对应的物品名 */
     public static Component nameOf(String crystalType) {
-        RegistryEntry<? extends Item> entry = MAIN_SLOT.get(crystalType);
+        RegistryEntry<Item, ? extends Item> entry = MAIN_SLOT.get(crystalType);
         if (entry == null) {
             entry = OFF_SLOT.get(crystalType);
         }
@@ -116,12 +113,13 @@ public class PerpetualPotatoes {
      * @param showOffSlot 显示独立槽位（棠星土豆）状态
      */
     public static void appendActiveStatus(List<Component> tooltip, boolean showOffSlot) {
-        Player player = Minecraft.getInstance().player;
+        Player player = ClientHooks.getLocalPlayer();
         spacer(tooltip);
         if (player == null) {
             return;
         }
-        player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(cap -> {
+        PlayerPermanentAbilities cap = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+        if (cap != null) {
             String active = cap.getActivePotato();
             if (active == null || active.isEmpty()) {
                 tooltip.add(Component.translatable(NONE).withStyle(ChatFormatting.DARK_GRAY));
@@ -136,6 +134,6 @@ public class PerpetualPotatoes {
                     tooltip.add(Component.translatable(OFF_NONE).withStyle(ChatFormatting.DARK_GRAY));
                 }
             }
-        });
+        }
     }
 }

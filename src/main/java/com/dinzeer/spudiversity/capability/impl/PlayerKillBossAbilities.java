@@ -1,22 +1,18 @@
-// PlayerPermanentAbilities.java
+// PlayerKillBossAbilities.java
 package com.dinzeer.spudiversity.capability.impl;
 
-import net.minecraft.core.Direction;
+import com.dinzeer.spudiversity.Spudiversity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class PlayerKillBossAbilities implements INBTSerializable<CompoundTag> {
-    public static final Capability<PlayerKillBossAbilities> CAPABILITY =
-            CapabilityManager.get(new CapabilityToken<>() {});
-
-
+    public static final EntityCapability<PlayerKillBossAbilities, Void> CAPABILITY =
+            EntityCapability.createVoid(
+                    ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "kill_bosses_abilities"),
+                    PlayerKillBossAbilities.class);
 
     private Boolean killWither = false;
     private Boolean killEnderDragon = false;
@@ -55,7 +51,7 @@ public class PlayerKillBossAbilities implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag nbt = new CompoundTag();
         nbt.putBoolean("kill_wither", getKillWither());
         nbt.putBoolean("kill_ender_dragon", getKillEnderDragon());
@@ -65,33 +61,10 @@ public class PlayerKillBossAbilities implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.killWither = nbt.getBoolean("kill_wither");
         this.killEnderDragon = nbt.getBoolean("kill_ender_dragon");
         this.killWarden = nbt.getBoolean("kill_warden");
         this.killOldGrudian = nbt.getBoolean("kill_old_grudian");
-    }
-
-    public static class Provider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-        private final PlayerKillBossAbilities abilities = new PlayerKillBossAbilities();
-        private final LazyOptional<PlayerKillBossAbilities> optional = LazyOptional.of(() -> abilities);
-
-        @Override
-        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-            if (cap == CAPABILITY) {
-                return optional.cast();
-            }
-            return LazyOptional.empty();
-        }
-
-        @Override
-        public CompoundTag serializeNBT() {
-            return abilities.serializeNBT();
-        }
-
-        @Override
-        public void deserializeNBT(CompoundTag nbt) {
-            abilities.deserializeNBT(nbt);
-        }
     }
 }

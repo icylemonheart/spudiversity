@@ -15,11 +15,11 @@ public class EnderPotato  extends ChorusFruitItem {
     public EnderPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(6)
-                .saturationMod(0.5f)
+                .saturationModifier(0.5f)
                 .build()));
     }
     @Override
-    public void appendHoverText(ItemStack itemstack, Level world, List<Component> list, TooltipFlag flag) {
+    public void appendHoverText(ItemStack itemstack, net.minecraft.world.item.Item.TooltipContext world, List<Component> list, TooltipFlag flag) {
         super.appendHoverText(itemstack, world, list, flag);
 
         String[] a=itemstack.getItem().getDescriptionId().split("\\.",3);

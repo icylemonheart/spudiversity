@@ -1,19 +1,21 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraftforge.event.entity.living.LivingHealEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingHealEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.util.Random;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class BlazeEnd extends MobEffect {
     private static final Random RANDOM = new Random();
 
@@ -22,9 +24,9 @@ public class BlazeEnd extends MobEffect {
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         if (!entity.isOnFire()) {
-            entity.setSecondsOnFire(1);
+            entity.igniteForSeconds(1);
         }
 
         if (entity.tickCount % 20 == 0) {
@@ -35,11 +37,11 @@ public class BlazeEnd extends MobEffect {
             spawnFlameParticles(entity);
         }
 
-        super.applyEffectTick(entity, amplifier);
+        return super.applyEffectTick(entity, amplifier);
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
@@ -57,7 +59,7 @@ public class BlazeEnd extends MobEffect {
     public static void onLivingHeal(LivingHealEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (entity.hasEffect(SpEffect.BlazeEnd.get()) && entity.isOnFire()) {
+        if (entity.hasEffect(SpEffect.BlazeEnd) && entity.isOnFire()) {
             // 当燃烧期间阻止所有治疗
             event.setCanceled(true);
 
@@ -75,15 +77,15 @@ public class BlazeEnd extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void onLivingHurt(LivingIncomingDamageEvent event) {
         DamageSource source = event.getSource();
         LivingEntity target = event.getEntity();
 
         // 检查攻击者是否有BlazeEnd效果
         if (source.getEntity() instanceof LivingEntity attacker) {
-            if (attacker.hasEffect(SpEffect.BlazeEnd.get())) {
+            if (attacker.hasEffect(SpEffect.BlazeEnd)) {
                 // 点燃目标
-                target.setSecondsOnFire(5); // 点燃5秒
+                target.igniteForSeconds(5); // 点燃5秒
 
                 // 对目标造成额外火焰伤害
                 float extraDamage = event.getAmount() * 0.3F; // 额外30%伤害
@@ -102,12 +104,12 @@ public class BlazeEnd extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onPlayerAttack(LivingHurtEvent event) {
+    public static void onPlayerAttack(LivingIncomingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            if (player.hasEffect(SpEffect.BlazeEnd.get()) ) {
+            if (player.hasEffect(SpEffect.BlazeEnd) ) {
                 LivingEntity target = event.getEntity();
                 if (!target.isOnFire()) {
-                    target.setSecondsOnFire(5);
+                    target.igniteForSeconds(5);
                 }
                 if (player.level().isClientSide) {
                     spawnAttackParticles(target);

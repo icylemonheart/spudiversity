@@ -12,8 +12,8 @@ public class DiamondPotato extends Item {
     public DiamondPotato(Properties p_41383_) {
         super(p_41383_.food((new FoodProperties.Builder())
                 .nutrition(6)
-                .saturationMod(0.5f)
-                .alwaysEat()
+                .saturationModifier(0.5f)
+                .alwaysEdible()
                 .build()));
     }
     @Override

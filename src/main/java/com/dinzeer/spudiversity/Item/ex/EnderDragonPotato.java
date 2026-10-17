@@ -47,9 +47,7 @@ public class EnderDragonPotato extends Item {
 
 
             DragonFireball fireball = new DragonFireball(world, player,
-                    player.getLookAngle().x * 2.0,
-                    player.getLookAngle().y * 2.0,
-                    player.getLookAngle().z * 2.0);
+                    player.getLookAngle());
 
             double eyeHeight = player.getEyeY() - 0.1;
             fireball.setPos(player.getX(), eyeHeight, player.getZ());
@@ -77,7 +75,7 @@ public class EnderDragonPotato extends Item {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level world, List<Component> tooltip, TooltipFlag flag) {
+    public void appendHoverText(ItemStack stack, net.minecraft.world.item.Item.TooltipContext world, List<Component> tooltip, TooltipFlag flag) {
 
         for (int i = 0; i < 8; i++) {
             tooltip.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.EnderDragonPotato, i)).withStyle(ChatFormatting.LIGHT_PURPLE));

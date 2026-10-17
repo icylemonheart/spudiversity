@@ -22,7 +22,7 @@ public class VillagerMixin {
             }
         }
 
-        if (p_35541_.hasEffect(SpEffect.VillageSun.get())) {
+        if (p_35541_.hasEffect(SpEffect.VillageSun)) {
 
             for(MerchantOffer merchantoffer1 : village.getOffers()) {
                 double d0 = 0.8;

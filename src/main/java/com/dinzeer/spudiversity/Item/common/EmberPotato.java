@@ -11,15 +11,15 @@ import net.minecraft.world.level.Level;
 public class EmberPotato extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        FastMakeEntityUtil.FastEffect(entity, SpEffect.BurnWithDawn.get(), 1, 120);
+        FastMakeEntityUtil.FastEffect(entity, SpEffect.BurnWithDawn, 1, 120);
         return super.finishUsingItem(itemStack, level, entity);
     }
 
     public EmberPotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.5f)
-                .alwaysEat()
+                .saturationModifier(0.5f)
+                .alwaysEdible()
                 .build()));
     }
 

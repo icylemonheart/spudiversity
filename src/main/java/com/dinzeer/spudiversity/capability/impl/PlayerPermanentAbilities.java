@@ -1,20 +1,18 @@
 // PlayerPermanentAbilities.java
 package com.dinzeer.spudiversity.capability.impl;
 
-import net.minecraft.core.Direction;
+import com.dinzeer.spudiversity.Spudiversity;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.common.util.INBTSerializable;
 
 public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
-    public static final Capability<PlayerPermanentAbilities> CAPABILITY =
-            CapabilityManager.get(new CapabilityToken<>() {});
+    public static final EntityCapability<PlayerPermanentAbilities, Void> CAPABILITY =
+            EntityCapability.createVoid(
+                    ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "permanent_abilities"),
+                    PlayerPermanentAbilities.class);
 
     private String activePotato = "";
     private String activePotatoOff = "";
@@ -41,7 +39,7 @@ public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public CompoundTag serializeNBT() {
+    public CompoundTag serializeNBT(HolderLookup.Provider provider) {
         CompoundTag nbt = new CompoundTag();
         nbt.putString("active_potato", activePotato);
         nbt.putString("active_potato_off", activePotatoOff);
@@ -49,31 +47,8 @@ public class PlayerPermanentAbilities implements INBTSerializable<CompoundTag> {
     }
 
     @Override
-    public void deserializeNBT(CompoundTag nbt) {
+    public void deserializeNBT(HolderLookup.Provider provider, CompoundTag nbt) {
         this.activePotato = nbt.getString("active_potato");
         this.activePotatoOff = nbt.getString("active_potato_off");
-    }
-
-    public static class Provider implements ICapabilityProvider, INBTSerializable<CompoundTag> {
-        private final PlayerPermanentAbilities abilities = new PlayerPermanentAbilities();
-        private final LazyOptional<PlayerPermanentAbilities> optional = LazyOptional.of(() -> abilities);
-
-        @Override
-        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-            if (cap == CAPABILITY) {
-                return optional.cast();
-            }
-            return LazyOptional.empty();
-        }
-
-        @Override
-        public CompoundTag serializeNBT() {
-            return abilities.serializeNBT();
-        }
-
-        @Override
-        public void deserializeNBT(CompoundTag nbt) {
-            abilities.deserializeNBT(nbt);
-        }
     }
 }

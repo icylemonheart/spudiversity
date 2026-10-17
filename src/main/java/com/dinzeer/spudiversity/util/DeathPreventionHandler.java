@@ -3,29 +3,19 @@ package com.dinzeer.spudiversity.util;
 import com.dinzeer.legendreliclib.lib.compat.curios.CurioCompat;
 
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import top.theillusivec4.curios.Curios;
-import top.theillusivec4.curios.api.CuriosApi;
-
-import java.util.Optional;
-import java.util.function.Supplier;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
 /**
  * 通用免死效果处理器（类似不死图腾）
  * 支持冷却计数、最大触发次数、效果恢复等
  */
 public class DeathPreventionHandler {
-
-
-
 
 
 
@@ -43,7 +33,10 @@ public class DeathPreventionHandler {
 
         cooldown = cooldown * 20;
 
-        ItemStack curioItem = CurioCompat.findCurioItem(player, targetItem).get();
+        ItemStack curioItem = CurioCompat.findCurioItem(player, targetItem).orElse(null);
+        if (curioItem == null || curioItem.isEmpty()) {
+            return false;
+        }
         // 冷却检查
         if (player.getCooldowns().isOnCooldown(curioItem.getItem())) {
             return false;

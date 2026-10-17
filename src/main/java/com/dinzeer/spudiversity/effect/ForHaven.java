@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import com.dinzeer.spudiversity.util.ILevel;
 import com.dinzeer.spudiversity.util.Returnner;
@@ -8,11 +10,11 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.dimension.DimensionType;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class ForHaven extends MobEffect {
     private static int accelerationStage = 1; // 新增：加速阶段计数器
     private static int powerRange = 1; // 新增：加速阶段计数器
@@ -23,9 +25,9 @@ public class ForHaven extends MobEffect {
 
 
 @Override
-public void applyEffectTick(LivingEntity entity, int amplifier) {
+public boolean applyEffectTick(LivingEntity entity, int amplifier) {
     if (!entity.level().isClientSide && entity.level() instanceof ServerLevel serverLevel) {
-        if (entity.hasEffect(SpEffect.ForHaven.get())) {
+        if (entity.hasEffect(SpEffect.ForHaven)) {
         long currentTime = serverLevel.getDayTime();
         long smoothFactor = accelerationStage;
         DimensionType dimensionType = serverLevel.dimensionType();
@@ -33,25 +35,26 @@ public void applyEffectTick(LivingEntity entity, int amplifier) {
         accelerationStage=accelerationStage+powerRange*10;
         }
     }
+    return true;
 }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 
     @SubscribeEvent
-    public static void onWorldTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.END && event.player.level() instanceof ServerLevel serverLevel) {
+    public static void onWorldTick(PlayerTickEvent.Post event) {
+        if (event.getEntity().level() instanceof ServerLevel serverLevel) {
             serverLevel.players().forEach(player -> {
-                if (player.hasEffect(SpEffect.ForHaven.get())) {
+                if (player.hasEffect(SpEffect.ForHaven)) {
                     Returnner.setDois(true);
                     tickCounter++;
                     if (tickCounter >= 20) {
                         powerRange = Math.min(powerRange + 1, Integer.MAX_VALUE);
                         tickCounter = 0;
                         if (powerRange % 10 == 0) {
-                            event.player.sendSystemMessage(net.minecraft.network.chat.Component.literal(
+                            player.sendSystemMessage(net.minecraft.network.chat.Component.literal(
                                     String.format("当前加速功率为%s", powerRange)));
                         }
                     }

@@ -1,33 +1,37 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
+import com.dinzeer.spudiversity.Spudiversity;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.awt.*;
 import java.util.List;
-import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class EveryThing extends MobEffect {
-    private static final UUID REACH_DISTANCE_UUID = UUID.nameUUIDFromBytes("EVERYTHING_REACH_DISTANCE".getBytes());
-    private static final UUID ATTACK_RANGE_UUID = UUID.nameUUIDFromBytes("EVERYTHING_ATTACK_RANGE".getBytes());
+    private static final ResourceLocation REACH_DISTANCE_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "everything_reach_distance");
+    private static final ResourceLocation ATTACK_RANGE_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "everything_attack_range");
 
     public EveryThing() {
         super(MobEffectCategory.BENEFICIAL, Color.PINK.getRGB());
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 
         if (entity instanceof Player player) {
             applyFlightSpeedBoost(player);
@@ -40,26 +44,21 @@ public class EveryThing extends MobEffect {
             spawnEverythingParticles(entity);
         }
 
-        super.applyEffectTick(entity, amplifier);
+        return super.applyEffectTick(entity, amplifier);
     }
 
     @Override
-    public void removeAttributeModifiers(LivingEntity entity, net.minecraft.world.entity.ai.attributes.AttributeMap attributes, int amplifier) {
-        super.removeAttributeModifiers(entity, attributes, amplifier);
+    public void removeAttributeModifiers(net.minecraft.world.entity.ai.attributes.AttributeMap attributes) {
+        super.removeAttributeModifiers(attributes);
 
-
-        if (entity instanceof Player player) {
-            player.getAbilities().setFlyingSpeed(0.05F);
-        }
-
-        AttributeInstance reachAttr = entity.getAttribute(ForgeMod.BLOCK_REACH.get());
+        AttributeInstance reachAttr = attributes.getInstance(Attributes.BLOCK_INTERACTION_RANGE);
         if (reachAttr != null) {
-            reachAttr.removeModifier(REACH_DISTANCE_UUID);
+            reachAttr.removeModifier(REACH_DISTANCE_ID);
         }
 
-        AttributeInstance attackRangeAttr = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
+        AttributeInstance attackRangeAttr = attributes.getInstance(Attributes.ENTITY_INTERACTION_RANGE);
         if (attackRangeAttr != null) {
-            attackRangeAttr.removeModifier(ATTACK_RANGE_UUID);
+            attackRangeAttr.removeModifier(ATTACK_RANGE_ID);
         }
     }
 
@@ -72,25 +71,23 @@ public class EveryThing extends MobEffect {
     }
 
     private void applyReachAndAttackRangeBoost(LivingEntity entity) {
-        AttributeInstance reachAttr = entity.getAttribute(ForgeMod.BLOCK_REACH.get());
+        AttributeInstance reachAttr = entity.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
         if (reachAttr != null) {
-            reachAttr.removeModifier(REACH_DISTANCE_UUID);
+            reachAttr.removeModifier(REACH_DISTANCE_ID);
             reachAttr.addTransientModifier(new AttributeModifier(
-                    REACH_DISTANCE_UUID,
-                    "Everything Reach Boost",
+                    REACH_DISTANCE_ID,
                     3.0D,
-                    AttributeModifier.Operation.ADDITION
+                    AttributeModifier.Operation.ADD_VALUE
             ));
         }
 
-        AttributeInstance attackRangeAttr = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
+        AttributeInstance attackRangeAttr = entity.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
         if (attackRangeAttr != null) {
-            attackRangeAttr.removeModifier(ATTACK_RANGE_UUID);
+            attackRangeAttr.removeModifier(ATTACK_RANGE_ID);
             attackRangeAttr.addTransientModifier(new AttributeModifier(
-                    ATTACK_RANGE_UUID,
-                    "Everything Attack Range Boost",
+                    ATTACK_RANGE_ID,
                     3.0D,
-                    AttributeModifier.Operation.ADDITION
+                    AttributeModifier.Operation.ADD_VALUE
             ));
         }
     }
@@ -134,11 +131,11 @@ public class EveryThing extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void EveryThing(LivingHurtEvent event) {
+    public static void EveryThing(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         List<MobEffectInstance> mobEffects = entity.getActiveEffects().stream().toList();
         for (MobEffectInstance mobEffectInstance : mobEffects) {
-            if (mobEffectInstance.getEffect() instanceof EveryThing) {
+            if (mobEffectInstance.getEffect().value() instanceof EveryThing) {
                 event.setAmount(event.getAmount() * 0.23f);
                 break;
             }
@@ -146,7 +143,7 @@ public class EveryThing extends MobEffect {
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 }

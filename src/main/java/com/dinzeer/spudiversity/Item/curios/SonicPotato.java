@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.key.LRModKeyMappings;
 import com.dinzeer.legendreliclib.lib.key.SpecialTypeKeyEvent;
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
@@ -21,20 +23,20 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
 import org.jetbrains.annotations.Nullable;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class SonicPotato extends Item implements ICurioItem {
     public SonicPotato(Properties properties) {
         super(properties.food((new FoodProperties.Builder())
                         .nutrition(6)
-                        .saturationMod(1f)
-                        .alwaysEat()
+                        .saturationModifier(1f)
+                        .alwaysEdible()
                         .build())
                 .stacksTo(1));
     }
@@ -76,7 +78,7 @@ public class SonicPotato extends Item implements ICurioItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.flavor(
                 LangUtil.FastMakeItemTooltip(SpPotato.SonicPotato, 0)));
         tooltipList.add(com.dinzeer.spudiversity.util.CharmPotatoes.effectsHeader());

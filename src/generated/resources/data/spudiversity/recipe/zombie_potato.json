@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": [
+    "ABC",
+    "DEF",
+    " G "
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:rotten_flesh"
+    },
+    "B": {
+      "item": "minecraft:wither_skeleton_skull"
+    },
+    "C": {
+      "item": "minecraft:bone"
+    },
+    "D": {
+      "item": "minecraft:gunpowder"
+    },
+    "E": {
+      "item": "minecraft:potato"
+    },
+    "F": {
+      "item": "minecraft:spider_eye"
+    },
+    "G": {
+      "item": "twilightforest:zombie_scepter"
+    }
+  },
+  "result": {
+    "id": "spudiversity:zombie_potato"
+  },
+  "show_notification": true
+}

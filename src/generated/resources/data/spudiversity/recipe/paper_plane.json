@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:diamond"
+    },
+    "B": {
+      "item": "minecraft:paper"
+    },
+    "P": {
+      "item": "minecraft:pink_dye"
+    }
+  },
+  "pattern": [
+    "A A",
+    "BPB",
+    "A A"
+  ],
+  "result": {
+    "id": "spudiversity:paper_plane"
+  },
+  "show_notification": true
+}

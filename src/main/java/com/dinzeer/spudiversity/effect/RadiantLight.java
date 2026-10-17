@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -10,17 +12,17 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LightBlock;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.MobEffectEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
+import net.neoforged.neoforge.event.entity.living.MobEffectEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class RadiantLight extends MobEffect {
     public RadiantLight() {
         super(MobEffectCategory.BENEFICIAL, 0xFFDD88); // 暖金色
@@ -31,11 +33,11 @@ public class RadiantLight extends MobEffect {
     private static final Map<UUID, BlockPos> LIGHT_POSITIONS = new HashMap<>();
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingTickEvent event) {
-        LivingEntity entity = event.getEntity();
+    public static void onLivingTick(EntityTickEvent.Post event) {
+        if (!(event.getEntity() instanceof LivingEntity entity)) return;
         if (entity.level().isClientSide()) return;
 
-        MobEffectInstance effect = entity.getEffect(SpEffect.RadiantLight.get());
+        MobEffectInstance effect = entity.getEffect(SpEffect.RadiantLight);
         if (effect != null) {
 
                 updateLight(entity, effect.getAmplifier());
@@ -51,7 +53,7 @@ public class RadiantLight extends MobEffect {
     @SubscribeEvent
     public static void onEffectExpired(MobEffectEvent.Expired event) {
         if (event.getEffectInstance() != null &&
-                event.getEffectInstance().getEffect() == SpEffect.RadiantLight.get()) {
+                event.getEffectInstance().getEffect() == SpEffect.RadiantLight) {
             removeLight(event.getEntity());
         }
     }
@@ -59,7 +61,7 @@ public class RadiantLight extends MobEffect {
     @SubscribeEvent
     public static void onEffectRemoved(MobEffectEvent.Remove event) {
         if (event.getEffectInstance() != null &&
-                event.getEffectInstance().getEffect() == SpEffect.RadiantLight.get()) {
+                event.getEffectInstance().getEffect() == SpEffect.RadiantLight) {
             removeLight(event.getEntity());
         }
     }

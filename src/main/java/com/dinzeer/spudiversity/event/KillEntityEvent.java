@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.event;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
 import com.dinzeer.spudiversity.network.SpuNetwork;
 import com.dinzeer.spudiversity.network.SyncKillBossAbilitiesPacket;
@@ -8,17 +10,17 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.ElderGuardian;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class KillEntityEvent {
     @SubscribeEvent
     public static void onEntityKilled(LivingDeathEvent event) {
         if (event.getSource().getEntity() instanceof ServerPlayer player) {
-            player.getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(playerCap -> {
+            PlayerKillBossAbilities playerCap = player.getCapability(PlayerKillBossAbilities.CAPABILITY);
+            if (playerCap != null) {
                 boolean changed = false;
                 if (event.getEntity() instanceof WitherBoss) {
                     if (!playerCap.getKillWither()) {
@@ -45,9 +47,9 @@ public class KillEntityEvent {
                     }
                 }
                 if (changed) {
-                    SpuNetwork.sendToPlayer(new SyncKillBossAbilitiesPacket(player, playerCap.serializeNBT()), player);
+                    SpuNetwork.sendToPlayer(player, new SyncKillBossAbilitiesPacket(player.getUUID(), playerCap.serializeNBT(player.registryAccess())));
                 }
-            });
+            }
         }
     }
 }

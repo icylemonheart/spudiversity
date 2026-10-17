@@ -1,51 +1,55 @@
 package com.dinzeer.spudiversity.network;
 
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.capability.impl.PlayerKillBossAbilities;
-import net.minecraft.client.Minecraft;
+import com.dinzeer.spudiversity.client.ClientHooks;
+import net.minecraft.core.UUIDUtil;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.network.NetworkEvent;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.UUID;
-import java.util.function.Supplier;
 
-public class SyncKillBossAbilitiesPacket {
-    private final UUID playerUUID;
-    private final CompoundTag data;
+public record SyncKillBossAbilitiesPacket(UUID playerUUID, CompoundTag data) implements CustomPacketPayload {
+    public static final Type<SyncKillBossAbilitiesPacket> TYPE =
+            new Type<>(ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "sync_kill_boss_abilities"));
 
-    public SyncKillBossAbilitiesPacket(Player player, CompoundTag data) {
-        this.playerUUID = player.getUUID();
-        this.data = data;
+    private static final StreamCodec<RegistryFriendlyByteBuf, UUID> UUID_CODEC =
+            ByteBufCodecs.fromCodecWithRegistries(UUIDUtil.CODEC);
+    private static final StreamCodec<RegistryFriendlyByteBuf, CompoundTag> DATA_CODEC =
+            ByteBufCodecs.fromCodecWithRegistries(CompoundTag.CODEC);
+
+    public static final StreamCodec<RegistryFriendlyByteBuf, SyncKillBossAbilitiesPacket> STREAM_CODEC =
+            StreamCodec.of(
+                    (RegistryFriendlyByteBuf buf, SyncKillBossAbilitiesPacket packet) -> {
+                        UUID_CODEC.encode(buf, packet.playerUUID);
+                        DATA_CODEC.encode(buf, packet.data);
+                    },
+                    (RegistryFriendlyByteBuf buf) -> new SyncKillBossAbilitiesPacket(UUID_CODEC.decode(buf), DATA_CODEC.decode(buf))
+            );
+
+    @Override
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
 
-    public SyncKillBossAbilitiesPacket(UUID playerUUID, CompoundTag data) {
-        this.playerUUID = playerUUID;
-        this.data = data;
-    }
-
-    public static void encode(SyncKillBossAbilitiesPacket msg, FriendlyByteBuf buf) {
-        buf.writeUUID(msg.playerUUID);
-        buf.writeNbt(msg.data);
-    }
-
-    public static SyncKillBossAbilitiesPacket decode(FriendlyByteBuf buf) {
-        return new SyncKillBossAbilitiesPacket(buf.readUUID(), buf.readNbt());
-    }
-
-    public static void handle(SyncKillBossAbilitiesPacket msg, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-            DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
-                Player player = Minecraft.getInstance().level.getPlayerByUUID(msg.playerUUID);
+    public static void handle(SyncKillBossAbilitiesPacket payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (net.neoforged.fml.loading.FMLEnvironment.dist == Dist.CLIENT) {
+                Player player = ClientHooks.getClientPlayer(payload.playerUUID);
                 if (player != null) {
-                    player.getCapability(PlayerKillBossAbilities.CAPABILITY).ifPresent(cap -> {
-                        cap.deserializeNBT(msg.data);
-                    });
+                    PlayerKillBossAbilities cap = player.getCapability(PlayerKillBossAbilities.CAPABILITY);
+                    if (cap != null) {
+                        cap.deserializeNBT(ClientHooks.getClientRegistryAccess(), payload.data);
+                    }
                 }
-            });
+            }
         });
-        ctx.get().setPacketHandled(true);
     }
 }

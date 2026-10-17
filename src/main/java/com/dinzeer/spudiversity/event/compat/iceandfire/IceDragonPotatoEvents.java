@@ -1,8 +1,11 @@
 package com.dinzeer.spudiversity.event.compat.iceandfire;
 
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.github.alexthe666.iceandfire.entity.props.EntityDataProvider;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
@@ -12,35 +15,33 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModList;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
-@Mod.EventBusSubscriber
+import java.util.Optional;
+
+@EventBusSubscriber
 public class IceDragonPotatoEvents {
 
     @SubscribeEvent
-    public static void onPlayerTick(LivingEvent.LivingTickEvent event) {
-        if (event.getEntity() instanceof Player player) {
-            player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
-                if (store.getActivePotato().equals("ice_dragon_potato")) {
-                    // 冰霜行者效果
-                    applyFrostWalker(player);
+    public static void onPlayerTick(EntityTickEvent.Post event) {
+        if (event.getEntity() instanceof Player player && !player.level().isClientSide) {
+            PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+            if (store != null && "ice_dragon_potato".equals(store.getActivePotato())) {
+                applyFrostWalker(player);
 
-                    // 免疫缓慢效果
-                    if (player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
-                        player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
-                    }
-
-                    // 细雪中自由行走且不受伤害
-                    if (player.isInPowderSnow) {
-                        player.setIsInPowderSnow(false);
-                        player.clearFire();
-                    }
+                if (player.hasEffect(MobEffects.MOVEMENT_SLOWDOWN)) {
+                    player.removeEffect(MobEffects.MOVEMENT_SLOWDOWN);
                 }
-            });
+
+                if (player.isInPowderSnow) {
+                    player.setIsInPowderSnow(false);
+                    player.clearFire();
+                }
+            }
         }
     }
 
@@ -49,7 +50,6 @@ public class IceDragonPotatoEvents {
         BlockPos pos = player.blockPosition();
         int radius = 2;
 
-        // 在玩家周围创建冰面
         for (BlockPos targetPos : BlockPos.betweenClosed(pos.offset(-radius, -1, -radius),
                 pos.offset(radius, -1, radius))) {
             if (targetPos.closerToCenterThan(player.position(), radius)) {
@@ -57,9 +57,7 @@ public class IceDragonPotatoEvents {
             }
         }
 
-        // 在岩浆块上行走保护
-        BlockPos posBelow = player.blockPosition().below();
-        BlockState blockBelow = level.getBlockState(posBelow);
+        BlockState blockBelow = level.getBlockState(player.blockPosition().below());
         if (blockBelow.is(Blocks.MAGMA_BLOCK)) {
             player.clearFire();
             if (player.hurtMarked) {
@@ -79,31 +77,29 @@ public class IceDragonPotatoEvents {
     }
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void onLivingHurt(LivingIncomingDamageEvent event) {
         if (event.getSource().getEntity() instanceof Player player) {
-            player.getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(store -> {
-                if (store.getActivePotato().equals("ice_dragon_potato")) {
-                    LivingEntity target = event.getEntity();
+            PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+            if (store != null && "ice_dragon_potato".equals(store.getActivePotato())) {
+                LivingEntity target = event.getEntity();
 
-                    if (!(target instanceof Enemy) || !target.getType().getCategory().isFriendly()) {
-                        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
-                        target.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 60, 255));
-                    }
-
-
-
-                        target.setSecondsOnFire(0);
-                    if (ModList.get().isLoaded("iceandfire")){
-                    EntityDataProvider.getCapability(target).ifPresent((data) -> {
-                        data.frozenData.setFrozen(target, 300);
-                    });
-                    }
-
-                    if (target.isInWaterRainOrBubble()) {
-                        event.setAmount(event.getAmount() * 1.15f);
-                    }
+                if (!(target instanceof Enemy) || !target.getType().getCategory().isFriendly()) {
+                    target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 255));
+                    target.addEffect(new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 60, 255));
                 }
-            });
+
+                target.clearFire();
+
+                if (ModList.get().isLoaded("iceandfire")) {
+                    Optional<Holder.Reference<MobEffect>> frozen = BuiltInRegistries.MOB_EFFECT
+                            .getHolder(ResourceLocation.fromNamespaceAndPath("iceandfire", "frozen"));
+                    frozen.ifPresent(holder -> target.addEffect(new MobEffectInstance(holder, 300)));
+                }
+
+                if (target.isInWaterRainOrBubble()) {
+                    event.setAmount(event.getAmount() * 1.15f);
+                }
+            }
         }
     }
 }

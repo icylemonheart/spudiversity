@@ -1,19 +1,19 @@
 package com.dinzeer.spudiversity.registry;
 
 import com.dinzeer.spudiversity.entity.AirBladeProjectile;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import static com.dinzeer.spudiversity.Spudiversity.MODID;
 
 public class SpEntities {
     public static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, MODID);
+            DeferredRegister.create(Registries.ENTITY_TYPE, MODID);
 
-    public static final RegistryObject<EntityType<AirBladeProjectile>> AIR_BLADE =
+    public static final DeferredHolder<EntityType<?>, EntityType<AirBladeProjectile>> AIR_BLADE =
             ENTITIES.register("air_blade",
                     () -> EntityType.Builder.<AirBladeProjectile>of(AirBladeProjectile::new, MobCategory.MISC)
                             .sized(0.1F, 0.1F) // 非常小的碰撞箱

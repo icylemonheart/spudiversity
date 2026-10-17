@@ -1,7 +1,7 @@
 package com.dinzeer.spudiversity.mixin;
 
 import com.dinzeer.spudiversity.item.cappotato.AlchemistPotato;
-import com.dinzeer.spudiversity.capability.impl.AlchemistPotatoCapability;
+import com.dinzeer.spudiversity.registry.SpDataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -14,35 +14,28 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Mixin(SplashPotionItem.class)
 public class SplashPotionItemMixin {
+    private static final int MAX_SLOTS = 10;
 
     @Inject(method = "use", at = @At("HEAD"), cancellable = true)
     private void onUse(Level level, Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        // 检查副手是否持有炼金术士土豆
         ItemStack offhand = player.getOffhandItem();
-        if (offhand.getItem() instanceof AlchemistPotato) {
-            offhand.getCapability(AlchemistPotatoCapability.INSTANCE).ifPresent(cap -> {
-                if (cap.addPotion(player.getMainHandItem())) {
-                    // 消耗一瓶药水
-                    player.getMainHandItem().shrink(1);
-                    player.displayClientMessage(Component.translatable("message.alchemist_potato.inject_success"), true);
-                } else {
-                    player.displayClientMessage(Component.translatable("message.alchemist_potato.full"), true);
-                }
-            });
+        if (!(offhand.getItem() instanceof AlchemistPotato)) return;
+        cir.setReturnValue(InteractionResultHolder.fail(player.getItemInHand(hand)));
+        if (level.isClientSide()) return;
 
-
-
-
-
-
-
-
-
-
-
-            cir.setReturnValue(InteractionResultHolder.fail(player.getItemInHand(hand)));
+        List<ItemStack> potions = new ArrayList<>(offhand.getOrDefault(SpDataComponents.ALCHEMIST_POTIONS.get(), List.of()));
+        if (potions.size() >= MAX_SLOTS) {
+            player.displayClientMessage(Component.translatable("message.alchemist_potato.full"), true);
+            return;
         }
+        potions.add(player.getMainHandItem().copyWithCount(1));
+        offhand.set(SpDataComponents.ALCHEMIST_POTIONS.get(), List.copyOf(potions));
+        player.getMainHandItem().shrink(1);
+        player.displayClientMessage(Component.translatable("message.alchemist_potato.inject_success"), true);
     }
 }

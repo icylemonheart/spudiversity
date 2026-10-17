@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "O": {
+      "item": "minecraft:obsidian"
+    },
+    "P": {
+      "item": "spudiversity:diamond_potato"
+    }
+  },
+  "pattern": [
+    "OOO",
+    "OPO",
+    "OOO"
+  ],
+  "result": {
+    "id": "spudiversity:obsidian_potato"
+  },
+  "show_notification": true
+}

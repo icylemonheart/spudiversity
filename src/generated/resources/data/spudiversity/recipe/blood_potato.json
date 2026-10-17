@@ -1,0 +1,48 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "neoforge:conditions": [
+    {
+      "type": "neoforge:mod_loaded",
+      "modid": "twilightforest"
+    }
+  ],
+  "pattern": [
+    "ABC",
+    "DEF",
+    "GHI"
+  ],
+  "key": {
+    "A": {
+      "item": "twilightforest:fiery_blood"
+    },
+    "B": {
+      "item": "minecraft:beacon"
+    },
+    "C": {
+      "item": "twilightforest:glass_sword"
+    },
+    "D": {
+      "item": "minecraft:ghast_tear"
+    },
+    "E": {
+      "item": "spudiversity:netherite_potato"
+    },
+    "F": {
+      "item": "twilightforest:knightmetal_chestplate"
+    },
+    "G": {
+      "item": "minecraft:totem_of_undying"
+    },
+    "H": {
+      "item": "twilightforest:lifedrain_scepter"
+    },
+    "I": {
+      "item": "minecraft:golden_apple"
+    }
+  },
+  "result": {
+    "id": "spudiversity:blood_potato"
+  },
+  "show_notification": true
+}

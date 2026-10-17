@@ -7,14 +7,16 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 import top.theillusivec4.curios.api.SlotContext;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 
 import java.util.List;
 
+@EventBusSubscriber
 public class BloodPotato extends Item implements ICurioItem {
     public BloodPotato(Properties properties) {
         super(properties);
@@ -29,45 +31,42 @@ public class BloodPotato extends Item implements ICurioItem {
         FastMakeEntityUtil.FastEffect(slotContext.entity(), MobEffects.FIRE_RESISTANCE, 1);
         FastMakeEntityUtil.FastEffect(slotContext.entity(), MobEffects.NIGHT_VISION, 1);
     }
-    @SubscribeEvent
-    public static void OnDeath(LivingDeathEvent event){
-        LivingEntity player=event.getEntity();
 
-        List<ItemStack> Items= CurioUtil.getCurioItems(player);
-        for (ItemStack item : Items) {
-            if (item.getItem() instanceof BloodPotato p){
+    @SubscribeEvent
+    public static void onDeath(LivingDeathEvent event) {
+        LivingEntity entity = event.getEntity();
+        List<ItemStack> items = CurioUtil.getCurioItems(entity);
+        for (ItemStack item : items) {
+            if (item.getItem() instanceof BloodPotato) {
                 event.setCanceled(true);
-                DoUndead(item,player);
+                doUndead(item, entity);
                 break;
             }
         }
     }
+
     @SubscribeEvent
-    public static void OnHurt(LivingHurtEvent event){
-
-     if (event.getSource().getEntity() instanceof LivingEntity player){
-             List<ItemStack> Items= CurioUtil.getCurioItems(player);
-             for (ItemStack item : Items) {
-                 if (item.getItem() instanceof BloodPotato p){
-                    player.heal(3);
-                     break;
-                 }
-             }
-     }
-    }
-
-    public static void DoUndead(ItemStack ItemStack, LivingEntity entity){
-        if (entity instanceof Player playerEntity){
-            if (playerEntity.getCooldowns().isOnCooldown(ItemStack.getItem())) {
-                return;
-            }else {
-                playerEntity.getCooldowns().addCooldown(ItemStack.getItem(), 60*20);
+    public static void onHurt(LivingIncomingDamageEvent event) {
+        if (event.getSource().getEntity() instanceof LivingEntity attacker) {
+            List<ItemStack> items = CurioUtil.getCurioItems(attacker);
+            for (ItemStack item : items) {
+                if (item.getItem() instanceof BloodPotato) {
+                    attacker.heal(3);
+                    break;
+                }
             }
         }
+    }
 
-        entity.setHealth(entity.getMaxHealth()*0.5f);
+    public static void doUndead(ItemStack stack, LivingEntity entity) {
+        if (entity instanceof Player player) {
+            if (player.getCooldowns().isOnCooldown(stack.getItem())) {
+                return;
+            }
+            player.getCooldowns().addCooldown(stack.getItem(), 60 * 20);
+        }
+        entity.setHealth(entity.getMaxHealth() * 0.5f);
         FastMakeEntityUtil.FastEffect(entity, MobEffects.ABSORPTION, 2);
         FastMakeEntityUtil.FastEffect(entity, MobEffects.REGENERATION, 2);
-
     }
 }

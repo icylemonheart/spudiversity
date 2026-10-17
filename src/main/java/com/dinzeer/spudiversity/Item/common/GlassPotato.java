@@ -11,15 +11,15 @@ import net.minecraft.world.level.Level;
 public class GlassPotato extends Item {
     @Override
     public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-        FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.GlassType.get(), 3, 5);
+        FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.GlassType, 3, 5);
         return super.finishUsingItem(itemStack, level, entity);
     }
 
     public GlassPotato(Properties p_41383_) {
         super(p_41383_.food(new FoodProperties.Builder()
                 .nutrition(6)
-                .saturationMod(0.1f)
-                .alwaysEat()
+                .saturationModifier(0.1f)
+                .alwaysEdible()
                 .build()));
     }
 }

@@ -12,20 +12,16 @@ public class BlazePotato extends Item {
     public BlazePotato(Properties properties) {
         super(properties.food((new FoodProperties.Builder())
                 .nutrition(6)
-                .saturationMod(0.2f)
-                .alwaysEat()
+                .saturationModifier(0.2f)
+                .alwaysEdible()
                 .build()));
     }
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
         LivingEntity player=entity;
         if (player!=null) {
-            FastMakeEntityUtil.FastEffectByMinute(player, SpEffect.BlazeEnd.get(), 1,3);
+            FastMakeEntityUtil.FastEffectByMinute(player, SpEffect.BlazeEnd, 1,3);
         }
         return super.finishUsingItem(stack, world, entity);
-    }
-    @Override
-    public boolean isFireResistant() {
-        return true; // 火焰免疫
     }
 }

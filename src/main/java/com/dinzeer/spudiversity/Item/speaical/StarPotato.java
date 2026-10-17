@@ -2,28 +2,29 @@ package com.dinzeer.spudiversity.item.speaical;
 
 import com.dinzeer.legendreliclib.lib.util.text.AdvancedGradientTextHelper;
 import com.dinzeer.legendreliclib.lib.util.text.ColorPreset;
-import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
+import com.dinzeer.spudiversity.client.ClientHooks;
+import com.dinzeer.spudiversity.item.base.PotatoItemBase;
 import com.dinzeer.spudiversity.registry.SpPotato;
 import com.dinzeer.spudiversity.util.PerpetualPotatoes;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
 import net.minecraft.ChatFormatting;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.world.item.component.CustomData;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class StarPotato extends PotatoItemBase {
     public StarPotato(Properties properties) {
         super(properties, "for_love");
@@ -34,16 +35,14 @@ public class StarPotato extends PotatoItemBase {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(LivingEvent.LivingTickEvent event) {
+    public static void onPlayerTick(PlayerTickEvent.Post event) {
         if (event.getEntity() instanceof Player player){
-            event.getEntity().getCapability(PlayerPermanentAbilities.CAPABILITY).ifPresent(Store -> {
-                if (Store.getActivePotato().equals("for_love")){
-                    FoodData foodData = player.getFoodData();
-                    foodData.setFoodLevel(20);
-                    foodData.setSaturation(1);
-                }
+            PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
+            if (store != null && store.getActivePotato().equals("for_love")){
+                FoodData foodData = player.getFoodData();
+                foodData.setFoodLevel(20);
+                foodData.setSaturation(1);
             }
-            );
         }
     }
 
@@ -55,7 +54,7 @@ public class StarPotato extends PotatoItemBase {
     }
 
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
+    public void appendHoverText(ItemStack itemStack, TooltipContext level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
         tooltipList.add(PerpetualPotatoes.tag());
         for (int i = 0; i < 7; i++) {
             tooltipList.add(Component.translatable(LangUtil.FastMakeItemTooltip(SpPotato.StarPotato, i)).withStyle(ChatFormatting.LIGHT_PURPLE));
@@ -80,15 +79,14 @@ public class StarPotato extends PotatoItemBase {
 
 
     public static String returnName(ItemStack itemStack){
-        // 读取玩家名
-        Player player = Minecraft.getInstance().player;
+        Player player = net.neoforged.fml.loading.FMLEnvironment.dist == net.neoforged.api.distmarker.Dist.CLIENT
+                ? ClientHooks.getLocalPlayer() : null;
         if (player != null) {
             return player.getName().getString();
         }
-        if (itemStack.hasTag()){
-            if (itemStack.getTag().contains("ObtainedByPlayerName")){
-                return itemStack.getTag().getString("ObtainedByPlayerName");
-            };
+        CompoundTag tag = itemStack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag();
+        if (tag.contains("ObtainedByPlayerName")){
+            return tag.getString("ObtainedByPlayerName");
         }
         return "???";
     }

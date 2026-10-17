@@ -14,7 +14,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.EntityCollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -32,14 +32,14 @@ public class BlockStateBaseMixin {
             Entity entity = entityContext.getEntity();
             if (entity instanceof LivingEntity player) {
                 BlockBehaviour.BlockStateBase state = (BlockBehaviour.BlockStateBase) (Object) this;
-                if (player.hasEffect(SpEffect.GlassType.get())) {
+                if (player.hasEffect(SpEffect.GlassType)) {
 
-                    if (state.is(BlockTags.IMPERMEABLE)||state.is(Tags.Blocks.GLASS)||state.is(Tags.Blocks.GLASS_PANES)) {
+                    if (state.is(BlockTags.IMPERMEABLE)||state.is(Tags.Blocks.GLASS_BLOCKS)||state.is(Tags.Blocks.GLASS_PANES)) {
                         cir.setReturnValue(Shapes.empty());
                     }
                 }
 
-                if (player.hasEffect(SpEffect.Misty.get())) {
+                if (player.hasEffect(SpEffect.Misty)) {
                     if (player.isShiftKeyDown()){
                     double playerY = player.getY();
                     double blockY = pos.getY();
@@ -51,10 +51,10 @@ public class BlockStateBaseMixin {
             }
             if (entity instanceof Projectile target){
                 if(target.getOwner() instanceof LivingEntity player){
-                    MobEffectInstance instance = player.getEffect(SpEffect.GlassType.get());
+                    MobEffectInstance instance = player.getEffect(SpEffect.GlassType);
                     if (instance != null) {
                         BlockBehaviour.BlockStateBase state = (BlockBehaviour.BlockStateBase) (Object) this;
-                        if (state.is(BlockTags.IMPERMEABLE)||state.is(Tags.Blocks.GLASS)||state.is(Tags.Blocks.GLASS_PANES)) { // 玻璃、玻璃板、遮光玻璃等
+                        if (state.is(BlockTags.IMPERMEABLE)||state.is(Tags.Blocks.GLASS_BLOCKS)||state.is(Tags.Blocks.GLASS_PANES)) { // 玻璃、玻璃板、遮光玻璃等
                             cir.setReturnValue(Shapes.empty());
                         }
                     }

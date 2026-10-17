@@ -1,6 +1,10 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
+import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.registry.SpEffect;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -11,26 +15,25 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodData;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraftforge.common.ForgeMod;
-import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.awt.*;
-import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class WeAreNull extends MobEffect {
-    private static final UUID ATTACK_DAMAGE_UUID = UUID.nameUUIDFromBytes("WE_ARE_NULL_ATTACK_DAMAGE".getBytes());
-    private static final UUID REACH_DISTANCE_UUID = UUID.nameUUIDFromBytes("WE_ARE_NULL_REACH_DISTANCE".getBytes());
-    private static final UUID ATTACK_RANGE_UUID = UUID.nameUUIDFromBytes("WE_ARE_NULL_ATTACK_RANGE".getBytes());
+    private static final ResourceLocation ATTACK_DAMAGE_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "we_are_null_attack_damage");
+    private static final ResourceLocation REACH_DISTANCE_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "we_are_null_reach_distance");
+    private static final ResourceLocation ATTACK_RANGE_ID = ResourceLocation.fromNamespaceAndPath(Spudiversity.MODID, "we_are_null_attack_range");
 
     public WeAreNull() {
         super(MobEffectCategory.BENEFICIAL, Color.BLACK.getBlue());
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         applyAttackDamageBoost(entity);
 
         if (entity instanceof Player player) {
@@ -49,31 +52,26 @@ public class WeAreNull extends MobEffect {
             spawnNullParticles(entity);
         }
 
-        super.applyEffectTick(entity, amplifier);
+        return super.applyEffectTick(entity, amplifier);
     }
 
     @Override
-    public void removeAttributeModifiers(LivingEntity entity, net.minecraft.world.entity.ai.attributes.AttributeMap attributes, int amplifier) {
-        super.removeAttributeModifiers(entity, attributes, amplifier);
+    public void removeAttributeModifiers(net.minecraft.world.entity.ai.attributes.AttributeMap attributes) {
+        super.removeAttributeModifiers(attributes);
 
-        AttributeInstance attackAttr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
+        AttributeInstance attackAttr = attributes.getInstance(Attributes.ATTACK_DAMAGE);
         if (attackAttr != null) {
-            attackAttr.removeModifier(ATTACK_DAMAGE_UUID);
+            attackAttr.removeModifier(ATTACK_DAMAGE_ID);
         }
 
-        AttributeInstance reachAttr = entity.getAttribute(ForgeMod.BLOCK_REACH.get());
+        AttributeInstance reachAttr = attributes.getInstance(Attributes.BLOCK_INTERACTION_RANGE);
         if (reachAttr != null) {
-            reachAttr.removeModifier(REACH_DISTANCE_UUID);
+            reachAttr.removeModifier(REACH_DISTANCE_ID);
         }
 
-        AttributeInstance attackRangeAttr = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
+        AttributeInstance attackRangeAttr = attributes.getInstance(Attributes.ENTITY_INTERACTION_RANGE);
         if (attackRangeAttr != null) {
-            attackRangeAttr.removeModifier(ATTACK_RANGE_UUID);
-        }
-
-
-        if (entity instanceof Player player) {
-            player.getFoodData().setFoodLevel(20); // 恢复满饱腹度
+            attackRangeAttr.removeModifier(ATTACK_RANGE_ID);
         }
     }
 
@@ -81,13 +79,12 @@ public class WeAreNull extends MobEffect {
         AttributeInstance attackAttr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
         if (attackAttr != null) {
 
-            attackAttr.removeModifier(ATTACK_DAMAGE_UUID);
+            attackAttr.removeModifier(ATTACK_DAMAGE_ID);
 
             attackAttr.addTransientModifier(new AttributeModifier(
-                    ATTACK_DAMAGE_UUID,
-                    "We Are Null Attack Boost",
+                    ATTACK_DAMAGE_ID,
                     0.66D,
-                    AttributeModifier.Operation.MULTIPLY_BASE
+                    AttributeModifier.Operation.ADD_MULTIPLIED_BASE
             ));
         }
     }
@@ -109,25 +106,23 @@ public class WeAreNull extends MobEffect {
     }
 
     private void applyReachAndAttackRangeBoost(LivingEntity entity) {
-        AttributeInstance reachAttr = entity.getAttribute(ForgeMod.BLOCK_REACH.get());
+        AttributeInstance reachAttr = entity.getAttribute(Attributes.BLOCK_INTERACTION_RANGE);
         if (reachAttr != null) {
-            reachAttr.removeModifier(REACH_DISTANCE_UUID);
+            reachAttr.removeModifier(REACH_DISTANCE_ID);
             reachAttr.addTransientModifier(new AttributeModifier(
-                    REACH_DISTANCE_UUID,
-                    "We Are Null Reach Boost",
+                    REACH_DISTANCE_ID,
                     10.0D,
-                    AttributeModifier.Operation.ADDITION
+                    AttributeModifier.Operation.ADD_VALUE
             ));
         }
 
-        AttributeInstance attackRangeAttr = entity.getAttribute(ForgeMod.ENTITY_REACH.get());
+        AttributeInstance attackRangeAttr = entity.getAttribute(Attributes.ENTITY_INTERACTION_RANGE);
         if (attackRangeAttr != null) {
-            attackRangeAttr.removeModifier(ATTACK_RANGE_UUID);
+            attackRangeAttr.removeModifier(ATTACK_RANGE_ID);
             attackRangeAttr.addTransientModifier(new AttributeModifier(
-                    ATTACK_RANGE_UUID,
-                    "We Are Null Attack Range Boost",
+                    ATTACK_RANGE_ID,
                     10.0D,
-                    AttributeModifier.Operation.ADDITION
+                    AttributeModifier.Operation.ADD_VALUE
             ));
         }
     }
@@ -169,17 +164,17 @@ public class WeAreNull extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void onLivingDamage(LivingDamageEvent event) {
+    public static void onLivingDamage(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
         DamageSource source = event.getSource();
 
-        if (source.is(DamageTypes.STARVE) && entity.hasEffect(SpEffect.WeAreNull.get())) {
+        if (source.is(DamageTypes.STARVE) && entity.hasEffect(SpEffect.WeAreNull)) {
             event.setCanceled(true);
         }
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true; // 持续生效
     }
 }

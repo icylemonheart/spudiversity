@@ -1,32 +1,28 @@
 package com.dinzeer.spudiversity.data.loot;
 
-import com.google.common.base.Suppliers;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.common.loot.LootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
-
-import java.util.function.Supplier;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.LootModifier;
 
 public class CustomAddTemplateModifier extends LootModifier {
-    public static final Supplier<Codec<CustomAddTemplateModifier>> CODEC = Suppliers.memoize(() -> 
-        RecordCodecBuilder.create(inst -> 
+    public static final MapCodec<CustomAddTemplateModifier> CODEC =
+        RecordCodecBuilder.mapCodec(inst ->
             codecStart(inst)
-                .and(ForgeRegistries.ITEMS.getCodec().fieldOf("item").forGetter(m -> m.item))
+                .and(BuiltInRegistries.ITEM.byNameCodec().fieldOf("item").forGetter(m -> m.item))
                 .and(Codec.INT.fieldOf("min_count").forGetter(m -> m.minCount))
                 .and(Codec.INT.fieldOf("max_count").forGetter(m -> m.maxCount))
                 .and(Codec.FLOAT.optionalFieldOf("weight", 1.0f).forGetter(m -> m.weight))
                 .apply(inst, CustomAddTemplateModifier::new)
-        )
-    );
-    
+        );
+
     private final Item item;
     private final int minCount;
     private final int maxCount;
@@ -50,8 +46,8 @@ public class CustomAddTemplateModifier extends LootModifier {
     }
 
     @Override
-    public Codec<? extends IGlobalLootModifier> codec() {
-        return CODEC.get();
+    public MapCodec<? extends IGlobalLootModifier> codec() {
+        return CODEC;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
@@ -7,12 +9,12 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 
 import java.awt.*;
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class RainBow extends MobEffect {
 
     public RainBow(){
@@ -20,9 +22,9 @@ public class RainBow extends MobEffect {
     }
 
     @SubscribeEvent
-    public static void UpdateTick(LivingEvent.LivingTickEvent event){
+    public static void UpdateTick(EntityTickEvent.Post event){
         if (event.getEntity() instanceof Player player){
-            if (player.hasEffect(SpEffect.RainBow.get())){
+            if (player.hasEffect(SpEffect.RainBow)){
             applyEffect(player);
 
             // 恢复其他玩家的饱食度
@@ -46,7 +48,7 @@ public class RainBow extends MobEffect {
                 double dy = Math.sin(phi) * Math.sin(theta) * speed;
                 double dz = Math.cos(phi) * speed;
                 serverLevel.sendParticles(
-                        ParticleTypes.ENTITY_EFFECT,
+                        net.minecraft.core.particles.ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0xFFFFFF),
                         pos.x + (Math.random() - 0.5) * 2,
                         pos.y + 1 + Math.random() * 2,
                         pos.z + (Math.random() - 0.5) * 2,

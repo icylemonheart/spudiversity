@@ -8,32 +8,33 @@ import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 
-import java.util.UUID;
+import net.minecraft.resources.ResourceLocation;
 
 public class BloodKing extends MobEffect {
-    private static final UUID ATTACK_DAMAGE_UUID = UUID.nameUUIDFromBytes("blood_strength_attack_damage".getBytes());
+    private static final ResourceLocation ATTACK_DAMAGE_UUID = ResourceLocation.fromNamespaceAndPath("spudiversity", "blood_strength_attack_damage");
     public BloodKing() {
         super(MobEffectCategory.BENEFICIAL, -26368);
     }
 
-    public void removeAttributeModifiers(LivingEntity entity, AttributeMap attributes, int amplifier) {
-        super.removeAttributeModifiers(entity, attributes, amplifier);
-        AttributeInstance attr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
-        attr.removeModifier(ATTACK_DAMAGE_UUID);
+    @Override
+    public void removeAttributeModifiers(AttributeMap attributes) {
+        super.removeAttributeModifiers(attributes);
+        AttributeInstance attr = attributes.getInstance(Attributes.ATTACK_DAMAGE);
+        if (attr != null) attr.removeModifier(ATTACK_DAMAGE_UUID);
     }
 
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         AttributeInstance attr = entity.getAttribute(Attributes.ATTACK_DAMAGE);
         if (attr != null) {
             attr.removeModifier(ATTACK_DAMAGE_UUID);
             attr.addTransientModifier(new AttributeModifier(ATTACK_DAMAGE_UUID,
-                    "Blood Strength",
-                    0.4 * (double)(amplifier + 1), AttributeModifier.Operation.MULTIPLY_TOTAL));
+                    0.4 * (double)(amplifier + 1), AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL));
         }
 
+        return true;
     }
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true;
     }
 

@@ -1,8 +1,9 @@
 package com.dinzeer.spudiversity.item.curios;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.util.WaitingTick;
 import com.dinzeer.spudiversity.network.PlayTotemAnimationPacket;
-import com.dinzeer.spudiversity.network.SpuNetwork;
 import com.dinzeer.spudiversity.util.CurioUtil;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -11,22 +12,22 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.List;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class UndyingPotato extends Item {
     public UndyingPotato(Properties properties) {
         super(properties
                 .stacksTo(1)
                 .food((new FoodProperties.Builder())
                 .nutrition(4)
-                .saturationMod(1f)
-                .alwaysEat()
+                .saturationModifier(1f)
+                .alwaysEdible()
                 .build()));
     }
 
@@ -55,22 +56,21 @@ public class UndyingPotato extends Item {
         if (canUnDying){
             event.setCanceled(true);
             DoUndead(itemStack, entity);
-            itemStack.shrink(1);
             return;
         }
 
     }
-    public static void DoUndead(ItemStack ItemStack, LivingEntity entity){
+    public static void DoUndead(ItemStack itemStack, LivingEntity entity){
         entity.setHealth(1.0F);
-        ItemStack.shrink(1);
+        itemStack.shrink(1);
         entity.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 1));
         entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 200, 1));
         entity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 200, 0));
         if (entity instanceof Player player){
             WaitingTick.schedule(1, () -> {
-                SpuNetwork.INSTANCE.send(
-                        PacketDistributor.TRACKING_ENTITY_AND_SELF.with(() -> player),
-                        new PlayTotemAnimationPacket(ItemStack)
+                PacketDistributor.sendToPlayersTrackingEntityAndSelf(
+                        player,
+                        new PlayTotemAnimationPacket(itemStack)
                 );
             });
 

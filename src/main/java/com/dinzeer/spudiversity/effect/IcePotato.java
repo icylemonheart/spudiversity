@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.effect;
 
+import net.neoforged.fml.common.EventBusSubscriber;
+
 import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.spudiversity.registry.SpEffect;
 import net.minecraft.world.effect.MobEffect;
@@ -13,29 +15,29 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
 
 import java.awt.*;
 
-@Mod.EventBusSubscriber
+@EventBusSubscriber
 public class IcePotato extends MobEffect {
     public IcePotato() {
         super(MobEffectCategory.BENEFICIAL, Color.BLUE.getBlue());
     }
 
     @Override
-    public void applyEffectTick(LivingEntity entity, int amplifier) {
+    public boolean applyEffectTick(LivingEntity entity, int amplifier) {
         // 应用冰霜行者效果
         if (entity instanceof Player player) {
             applyFrostWalker(player);
         }
-        super.applyEffectTick(entity, amplifier);
+        return super.applyEffectTick(entity, amplifier);
     }
 
     @Override
-    public boolean isDurationEffectTick(int duration, int amplifier) {
+    public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
         return true; // 持续生效
     }
 
@@ -71,10 +73,10 @@ public class IcePotato extends MobEffect {
 
 
     @SubscribeEvent
-    public static void onLivingHurt(LivingHurtEvent event) {
+    public static void onLivingHurt(LivingIncomingDamageEvent event) {
         LivingEntity entity = event.getEntity();
 
-        if (entity.hasEffect(SpEffect.IcePotato.get())) {
+        if (entity.hasEffect(SpEffect.IcePotato)) {
 
             float reducedDamage = event.getAmount() * 0.6f;
             event.setAmount(reducedDamage);
@@ -85,7 +87,7 @@ public class IcePotato extends MobEffect {
 
 
         if (event.getSource().getEntity() instanceof Player player) {
-            if (player.hasEffect(SpEffect.IcePotato.get())) {
+            if (player.hasEffect(SpEffect.IcePotato)) {
 
                 LivingEntity target = event.getEntity();
                 FastMakeEntityUtil.FastEffect(target,MobEffects.MOVEMENT_SLOWDOWN,5,5);

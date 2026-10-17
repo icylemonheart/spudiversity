@@ -8,32 +8,28 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.UUID;
 
 public class FireDragonPotato extends PotatoItemBase {
-    private static final UUID DEFENSE_BOOST_UUID = UUID.nameUUIDFromBytes("DRAGON_POTATO".getBytes());
+
     public FireDragonPotato(Properties properties) {
-        super(properties,"fire_dragon_potato");
+        super(properties, "fire_dragon_potato");
     }
 
     @Override
     protected void applyCrystalEffect(Player player) {
     }
 
-    // 龙炎土豆
     @Override
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltipList, TooltipFlag tooltipFlag) {
-        tooltipList.add(PerpetualPotatoes.tag());
-        tooltipList.add(PerpetualPotatoes.flavor(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 0)));
-        tooltipList.add(PerpetualPotatoes.effectsHeader());
-        tooltipList.add(PerpetualPotatoes.lead(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 1)));
+    public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltip, TooltipFlag flag) {
+        tooltip.add(PerpetualPotatoes.tag());
+        tooltip.add(PerpetualPotatoes.flavor(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 0)));
+        tooltip.add(PerpetualPotatoes.effectsHeader());
+        tooltip.add(PerpetualPotatoes.lead(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, 1)));
         for (int i = 2; i <= 7; i++) {
-            tooltipList.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, i)));
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpICFPotato.FireDragonPotato, i)));
         }
-        PerpetualPotatoes.appendActiveStatus(tooltipList, false);
+        PerpetualPotatoes.appendActiveStatus(tooltip, false);
     }
 }
