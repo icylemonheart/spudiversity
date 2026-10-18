@@ -2,6 +2,7 @@ package com.dinzeer.spudiversity;
 
 import com.dinzeer.spudiversity.capability.SpAttachments;
 import com.dinzeer.spudiversity.config.PotatoConfig;
+import com.dinzeer.spudiversity.event.compat.tw.TwCraftingRefundHandler;
 import com.dinzeer.spudiversity.network.SpuNetwork;
 import com.dinzeer.spudiversity.registry.*;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
@@ -14,6 +15,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 import java.lang.reflect.Field;
@@ -49,6 +51,7 @@ public class Spudiversity {
         SpPotato.register();
         if (ModList.get().isLoaded("twilightforest")) {
             SpTwPotato.register();
+            NeoForge.EVENT_BUS.register(TwCraftingRefundHandler.class);
         }
         SpICFPotato.regsitry();
         SpEffect.REGISTRY.register(modEventBus);

@@ -7,11 +7,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import twilightforest.init.TFItems;
 
-@EventBusSubscriber
 public class TwCraftingRefundHandler {
 
     @SubscribeEvent
