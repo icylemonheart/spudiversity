@@ -8,12 +8,10 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
-import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import top.theillusivec4.curios.api.type.capability.ICurioItem;
 import twilightforest.entity.projectile.TwilightWandBolt;
 
-@EventBusSubscriber
 public class DuskPotato extends Item implements ICurioItem {
     public DuskPotato(Properties properties) {
         super(properties);

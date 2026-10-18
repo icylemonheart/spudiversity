@@ -3,6 +3,7 @@ package com.dinzeer.spudiversity;
 import com.dinzeer.spudiversity.capability.SpAttachments;
 import com.dinzeer.spudiversity.config.PotatoConfig;
 import com.dinzeer.spudiversity.event.compat.tw.TwCraftingRefundHandler;
+import com.dinzeer.spudiversity.item.compat.tw.DuskPotato;
 import com.dinzeer.spudiversity.network.SpuNetwork;
 import com.dinzeer.spudiversity.registry.*;
 import com.dinzeer.spudiversity.util.lang.LangUtil;
@@ -52,6 +53,7 @@ public class Spudiversity {
         if (ModList.get().isLoaded("twilightforest")) {
             SpTwPotato.register();
             NeoForge.EVENT_BUS.register(TwCraftingRefundHandler.class);
+            NeoForge.EVENT_BUS.register(DuskPotato.class);
         }
         SpICFPotato.regsitry();
         SpEffect.REGISTRY.register(modEventBus);
