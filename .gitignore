@@ -13,3 +13,4 @@ eclipse/
 local-m2/
 mdg-decompile/
 temp-extract/
+.vscode/
