@@ -92,9 +92,6 @@ if (localM2.exists()) {
 }
 
 repositories {
-    maven {
-        url "https://maven.aliyun.com/repository/public"
-    }
     if (localM2.exists()) {
         maven {
             url = localM2
@@ -106,6 +103,10 @@ repositories {
         }
     }
     maven {
+        url "https://maven.aliyun.com/repository/public"
+    }
+    mavenCentral()
+    maven {
         url "https://libraries.minecraft.net"
     }
     maven {
@@ -116,6 +117,56 @@ repositories {
     }
     flatDir {
         dir 'libs'
+    }
+}
+
+// 为 local-m2 的 stub pom 补充 ModDevGradle 所需的 capability variants
+//（maven.neoforged.net 被阻断时的离线镜像；网络恢复后删除 local-m2 目录即可自动失效）
+if (localM2.exists()) {
+    dependencies {
+        components {
+        withModule('net.neoforged:neoforge') {
+            addVariant('moddevConfig') {
+                withCapabilities {
+                    removeCapability('net.neoforged', 'neoforge')
+                    addCapability('net.neoforged', 'neoforge-moddev-config', '21.1.235')
+                }
+                withFiles {
+                    addFile('neoforge-21.1.235-moddev-config.json')
+                }
+            }
+            addVariant('moddevBundle') {
+                withCapabilities {
+                    removeCapability('net.neoforged', 'neoforge')
+                    addCapability('net.neoforged', 'neoforge-moddev-bundle', '21.1.235')
+                }
+                withFiles {
+                    addFile('neoforge-21.1.235-universal.jar')
+                }
+            }
+            addVariant('neoforgeDependencies') {
+                withCapabilities {
+                    removeCapability('net.neoforged', 'neoforge')
+                    addCapability('net.neoforged', 'neoforge-dependencies', '21.1.235')
+                }
+                withFiles {
+                    addFile('neoforge-21.1.235-userdev.jar')
+                    addFile('neoforge-21.1.235-universal.jar')
+                }
+            }
+        }
+        withModule('net.neoforged:neoform') {
+            addVariant('neoformDependencies', 'runtimeElements') {
+                withCapabilities {
+                    removeCapability('net.neoforged', 'neoform')
+                    addCapability('net.neoforged', 'neoform-dependencies', '1.21.1-20240808.144430')
+                }
+                withFiles {
+                    addFile('neoform-1.21.1-20240808.144430.zip')
+                }
+            }
+        }
+        }
     }
 }
 
@@ -131,6 +182,90 @@ dependencies {
 
     // Registrate（NeoForge 1.21 移植版，Create 团队维护）
     implementation "com.tterrag.registrate:Registrate:${registrate_version}"
+
+    // NeoForge 运行库（stub POM 无传递依赖，直接声明）
+    implementation 'net.neoforged.fancymodloader:earlydisplay:4.0.42'
+    implementation 'net.neoforged.fancymodloader:loader:4.0.42'
+    implementation 'net.neoforged.accesstransformers:at-modlauncher:10.0.1'
+    implementation 'net.neoforged:accesstransformers:10.0.1'
+    implementation 'net.neoforged:accesstransformers:13.0.1'
+    implementation 'net.neoforged:bus:8.0.5'
+    implementation 'net.neoforged:coremods:7.0.3'
+    implementation 'cpw.mods:modlauncher:11.0.5'
+    implementation 'net.neoforged:mergetool:2.0.0:api'
+    implementation 'com.electronwill.night-config:toml:3.8.3'
+    implementation 'com.electronwill.night-config:core:3.8.3'
+    implementation 'net.neoforged:JarJarSelector:0.4.1'
+    implementation 'net.neoforged:JarJarMetadata:0.4.1'
+    implementation 'org.apache.maven:maven-artifact:3.8.5'
+    implementation 'net.jodah:typetools:0.6.3'
+    implementation 'net.minecrell:terminalconsoleappender:1.3.0'
+    implementation 'net.fabricmc:sponge-mixin:0.15.2+mixin.0.8.7'
+    implementation 'org.openjdk.nashorn:nashorn-core:15.4'
+    implementation 'org.apache.commons:commons-lang3:3.14.0'
+    implementation 'cpw.mods:bootstraplauncher:2.0.2'
+    implementation 'cpw.mods:securejarhandler:3.0.8'
+    implementation 'org.ow2.asm:asm-commons:9.8'
+    implementation 'org.ow2.asm:asm-util:9.8'
+    implementation 'org.ow2.asm:asm-analysis:9.8'
+    implementation 'org.ow2.asm:asm-tree:9.8'
+    implementation 'org.ow2.asm:asm:9.8'
+    implementation 'net.neoforged:JarJarFileSystems:0.4.1'
+    implementation 'io.github.llamalad7:mixinextras-neoforge:0.5.3'
+    implementation 'net.sf.jopt-simple:jopt-simple:5.0.4'
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'org.antlr:antlr4-runtime:4.13.1'
+    implementation 'com.mojang:logging:1.2.7'
+    implementation 'org.apache.logging.log4j:log4j-slf4j2-impl:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-core:2.22.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.22.1'
+    implementation 'org.jline:jline-reader:3.20.0'
+    implementation 'org.jline:jline-terminal:3.20.0'
+    implementation 'commons-io:commons-io:2.15.1'
+    implementation 'net.minecraftforge:srgutils:0.4.15'
+    implementation 'com.google.guava:guava:32.1.2-jre'
+    implementation 'com.google.guava:failureaccess:1.0.1'
+    implementation 'com.google.guava:listenablefuture:9999.0-empty-to-avoid-conflict-with-guava'
+    implementation 'com.google.code.findbugs:jsr305:3.0.2'
+    implementation 'org.checkerframework:checker-qual:3.33.0'
+    implementation 'com.google.errorprone:error_prone_annotations:2.18.0'
+    implementation 'com.google.j2objc:j2objc-annotations:2.8'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'org.codehaus.plexus:plexus-utils:3.3.0'
+    implementation 'com.machinezoo.noexception:noexception:1.7.1'
+    implementation 'org.jetbrains:annotations:24.1.0'
+
+    // Minecraft 库（neoform-dependencies 变体不继承 POM 依赖，直接声明编译所需的）
+    implementation 'com.mojang:brigadier:1.3.10'
+    implementation 'com.mojang:datafixerupper:8.0.16'
+    implementation 'com.mojang:authlib:6.0.54'
+    implementation 'it.unimi.dsi:fastutil:8.5.12'
+    implementation 'org.joml:joml:1.10.5'
+    implementation 'com.github.oshi:oshi-core:6.4.10'
+    implementation 'com.ibm.icu:icu4j:73.2'
+    implementation 'commons-codec:commons-codec:1.16.0'
+    implementation 'commons-logging:commons-logging:1.2'
+    implementation 'org.apache.commons:commons-compress:1.26.0'
+    implementation 'org.apache.httpcomponents:httpclient:4.5.13'
+    implementation 'org.apache.httpcomponents:httpcore:4.4.16'
+    implementation 'io.netty:netty-buffer:4.1.97.Final'
+    implementation 'io.netty:netty-codec:4.1.97.Final'
+    implementation 'io.netty:netty-common:4.1.97.Final'
+    implementation 'io.netty:netty-handler:4.1.97.Final'
+    implementation 'io.netty:netty-resolver:4.1.97.Final'
+    implementation 'io.netty:netty-transport:4.1.97.Final'
+    implementation 'net.java.dev.jna:jna:5.14.0'
+    implementation 'net.java.dev.jna:jna-platform:5.14.0'
+    implementation 'org.lz4:lz4-java:1.8.0'
+    implementation 'org.jcraft:jorbis:0.0.17'
+    implementation 'org.lwjgl:lwjgl:3.3.3'
+    implementation 'org.lwjgl:lwjgl-glfw:3.3.3'
+    implementation 'org.lwjgl:lwjgl-openal:3.3.3'
+    implementation 'org.lwjgl:lwjgl-opengl:3.3.3'
+    implementation 'org.lwjgl:lwjgl-stb:3.3.3'
+    implementation 'org.lwjgl:lwjgl-tinyfd:3.3.3'
+    implementation 'org.lwjgl:lwjgl-jemalloc:3.3.3'
+    implementation 'org.lwjgl:lwjgl-freetype:3.3.3'
 }
 
 tasks.withType(JavaCompile).configureEach {
