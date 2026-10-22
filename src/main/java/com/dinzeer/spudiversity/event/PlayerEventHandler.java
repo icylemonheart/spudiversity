@@ -19,15 +19,10 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @EventBusSubscriber
 public class PlayerEventHandler {
     private static final ResourceLocation DEFENSE_BOOST_ID = ResourceLocation.fromNamespaceAndPath("spudiversity", "dragon_potato");
     private static final ResourceLocation STAR_BOOST_ID = ResourceLocation.fromNamespaceAndPath("spudiversity", "star_potato");
-    private static final Map<Player, Boolean> DRAGON_BOOST_APPLIED = new HashMap<>();
-    private static final Map<Player, Boolean> STAR_BOOST_APPLIED = new HashMap<>();
 
     @SubscribeEvent
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
@@ -38,8 +33,6 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerLoggedOut(PlayerEvent.PlayerLoggedOutEvent event) {
-        DRAGON_BOOST_APPLIED.remove(event.getEntity());
-        STAR_BOOST_APPLIED.remove(event.getEntity());
         FlightUtil.clear(event.getEntity());
     }
 
@@ -91,29 +84,30 @@ public static void onPlayerTick(EntityTickEvent.Post event) {
                 };
                 boolean starActive = "for_love".equals(store.getActivePotato());
 
-                Boolean wasDragon = DRAGON_BOOST_APPLIED.get(player);
-                if (wasDragon == null || wasDragon != dragonActive) {
+                if (dragonActive != hasHealthBoost(player, DEFENSE_BOOST_ID)) {
                     if (dragonActive) {
                         applyHealthBoost(player, DEFENSE_BOOST_ID);
                     } else {
                         removeHealthBoost(player, DEFENSE_BOOST_ID);
                     }
-                    DRAGON_BOOST_APPLIED.put(player, dragonActive);
                 }
 
-                Boolean wasStar = STAR_BOOST_APPLIED.get(player);
-                if (wasStar == null || wasStar != starActive) {
+                if (starActive != hasHealthBoost(player, STAR_BOOST_ID)) {
                     if (starActive) {
                         applyHealthBoost(player, STAR_BOOST_ID);
                     } else {
                         removeHealthBoost(player, STAR_BOOST_ID);
                     }
-                    STAR_BOOST_APPLIED.put(player, starActive);
                 }
             }
         }
 }
 
+
+    private static boolean hasHealthBoost(Player player, ResourceLocation id) {
+        AttributeInstance attr = player.getAttribute(Attributes.MAX_HEALTH);
+        return attr != null && attr.getModifier(id) != null;
+    }
 
     private static void applyHealthBoost(Player player, ResourceLocation id) {
         AttributeInstance armorAttr = player.getAttribute(Attributes.MAX_HEALTH);

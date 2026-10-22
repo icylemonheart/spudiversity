@@ -156,7 +156,7 @@ if (localM2.exists()) {
             }
         }
         withModule('net.neoforged:neoform') {
-            addVariant('neoformDependencies', 'runtimeElements') {
+            addVariant('neoformDependencies') {
                 withCapabilities {
                     removeCapability('net.neoforged', 'neoform')
                     addCapability('net.neoforged', 'neoform-dependencies', '1.21.1-20240808.144430')
