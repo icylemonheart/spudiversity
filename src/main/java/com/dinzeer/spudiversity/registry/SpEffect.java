@@ -31,4 +31,6 @@ public class SpEffect {
     public static final DeferredHolder<MobEffect, InvisibleWaiting> InvisibleWaiting = REGISTRY.register("invisible_waiting", InvisibleWaiting::new);
     public static final DeferredHolder<MobEffect, BurnWithDawn> BurnWithDawn = REGISTRY.register("burn_with_dawn", BurnWithDawn::new);
     public static final DeferredHolder<MobEffect, Misty> Misty = REGISTRY.register("misty", Misty::new);
+    public static final DeferredHolder<MobEffect, BlastExpert> BlastExpert = REGISTRY.register("blast_expert", BlastExpert::new);
+    public static final DeferredHolder<MobEffect, ServerDisconnect> ServerDisconnect = REGISTRY.register("server_disconnect", ServerDisconnect::new);
 }

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "food",
+  "pattern": [
+    "FFF",
+    "FPF",
+    "FFF"
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:feather"
+    },
+    "P": {
+      "item": "minecraft:baked_potato"
+    }
+  },
+  "result": {
+    "id": "spudiversity:feather_potato",
+    "count": 1
+  }
+}

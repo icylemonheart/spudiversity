@@ -1,10 +1,9 @@
 // ForeverRenderingLayer.java
 package com.dinzeer.spudiversity.client;
 
+import com.dinzeer.spudiversity.api.PerpetualPotatoRenderRegistry;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import com.dinzeer.spudiversity.registry.SpAvaPotato;
-import com.dinzeer.spudiversity.registry.SpICFPotato;
-import com.dinzeer.spudiversity.registry.SpPotato;
+import com.dinzeer.spudiversity.config.ClientConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -21,29 +20,22 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Supplier;
 
 @OnlyIn(Dist.CLIENT)
 public class ForeverRenderingLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
 
-    private static final Map<String, Supplier<? extends Item>> POTATO_MAP = new HashMap<>();
-
-    static {
-        registerPotato("for_love", SpPotato.StarPotato);
-        registerPotato("tiny_water", SpPotato.TinyWaterPotato);
-        registerPotato("universe_potato", SpAvaPotato.UniversePotato);
-        registerPotato("crystal_potato", SpPotato.CrystalPotato);
-        registerPotato("tangxing_potato", SpPotato.TangxingPotato);
-        registerPotato("fire_dragon_potato", SpICFPotato.FireDragonPotato);
-        registerPotato("ice_dragon_potato", SpICFPotato.IceDragonPotato);
-        registerPotato("lightning_dragon_potato", SpICFPotato.LightningDragonPotato);
-    }
-
+    /**
+     * @deprecated External mods should use {@link PerpetualPotatoRenderRegistry#registerMain}
+     * from common initialization instead.
+     */
+    @Deprecated
     public static void registerPotato(String key, Supplier<? extends Item> itemSupplier) {
-        POTATO_MAP.put(key, itemSupplier);
+        PerpetualPotatoRenderRegistry.registerMain(
+                key,
+                () -> itemSupplier.get().getDefaultInstance()
+        );
     }
 
     // 旋转半径（水平方向）
@@ -72,6 +64,10 @@ public class ForeverRenderingLayer extends RenderLayer<AbstractClientPlayer, Pla
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, AbstractClientPlayer player,
                        float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks,
                        float netHeadYaw, float headPitch) {
+
+        if (!ClientConfig.CONFIG.renderPerpetualPotatoes.get()) {
+            return;
+        }
 
         List<ItemStack> starRelics = getPotato(player);
         if (starRelics.isEmpty()) return;
@@ -137,36 +133,36 @@ public class ForeverRenderingLayer extends RenderLayer<AbstractClientPlayer, Pla
     }
 
     /**
-     * 获取玩家所有的永续土豆（最多返回前两个）
+     * 获取玩家当前生效的永续土豆渲染栈：一个 MAIN + 一个 OFF。
      */
     private List<ItemStack> getPotato(AbstractClientPlayer player) {
         List<ItemStack> relics = new ArrayList<>();
         PlayerPermanentAbilities store = player.getCapability(PlayerPermanentAbilities.CAPABILITY);
         if (store != null) {
-            String potatoKey = store.getActivePotato();
-            if (potatoKey != null && !potatoKey.isEmpty()) {
-                ItemStack stack = getItemByKey(potatoKey);
-                if (stack != null) {
-                    relics.add(stack);
-                }
-            }
-            if (store.getActivePotatoOff().equals("tangxing_potato")){
-                ItemStack tangxing = getItemByKey("tangxing_potato");
-                if (tangxing != null) {
-                    relics.add(tangxing);
-                }
-            }
+            addMain(relics, store.getActivePotato());
+            addOff(relics, store.getActivePotatoOff());
         }
         return relics;
     }
 
-
-    private ItemStack getItemByKey(String potatoKey) {
-        Supplier<? extends Item> supplier = POTATO_MAP.get(potatoKey);
-        if (supplier != null) {
-            return supplier.get().getDefaultInstance();
+    private static void addMain(List<ItemStack> relics, String key) {
+        if (key == null || key.isEmpty()) {
+            return;
         }
-        return null;
+        ItemStack stack = PerpetualPotatoRenderRegistry.getMainStack(key);
+        if (!stack.isEmpty()) {
+            relics.add(stack);
+        }
+    }
+
+    private static void addOff(List<ItemStack> relics, String key) {
+        if (key == null || key.isEmpty()) {
+            return;
+        }
+        ItemStack stack = PerpetualPotatoRenderRegistry.getOffStack(key);
+        if (!stack.isEmpty()) {
+            relics.add(stack);
+        }
     }
 
 }

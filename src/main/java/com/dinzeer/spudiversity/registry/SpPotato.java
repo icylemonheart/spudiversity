@@ -415,6 +415,31 @@ public class SpPotato {
             .tab(SpItemTabs.spudiversity.getKey())
             .tag(CuriosTag.POTATO)
             .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item, TntPotato> TntPotato = REGISTRATE.item(
+                    "tnt_potato", TntPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item, ServerPotato> ServerPotato = REGISTRATE.item(
+                    "server_potato", ServerPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item, FeatherPotato> FeatherPotato = REGISTRATE.item(
+                    "feather_potato", FeatherPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item, CreeperPotato> CreeperPotato = REGISTRATE.item(
+                    "creeper_potato", CreeperPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
+    public static final RegistryEntry<Item, ChargedCreeperPotato> ChargedCreeperPotato = REGISTRATE.item(
+                    "charged_creeper_potato", ChargedCreeperPotato::new
+            ) .properties(p -> p.stacksTo(64).rarity(Rarity.EPIC))
+            .tab(SpItemTabs.spudiversity.getKey())
+            .defaultModel().defaultLang().register();
     public static void register() {
         ToolTipBlackList.add(MadeInPotatoMadeInHaven);
         ToolTipBlackList.add(SonicPotato);

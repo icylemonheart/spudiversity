@@ -1,5 +1,7 @@
 package com.dinzeer.spudiversity.entity;
 
+import com.dinzeer.legendreliclib.lib.LRDamageTypes;
+import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.spudiversity.registry.SpEntities;
 import com.dinzeer.spudiversity.util.ProjectileUtil;
 import net.minecraft.core.particles.ParticleTypes;
@@ -9,7 +11,6 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
@@ -127,17 +128,8 @@ public class AirBladeProjectile extends Projectile {
             return;
         }
 
-        // 应用伤害
-        if (owner != null) {
-
-            float damage = damageMultiplier;
-
-            // 创建PlayerAttack类型的伤害源
-            DamageSource damageSource = this.damageSources().playerAttack(
-                    owner instanceof Player ? (Player) owner : null
-            );
-            hitEntity.invulnerableTime = 0;
-            hitEntity.hurt(damageSource, damage);
+        if (owner != null && hitEntity instanceof LivingEntity living) {
+            FastMakeEntityUtil.FastHurt(living, owner, damageMultiplier, LRDamageTypes.MOB_CUTTING);
         }
 
         // 标记已命中

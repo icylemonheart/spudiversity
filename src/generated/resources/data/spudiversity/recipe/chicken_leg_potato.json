@@ -1,17 +1,21 @@
 {
-    "type":  "minecraft:crafting_shapeless",
-    "category":  "misc",
-    "ingredients":  [
-                        {
-                            "item":  "minecraft:baked_potato"
-                        },
-                        {
-                            "item":  "minecraft:bone"
-                        }
-                    ],
-    "result":  {
-                   "id":  "spudiversity:chicken_leg_potato",
-                   "count":  1
-               },
-    "show_notification":  true
+  "type": "minecraft:crafting_shaped",
+  "category": "food",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:baked_potato"
+    },
+    "C": {
+      "item": "minecraft:cooked_chicken"
+    }
+  },
+  "result": {
+    "id": "spudiversity:chicken_leg_potato",
+    "count": 3
+  }
 }

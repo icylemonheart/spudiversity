@@ -38,7 +38,7 @@ public class CharmPotatoes {
 
     static {
         put("auspicious_potato", new int[]{0}, new int[]{2, 3, 4, 5}, new int[]{});
-        put("blood_potato", new int[]{0, 1}, new int[]{2, 3, 4}, new int[]{});
+        put("blood_potato", new int[]{0, 1}, new int[]{2, 3}, new int[]{});
         put("build_potato", new int[]{0}, new int[]{2, 3, 4, 5, 6}, new int[]{});
         put("cake_king_potato", new int[]{0}, new int[]{1, 2, 3, 4}, new int[]{});
         put("dusk_potato", new int[]{0, 1}, new int[]{2}, new int[]{});

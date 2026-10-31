@@ -1,6 +1,8 @@
 package com.dinzeer.spudiversity;
 
+import com.dinzeer.spudiversity.api.PerpetualPotatoRenderRegistry;
 import com.dinzeer.spudiversity.capability.SpAttachments;
+import com.dinzeer.spudiversity.config.ClientConfig;
 import com.dinzeer.spudiversity.config.PotatoConfig;
 import com.dinzeer.spudiversity.event.compat.tw.TwCraftingRefundHandler;
 import com.dinzeer.spudiversity.item.compat.tw.DuskPotato;
@@ -16,6 +18,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
@@ -46,6 +49,12 @@ public class Spudiversity {
         modContainer.registerConfig(ModConfig.Type.COMMON,
                 PotatoConfig.CONFIG_SPEC,
                 "legendrelics/spudiversity/spudiversity-potato_config.toml");
+        if (FMLEnvironment.dist.isClient()) {
+            modContainer.registerConfig(ModConfig.Type.CLIENT,
+                    ClientConfig.SPEC,
+                    "legendrelics/spudiversity/spudiversity-client.toml");
+        }
+        registerPerpetualPotatoRenderers();
         SpDataComponents.REGISTRY.register(modEventBus);
         SpAttachments.ATTACHMENT_TYPES.register(modEventBus);
         SpItemTabs.register(modEventBus);
@@ -64,5 +73,16 @@ public class Spudiversity {
         SpuNetwork.register(modEventBus);
         SpSounds.REGISTRY.register(modEventBus);
         SpAvaPotato.register();
+    }
+
+    private static void registerPerpetualPotatoRenderers() {
+        PerpetualPotatoRenderRegistry.registerMain("for_love", prefix("star_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("tiny_water", prefix("tiny_water_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("crystal_potato", prefix("crystal_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("universe_potato", prefix("universe_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("fire_dragon_potato", prefix("fire_dragon_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("ice_dragon_potato", prefix("ice_dragon_potato"));
+        PerpetualPotatoRenderRegistry.registerMain("lightning_dragon_potato", prefix("lightning_dragon_potato"));
+        PerpetualPotatoRenderRegistry.registerOff("tangxing_potato", prefix("tangxing_potato"));
     }
 }

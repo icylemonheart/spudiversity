@@ -180,6 +180,7 @@ public class TangxingPotato extends Item {
             tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 8)));
             tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 9)));
             tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 10)));
+            tooltip.add(PerpetualPotatoes.body(LangUtil.FastMakeItemTooltip(SpPotato.TangxingPotato, 11)));
         } else {
             tooltip.add(PerpetualPotatoes.shiftHint());
         }

@@ -22,47 +22,54 @@ public class SakuraPotato extends Item {
                 .alwaysEdible()
                 .build()));
     }
+
     @Override
     public ItemStack finishUsingItem(ItemStack stack, Level world, LivingEntity entity) {
-        LivingEntity player=entity;
-        if (player!=null) {
-            FastMakeEntityUtil.FastEffectByMinute(player, SpEffect.SakuraFantasy, 1,3);
+        if (entity != null) {
+            FastMakeEntityUtil.FastEffectByMinute(entity, SpEffect.SakuraFantasy, 1, 3);
         }
 
-        if (player instanceof ServerPlayer serverPlayer) {
+        if (entity instanceof ServerPlayer serverPlayer) {
+            boolean obtained = false;
             int deathCount = serverPlayer.getStats().getValue(Stats.CUSTOM.get(Stats.DEATHS));
-            if (player.level().getLevelData().isHardcore()){
-                deathCount=9000;
+            if (serverPlayer.level().getLevelData().isHardcore()) {
+                deathCount = 9000;
             }
-            if (deathCount > 100) {
-                if (CurioCompat.hasItemInCurio(player, SpPotato.CakeKingPotato.get())){
-                    if (player.getOffhandItem().is(SpItem.the_end_core.get())){
-                        player.getOffhandItem().shrink(1);
-                        FastMakeEntityUtil.FastHurt(player,player,player.getMaxHealth()*0.1f, DamageTypes.FELL_OUT_OF_WORLD);
-                        serverPlayer.experienceLevel= serverPlayer.experienceLevel-30;
-
-
-
-
-
-
-
-
-
-                        ItemStack resultStack = new ItemStack(SpPotato.TangxingPotato.get(), 1);
-                        if (!serverPlayer.getInventory().add(resultStack)) {
-                            serverPlayer.drop(resultStack, false);
-                        }
-
-                    }
-                }
+            if (deathCount > 100
+                    && CurioCompat.hasItemInCurio(serverPlayer, SpPotato.CakeKingPotato.get())
+                    && serverPlayer.getOffhandItem().is(SpItem.the_end_core.get())) {
+                serverPlayer.getOffhandItem().shrink(1);
+                FastMakeEntityUtil.FastHurt(serverPlayer, serverPlayer,
+                        serverPlayer.getMaxHealth() * 0.1f, DamageTypes.FELL_OUT_OF_WORLD);
+                serverPlayer.experienceLevel -= 30;
+                giveTangxing(serverPlayer);
+                obtained = true;
+            }
+            if (!obtained
+                    && serverPlayer.level().getLevelData().isHardcore()
+                    && consumeEndCore(serverPlayer)) {
+                giveTangxing(serverPlayer);
             }
         }
-
-
-
-
 
         return super.finishUsingItem(stack, world, entity);
+    }
+
+    private static void giveTangxing(ServerPlayer player) {
+        ItemStack resultStack = new ItemStack(SpPotato.TangxingPotato.get(), 1);
+        if (!player.getInventory().add(resultStack)) {
+            player.drop(resultStack, false);
+        }
+    }
+
+    private static boolean consumeEndCore(ServerPlayer player) {
+        for (int i = 0; i < player.getInventory().getContainerSize(); i++) {
+            ItemStack stack = player.getInventory().getItem(i);
+            if (stack.is(SpItem.the_end_core.get())) {
+                stack.shrink(1);
+                return true;
+            }
+        }
+        return false;
     }
 }

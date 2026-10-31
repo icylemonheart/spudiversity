@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "food",
+  "ingredients": [
+    {
+      "item": "minecraft:gunpowder"
+    },
+    {
+      "item": "minecraft:baked_potato"
+    },
+    {
+      "item": "minecraft:creeper_head"
+    }
+  ],
+  "result": {
+    "id": "spudiversity:creeper_potato",
+    "count": 1
+  }
+}

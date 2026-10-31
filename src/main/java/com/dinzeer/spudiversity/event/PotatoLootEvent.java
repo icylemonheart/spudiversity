@@ -36,11 +36,11 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.entity.player.BonemealEvent;
 
-import java.util.Map;
 import java.util.Random;
 
 @EventBusSubscriber
@@ -49,20 +49,19 @@ public class PotatoLootEvent {
     private static final Random RANDOM = new Random();
 
     @SubscribeEvent
-    public static void onPlayerLoggedInGetNonamePotato(PlayerInteractEvent.EntityInteract event) {
+    public static void onPlayerLoggedInGetNonamePotato(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer player) {
             CompoundTag persistentData = player.getPersistentData();
             CompoundTag playerData = persistentData.getCompound(ServerPlayer.PERSISTED_NBT_TAG);
             if (!playerData.getBoolean(HAS_RECEIVED_FIRST_DIAMOND_TAG)) {
                 ItemStack potato = new ItemStack(SpPotato.NONAME_POTATO.get(), 1);
-                if (player.getInventory().add(potato)) {
-                    playerData.putBoolean(HAS_RECEIVED_FIRST_DIAMOND_TAG, true);
-                    persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, playerData);
-                    player.playSound(net.minecraft.sounds.SoundEvents.ITEM_PICKUP,
-                            1.0F, 1.0F);
-                }else {
+                playerData.putBoolean(HAS_RECEIVED_FIRST_DIAMOND_TAG, true);
+                persistentData.put(ServerPlayer.PERSISTED_NBT_TAG, playerData);
+                if (!player.getInventory().add(potato)) {
                     player.drop(potato, false);
                 }
+                player.playSound(net.minecraft.sounds.SoundEvents.ITEM_PICKUP,
+                        1.0F, 1.0F);
             }
         }
     }
@@ -77,21 +76,17 @@ public class PotatoLootEvent {
         Player player = event.getEntity();
         ItemStack heldItem = player.getMainHandItem();
 
-        Map<Item, Item> potatoConversionMap = Map.of(
-                SpPotato.NetherStarPotato.get(), SpPotato.ZzzPotato.get(),
-                SpPotato.SakuraPotato.get(), SpPotato.CrystalPotato.get(),
-                SpPotato.DIAMOND_POTATO.get(), SpPotato.DiamondCrystalPotato.get()
-        );
-
-        Item resultItem = potatoConversionMap.get(heldItem.getItem());
-        if (resultItem == null) {
-            return;
-        }
-
         boolean isBed = block instanceof BedBlock;
         boolean isBuddingAmethyst = block instanceof BuddingAmethystBlock;
 
-        if (!isBed && !isBuddingAmethyst) {
+        Item resultItem;
+        if (isBed && heldItem.is(SpPotato.NetherStarPotato.get())) {
+            resultItem = SpPotato.ZzzPotato.get();
+        } else if (isBed && heldItem.is(SpPotato.SakuraPotato.get())) {
+            resultItem = SpPotato.CrystalPotato.get();
+        } else if (isBuddingAmethyst && heldItem.is(SpPotato.DIAMOND_POTATO.get())) {
+            resultItem = SpPotato.DiamondCrystalPotato.get();
+        } else {
             return;
         }
 

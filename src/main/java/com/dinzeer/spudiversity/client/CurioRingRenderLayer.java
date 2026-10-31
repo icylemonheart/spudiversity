@@ -1,5 +1,6 @@
 package com.dinzeer.spudiversity.client;
 
+import com.dinzeer.spudiversity.config.ClientConfig;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.Minecraft;
@@ -36,6 +37,7 @@ public class CurioRingRenderLayer extends RenderLayer<AbstractClientPlayer, Play
                        AbstractClientPlayer player, float limbSwing, float limbSwingAmount,
                        float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
 
+        if (!ClientConfig.CONFIG.renderPotatoCharms.get()) return;
         if (!ModList.get().isLoaded("curios")) return;
 
         List<ItemStack> charms = getPotatoCharms(player);

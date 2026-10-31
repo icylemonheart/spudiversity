@@ -1,5 +1,6 @@
 package com.dinzeer.spudiversity.util;
 
+import com.dinzeer.spudiversity.api.PerpetualPotatoRenderRegistry;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
 import com.dinzeer.spudiversity.client.ClientHooks;
 import com.dinzeer.spudiversity.item.speaical.TangxingPotato;
@@ -96,16 +97,34 @@ public class PerpetualPotatoes {
         tooltip.add(Component.empty());
     }
 
-    /** 取永续土豆类型对应的物品名 */
-    public static Component nameOf(String crystalType) {
+    /** 取 MAIN 永续土豆类型对应的物品名 */
+    public static Component nameOfMain(String crystalType) {
         RegistryEntry<Item, ? extends Item> entry = MAIN_SLOT.get(crystalType);
-        if (entry == null) {
-            entry = OFF_SLOT.get(crystalType);
+        if (entry != null) {
+            return new ItemStack(entry.get()).getHoverName();
         }
-        if (entry == null) {
-            return Component.literal(crystalType).withStyle(ChatFormatting.DARK_GRAY);
+
+        ItemStack external = PerpetualPotatoRenderRegistry.getMainStack(crystalType);
+        if (!external.isEmpty()) {
+            return external.getHoverName();
         }
-        return new ItemStack(entry.get()).getHoverName();
+
+        return Component.literal(crystalType).withStyle(ChatFormatting.DARK_GRAY);
+    }
+
+    /** 取 OFF 独立槽土豆类型对应的物品名 */
+    public static Component nameOfOff(String crystalType) {
+        RegistryEntry<Item, ? extends Item> entry = OFF_SLOT.get(crystalType);
+        if (entry != null) {
+            return new ItemStack(entry.get()).getHoverName();
+        }
+
+        ItemStack external = PerpetualPotatoRenderRegistry.getOffStack(crystalType);
+        if (!external.isEmpty()) {
+            return external.getHoverName();
+        }
+
+        return Component.literal(crystalType).withStyle(ChatFormatting.DARK_GRAY);
     }
 
     /**
@@ -124,12 +143,12 @@ public class PerpetualPotatoes {
             if (active == null || active.isEmpty()) {
                 tooltip.add(Component.translatable(NONE).withStyle(ChatFormatting.DARK_GRAY));
             } else {
-                tooltip.add(Component.translatable(ACTIVE, nameOf(active)).withStyle(ChatFormatting.GRAY));
+                tooltip.add(Component.translatable(ACTIVE, nameOfMain(active)).withStyle(ChatFormatting.GRAY));
             }
             if (showOffSlot) {
                 String off = cap.getActivePotatoOff();
                 if (TangxingPotato.CRYSTAL_TYPE.equals(off)) {
-                    tooltip.add(Component.translatable(OFF_ACTIVE, nameOf(off)).withStyle(ChatFormatting.GRAY));
+                    tooltip.add(Component.translatable(OFF_ACTIVE, nameOfOff(off)).withStyle(ChatFormatting.GRAY));
                 } else {
                     tooltip.add(Component.translatable(OFF_NONE).withStyle(ChatFormatting.DARK_GRAY));
                 }

@@ -241,6 +241,56 @@ public class LangUtil {
         REGISTRATE.addRawLang( "effect.spudiversity.we_are_null", "Void of the End");
         REGISTRATE.addRawLang( "effect.spudiversity.wave_blood", "Bleeding");
         REGISTRATE.addRawLang( "effect.spudiversity.blood_king", "Bloodthirst");
+        REGISTRATE.addRawLang( "effect.spudiversity.blast_expert", "Blast Expert");
+        REGISTRATE.addRawLang( "effect.spudiversity.server_disconnect", "Server Disconnect");
+
+        REGISTRATE.addRawLang("effect.spudiversity.blast_expert.description", "\"Art is an explosion.\"\nWhen damaging a target more than 5 blocks away, spawns ignited TNT 7 blocks above it; higher levels spawn more.");
+        REGISTRATE.addRawLang("effect.spudiversity.server_disconnect.description", "\"Connection lost.\"\nStops the target's AI until the effect ends.");
+        REGISTRATE.addRawLang("effect.spudiversity.copper_potato.description", "\"The thunder god helps me!\"\nAttracts lightning and reduces lightning damage by 80%.");
+        REGISTRATE.addRawLang("effect.spudiversity.furnace_blessing.description", "\"Even mining needs the right heat.\"\nAutomatically smelts items dropped while mining.");
+        REGISTRATE.addRawLang("effect.spudiversity.village_sun.description", "\"Today the potato pays for everything.\"\nVillager prices are reduced by 80%.");
+        REGISTRATE.addRawLang("effect.spudiversity.no_mobs_booby.description", "\"Invincible? Probably.\"\nApril Fools effect: sounds and particles, drops baked potatoes on death.");
+        REGISTRATE.addRawLang("effect.spudiversity.for_haven.description", "\"Time begins to accelerate.\"\nGreatly advances world time; stacks when multiple players have it.");
+        REGISTRATE.addRawLang("effect.spudiversity.rain_bow.description", "\"Zen mind. Hungry?\"\nContinuously restores hunger for nearby players.");
+        REGISTRATE.addRawLang("effect.spudiversity.bamboo_give.description", "\"The tale of the bamboo cutter.\"\nWalk on water, double jump, and gain attack and jump boosts.");
+        REGISTRATE.addRawLang("effect.spudiversity.ice_potato.description", "\"Calm down, calm down.\"\nGrants Frost Walker; reduces damage by 40%, attacks apply Slowness and Weakness.");
+        REGISTRATE.addRawLang("effect.spudiversity.blaze_end.description", "\"Burn until dawn.\"\nYou keep burning and attacks add fire damage; healing is blocked while burning.");
+        REGISTRATE.addRawLang("effect.spudiversity.sakura_fantasy.description", "\"Flowers bloom, the wind rises.\"\nBoosts movement and jump, slows falling and reduces fall damage.");
+        REGISTRATE.addRawLang("effect.spudiversity.every_thing.description", "\"Everything is possible.\"\nBoosts flight speed and reach, and greatly reduces damage taken.");
+        REGISTRATE.addRawLang("effect.spudiversity.we_are_null.description", "\"In the void, there is still room for food.\"\nBoosts attack and reach, keeps hunger low, and grants starvation immunity.");
+        REGISTRATE.addRawLang("effect.spudiversity.wave_blood.description", "\"The blood is still flowing.\"\nDeals magic damage once per second.");
+        REGISTRATE.addRawLang("effect.spudiversity.blood_king.description", "\"Blessing of Khorne.\"\nGreatly increases attack damage.");
+        REGISTRATE.addRawLang("effect.spudiversity.undead_transformation_effect.description", "\"Outcast.\"\nUndead no longer target you; neutral mobs will hunt you.");
+        REGISTRATE.addRawLang("effect.spudiversity.glass_type.description", "\"Clear as glass, fragile as glass.\"\nMove and shoot through glass, but take damage more easily.");
+        REGISTRATE.addRawLang("effect.spudiversity.radiant_light.description", "\"I want to shine.\"\nCreates a light source at your feet.");
+        REGISTRATE.addRawLang("effect.spudiversity.invisible_waiting.description", "\"I am watching from where you cannot see.\"\nBoosts attack and adds extra fire damage.");
+        REGISTRATE.addRawLang("effect.spudiversity.burn_with_dawn.description", "\"Burn until dawn.\"\nFire damage heals you; attacks convert damage into fire.");
+        REGISTRATE.addRawLang("effect.spudiversity.misty.description", "\"Seeing flowers through mist.\"\nNon-boss mobs cannot target you; sneak to phase through walls.");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TntPotato,0), "\"Art is an explosion!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TntPotato,1), "Consume to gain Blast Expert for 3 minutes");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TntPotato,2), "When dealing damage from more than 5 blocks away, spawns ignited TNT 7 blocks above the target");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TntPotato,3), "Higher effect levels spawn more TNT");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TntPotato,4), "Obtained by right-clicking TNT with a baked potato; each TNT can convert 3 times");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ServerPotato,0), "\"Request timed out. Please try again later.\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ServerPotato,1), "An upgraded burnt potato:");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ServerPotato,2), "Magic damage has a 10% chance to crit for 1.5x damage");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ServerPotato,3), "Crits apply Server Disconnect for 3 seconds");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ServerPotato,4), "Obtained by smithing two burnt potatoes with End Stone");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.FeatherPotato,0), "\"Light as a feather.\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.FeatherPotato,1), "Consume to gain Slow Falling for 3 minutes");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.FeatherPotato,2), "Obtained from a baked potato and 8 feathers");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CreeperPotato,0), "\"Hiss...\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CreeperPotato,1), "Consume to create a creeper-sized explosion that does not harm you");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.CreeperPotato,2), "Crafted from gunpowder, a baked potato and a creeper head, or a 1% creeper drop");
+
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ChargedCreeperPotato,0), "\"HISS...!!\"");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ChargedCreeperPotato,1), "Consume to create a creeper-sized explosion at 5x radius that does not harm you");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ChargedCreeperPotato,2), "Also calls down 5-10 random lightning bolts in range");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.ChargedCreeperPotato,3), "Right-click a charged creeper with a creeper potato, or a 1% charged creeper drop");
 
         REGISTRATE.addRawLang( "stack.spudiversity.blood_king_cd", "\"Bloodthirst Battle Intent\"");
 
@@ -439,6 +489,7 @@ public class LangUtil {
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,8), "When your death count > 100:");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,9), "Wear \"Cake King Potato\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,10), "Obtained by consuming Sakura Potato while holding the_end_core in off-hand");
+        REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.TangxingPotato,11), "In hardcore mode, consuming Sakura Potato while carrying the End Core grants it directly (consumes the core)");
 
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.JijinPotato,0), "\"Thank you for your visit\"");
         REGISTRATE.addRawLang(FastMakeItemTooltip(SpPotato.JijinPotato,1), "While worn, gain the following effects:");

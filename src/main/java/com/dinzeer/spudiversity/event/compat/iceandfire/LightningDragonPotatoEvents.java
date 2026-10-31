@@ -1,23 +1,23 @@
 package com.dinzeer.spudiversity.event.compat.iceandfire;
 
+import com.dinzeer.legendreliclib.lib.util.FastMakeEntityUtil;
 import com.dinzeer.spudiversity.Spudiversity;
 import com.dinzeer.spudiversity.capability.impl.PlayerPermanentAbilities;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
@@ -158,8 +158,10 @@ public class LightningDragonPotatoEvents {
             if (store != null && "lightning_dragon_potato".equals(store.getActivePotato())) {
                 LivingEntity target = event.getEntity();
 
-                if (Math.random() < getLightningChance(player)) {
-                    summonLightning(target);
+                if (event.getSource().is(DamageTypes.PLAYER_ATTACK)
+                        || event.getSource().is(DamageTypes.MOB_ATTACK)
+                        || event.getSource().is(DamageTypes.MAGIC)) {
+                    lightningChain(event, player, target);
                 }
 
                 int charge = STATIC_CHARGE.getOrDefault(player, 0);
@@ -171,37 +173,46 @@ public class LightningDragonPotatoEvents {
         }
     }
 
-    private static double getLightningChance(Player player) {
-        double baseChance = 0.2;
+    private static void lightningChain(LivingIncomingDamageEvent event, Player player, LivingEntity target) {
+        Level level = player.level();
+        float damage = event.getAmount() * 0.8f;
 
-        if (player.level().isThundering()) {
-            baseChance = 0.5;
-        }
+        level.playSound(null, target.blockPosition(), SoundEvents.TRIDENT_THUNDER.value(),
+                SoundSource.PLAYERS, 1.0F, 1.0F);
 
-        BlockPos playerPos = player.blockPosition();
-        for (BlockPos pos : BlockPos.betweenClosed(playerPos.offset(-10, -5, -10),
-                playerPos.offset(10, 5, 10))) {
-            if (player.level().getBlockState(pos).is(Blocks.LIGHTNING_ROD)) {
-                baseChance = 0.5;
+        FastMakeEntityUtil.FastHurt(target, player, damage, DamageTypes.LIGHTNING_BOLT);
+        spawnChainArc(level, player, target);
+
+        int hops = 0;
+        float falloff = 0.75f;
+        for (LivingEntity nearby : level.getEntitiesOfClass(LivingEntity.class,
+                target.getBoundingBox().inflate(5.0))) {
+            if (hops >= 4) {
                 break;
             }
+            if (nearby == player || nearby == target) {
+                continue;
+            }
+            FastMakeEntityUtil.FastHurt(nearby, player, damage * falloff, DamageTypes.LIGHTNING_BOLT);
+            spawnChainArc(level, target, nearby);
+            falloff *= 0.75f;
+            hops++;
         }
-
-        return baseChance;
     }
 
-    private static void summonLightning(LivingEntity target) {
-        Level level = target.level();
-        BlockPos strikePos = target.blockPosition();
-
-        LightningBolt lightning = new LightningBolt(EntityType.LIGHTNING_BOLT, level);
-        lightning.setPos(strikePos.getX(), strikePos.getY(), strikePos.getZ());
-        lightning.setVisualOnly(false);
-        level.addFreshEntity(lightning);
-
-        level.playSound(null, strikePos,
-                SoundEvents.LIGHTNING_BOLT_THUNDER,
-                SoundSource.WEATHER, 5.0F, 1.0F);
+    private static void spawnChainArc(Level level, LivingEntity from, LivingEntity to) {
+        if (!(level instanceof ServerLevel serverLevel)) {
+            return;
+        }
+        Vec3 start = from.position().add(0, from.getBbHeight() * 0.5, 0);
+        Vec3 end = to.position().add(0, to.getBbHeight() * 0.5, 0);
+        for (int i = 0; i <= 12; i++) {
+            double t = i / 12.0;
+            double x = start.x + (end.x - start.x) * t;
+            double y = start.y + (end.y - start.y) * t;
+            double z = start.z + (end.z - start.z) * t;
+            serverLevel.sendParticles(ParticleTypes.ELECTRIC_SPARK, x, y, z, 1, 0, 0, 0, 0);
+        }
     }
 
     private static void triggerStaticDischarge(Player player, LivingEntity target) {
